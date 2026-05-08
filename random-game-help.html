@@ -1,0 +1,3801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>Random Game</title>
+  <div align=center><img src="https://www.counter12.com/img-wb0dxAAW812w9B0B-33.gif" border="0" alt="counter" /></div>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    :root {
+      --primary: #5865f2;
+      --accent: #43b581;
+      --bg: #23272a;
+      --bg2: #2c2f33;
+      --text: #fff;
+      --text-muted: #b9bbbe;
+      --error: #ff5555;
+      --border: #444;
+      --elevate: 0 8px 32px rgba(0,0,0,0.23);
+      --radius: 18px;
+      --radius-lg: 32px;
+      --shadow: 0 2px 24px rgba(80,80,100,0.12);
+    }
+    html, body {
+      min-height: 100%;
+      background: linear-gradient(135deg, #181c20 0%, #23272a 60%, #5865f2 120%);
+      color: var(--text);
+      font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      justify-content: flex-start;
+    }
+    .quiz-box {
+      background: var(--bg2);
+      border-radius: var(--radius);
+      padding: 36px 30px 28px 30px;
+      margin: 36px auto 0 auto;
+      box-shadow: var(--shadow);
+      max-width: 430px;
+      min-width: 296px;
+      width: 96vw;
+      transition: box-shadow 0.15s;
+    }
+    .quiz-box h2 {
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      color: var(--primary);
+      margin: 0 0 20px 0;
+      font-size: 2.15em;
+      text-shadow: 0 2px 10px #181a22a0;
+    }
+    .big-count {
+      font-size: 2.1em;
+      margin: 22px auto 14px auto;
+      font-weight: bold;
+      color: #ffeb3b;
+      text-shadow: 1px 2px 11px #181a22;
+      border-radius: var(--radius);
+      background: linear-gradient(90deg, #222 70%, #2220 100%);
+      border: 1.5px solid #4442;
+      padding: 5px 0 10px 0;
+    }
+    input, button {
+      font-size: 1.15em;
+      padding: 10px 14px;
+      border-radius: 7px;
+      border: 1px solid #23253c;
+      background: #22242b;
+      color: var(--text);
+      margin-top: 10px;
+      outline: none;
+      transition: border 0.13s, box-shadow 0.13s;
+      box-sizing: border-box;
+    }
+    input:focus {
+      border: 1.5px solid var(--primary);
+      background: #212430;
+    }
+    button {
+      background: var(--primary);
+      border: none;
+      color: #fff;
+      box-shadow: 0 2px 8px #5865f23e;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 18px;
+      transition: background .18s, box-shadow .14s;
+    }
+    button:hover {
+      background: #4752c4;
+      box-shadow: 0 2px 16px #5865f271;
+    }
+    #leaderboard {
+      background: var(--bg2);
+      color: var(--text);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      margin: 38px auto 0 auto;
+      padding: 16px 18px 22px 18px;
+      max-width: 530px;
+      width: 99vw;
+      box-shadow: var(--shadow);
+      text-align: left;
+    }
+    #leaderboard h3 {
+      margin: 0 0 10px 0;
+      text-align: center;
+      font-size: 1.18em;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    #leaderboard table {
+      width: 100%;
+      border-collapse: collapse;
+      background: transparent;
+    }
+    #leaderboard th, #leaderboard td {
+      padding: 6px 8px;
+      border-bottom: 1px solid #393c49;
+      text-align: left;
+      font-size: 1em;
+    }
+    #leaderboard th {
+      background: #262b33;
+      font-weight: 900;
+      color: var(--text);
+      letter-spacing: 0.02em;
+    }
+    #leaderboard tr:last-child td {
+      border-bottom: none;
+    }
+    #accountBox { margin-bottom: 10px;}
+    #accountBox input { margin-right: 7px; font-size: 1em; padding: 7px 12px;}
+    #errorMsg { color: var(--error); margin-top: 10px; font-weight: 600;}
+    #accountSwitch, #accountSwitchBack {
+      color: var(--primary);
+      cursor: pointer;
+      text-decoration: underline;
+      font-size: 0.97em;
+      font-weight: 600;
+    }
+    #showPasswordBox { display: none; margin-top: 28px; text-align: left;}
+    #showPasswordLabel { font-size: 0.97em; color: #aaf; cursor: pointer;}
+    #rememberMsg { font-size: 1.09em; color: #ffe; margin-top: 7px; margin-left: 0px; text-align: left;}
+    #logoutBtn { color:var(--primary); cursor:pointer; text-decoration:underline; font-weight:600;}
+    #timerBox {
+      margin: 28px 0 26px 0;
+      color: var(--accent);
+      font-size: 4em;
+      font-weight: bold;
+      letter-spacing: 2px;
+      background: #1b201c99;
+      box-shadow: 0 2px 17px #181c20c0;
+      padding: 15px 12px 10px 12px;
+      border-radius: 20px;
+      border: 1.5px solid #42474b;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      min-width: 0;
+    }
+    #timerLabel {
+      font-size: 0.34em;
+      color: #fff;
+      margin-bottom: 6px;
+      letter-spacing: 0.18em;
+      opacity: 0.92;
+      font-weight: 500;
+    }
+    #timer {
+  display: inline-block;
+  transition: transform 0.5s cubic-bezier(.43,.22,.58,1.36), color 0.18s;
+  will-change: transform, color;
+  font-size: 1.18em;
+  font-weight: bold;
+  margin: 0 8px;
+  text-shadow: 0 2px 12px #2226;
+  border-radius: 10px;
+  position: relative;
+  z-index: 100;
+}
+    .timer-glitch {
+      animation: glitchFall 0.5s cubic-bezier(.35,1.8,.35,.8) forwards, flicker 0.5s steps(2);
+    }
+    .timer-fly-back {
+      animation: flyBack 1.1s cubic-bezier(.37,1.29,.34,.87) forwards;
+    }
+    @keyframes glitchFall {
+      0% { filter: none; opacity: 1; }
+      20% { filter: blur(2px) contrast(2) brightness(1.2); transform: translateY(0) scale(1.02) rotate(-5deg);}
+      45% { filter: blur(2px) contrast(2) brightness(2); transform: translateY(30vh) scale(1.1) rotate(6deg);}
+      60% { filter: blur(6px) contrast(3) brightness(2.2); transform: translateY(70vh) scale(1.12) rotate(-14deg);}
+      100% { filter: blur(9px) contrast(3) brightness(2.4); transform: translateY(84vh) scale(1.18) rotate(16deg); opacity: 0.2;}
+    }
+    @keyframes flyBack {
+      0% { opacity: 0.4; filter: blur(7px) brightness(2.2) contrast(2.1); transform: translateY(84vh) scale(1.18) rotate(9deg);}
+      30% { opacity: 1; filter: blur(2px) brightness(1.2) contrast(1.2); transform: translateY(-8vh) scale(1.069) rotate(-7deg);}
+      100% { opacity: 1; filter: none; transform: translateY(0) scale(1) rotate(0);}
+    }
+    @keyframes flicker {
+      0% { opacity: 1; }
+      20% { opacity: 0.7; }
+      30% { opacity: 0.1; }
+      40% { opacity: 1; }
+      45% { opacity: 0.6; }
+      50% { opacity: 0.25; }
+      70% { opacity: 1; }
+      80% { opacity: 0.6; }
+      100% { opacity: 1; }
+    }
+    .timer-seconds {
+      font-size: 0.28em;
+      color: #bbb;
+      font-weight: 600;
+      margin-left: 3px;
+      opacity: 0.77;
+      vertical-align: middle;
+      user-select: none;
+    }
+    #timerUnitSliderWrap {
+      width: 100%;
+      margin-top: 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    #timerUnitSlider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 88%;
+      height: 6px;
+      border-radius: 4px;
+      background: linear-gradient(90deg, #5865f2 0%, #43b581 100%);
+      outline: none;
+      border: none;
+      cursor: pointer;
+      margin: 0;
+      padding: 0;
+      box-shadow: 0 1px 6px #0004;
+    }
+    #timerUnitSlider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #fff;
+      border: 2.5px solid #5865f2;
+      cursor: pointer;
+      box-shadow: 0 2px 8px #0005;
+      transition: border-color 0.18s, box-shadow 0.18s;
+    }
+    #timerUnitSlider::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #fff;
+      border: 2.5px solid #5865f2;
+      cursor: pointer;
+      box-shadow: 0 2px 8px #0005;
+    }
+    #timerUnitLabels {
+      display: flex;
+      justify-content: space-between;
+      width: 88%;
+      font-size: 0.22em;
+      color: #bbb;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      user-select: none;
+    }
+    #timerUnitLabels span.active-unit {
+      color: #5865f2;
+      font-weight: 800;
+    }
+    #titlesTab {
+      position: fixed;
+      bottom: 0;
+      right: 28px;
+      background: linear-gradient(135deg, #5865f2, #43b581);
+      color: #fff;
+      font-weight: 800;
+      font-size: 1em;
+      padding: 10px 22px 8px 22px;
+      border-radius: 14px 14px 0 0;
+      cursor: pointer;
+      z-index: 1500;
+      box-shadow: 0 -2px 16px #5865f244;
+      letter-spacing: 0.04em;
+      border: none;
+      transition: background 0.18s, transform 0.15s;
+      user-select: none;
+    }
+    #titlesTab:hover { background: linear-gradient(135deg, #4752c4, #3aa374); transform: translateY(-2px); }
+    .lb-sort-bar {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+    .lb-sort-btn {
+      background: #2c2f33;
+      border: 1.5px solid #444;
+      color: #bbb;
+      font-size: 0.82em;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      margin-top: 0;
+    }
+    .lb-sort-btn:hover { background: #3a3f48; color: #fff; }
+    .lb-sort-btn.lb-sort-active { background: #5865f2; border-color: #5865f2; color: #fff; }
+    #titlesPanel {
+      display: none;
+      position: fixed;
+      bottom: 46px;
+      right: 18px;
+      width: 310px;
+      max-width: 96vw;
+      background: #23272a;
+      border: 1.5px solid #5865f244;
+      border-radius: 18px 18px 4px 18px;
+      box-shadow: 0 4px 32px #0008;
+      z-index: 1499;
+      padding: 20px 18px 16px 18px;
+      color: #fff;
+      max-height: 420px;
+      flex-direction: column;
+    }
+    #titlesList {
+      overflow-y: auto;
+      flex: 1;
+      min-height: 0;
+    }
+    #titlesPanel h3 {
+      margin: 0 0 14px 0;
+      font-size: 1.08em;
+      font-weight: 800;
+      color: #5865f2;
+      letter-spacing: 0.05em;
+    }
+    .title-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #2c2f33;
+      border-radius: 12px;
+      padding: 10px 14px;
+      margin-bottom: 8px;
+      border: 1.5px solid #3a3f48;
+    }
+    .title-card .title-icon {
+      font-size: 1.6em;
+      flex-shrink: 0;
+    }
+    .title-card .title-name {
+      font-weight: 800;
+      font-size: 1.05em;
+      color: #fff;
+    }
+    .title-card .title-desc {
+      font-size: 0.82em;
+      color: #b9bbbe;
+      margin-top: 2px;
+    }
+    .title-card.title-og { border-color: #ffeb3b66; background: linear-gradient(90deg,#2c2f33,#2a2800); }
+    .title-card.title-og .title-name { color: #ffeb3b; }
+    #titlesEmpty { color: #888; font-size: 0.97em; text-align: center; padding: 10px 0; }
+    #profileOverlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+      z-index: 3000;
+      align-items: center;
+      justify-content: center;
+    }
+    #profileOverlay.open { display: flex; }
+    #profileModal {
+      background: #23272a;
+      border: 1.5px solid #5865f230;
+      border-radius: 22px;
+      box-shadow: 0 8px 48px #000a;
+      padding: 32px 30px 26px 30px;
+      width: 340px;
+      max-width: 94vw;
+      max-height: 88vh;
+      overflow-y: auto;
+      position: relative;
+      animation: profileIn 0.18s ease;
+    }
+    @keyframes profileIn {
+      from { opacity: 0; transform: scale(0.93) translateY(18px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    #profileClose {
+      position: absolute;
+      top: 14px; right: 16px;
+      background: none;
+      border: none;
+      color: #888;
+      font-size: 1.3em;
+      cursor: pointer;
+      line-height: 1;
+      padding: 2px 6px;
+      border-radius: 6px;
+      transition: color 0.15s, background 0.15s;
+    }
+    #profileClose:hover { color: #fff; background: #3a3f48; }
+    #profileAvatar {
+      width: 58px; height: 58px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #5865f2, #43b581);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8em; font-weight: 900;
+      color: #fff;
+      margin: 0 auto 12px auto;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+    #profileUsername {
+      text-align: center;
+      font-size: 1.25em;
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 4px;
+      letter-spacing: 0.03em;
+    }
+    #profileOgBadge {
+      text-align: center;
+      font-size: 0.85em;
+      color: #ffeb3b;
+      font-weight: 800;
+      margin-bottom: 14px;
+      letter-spacing: 0.05em;
+    }
+    #profileStats {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .profile-stat {
+      background: #2c2f33;
+      border: 1.5px solid #3a3f48;
+      border-radius: 12px;
+      padding: 10px 14px;
+      text-align: center;
+      flex: 1;
+    }
+    .profile-stat-val {
+      font-size: 1.2em;
+      font-weight: 900;
+      color: #5865f2;
+    }
+    .profile-stat-lbl {
+      font-size: 0.72em;
+      color: #888;
+      font-weight: 700;
+      margin-top: 2px;
+      letter-spacing: 0.04em;
+    }
+    #profileTitlesHeading {
+      font-size: 0.88em;
+      font-weight: 800;
+      color: #5865f2;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    #adminGrantDivider {
+      border-top: 1px solid #3a3f48;
+      margin: 14px 0 12px 0;
+    }
+    #adminGrantLabel {
+      font-size: 0.85em;
+      font-weight: 800;
+      color: #ffeb3b;
+      letter-spacing: 0.06em;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      cursor: pointer;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    #adminGrantLabel:hover { opacity: 0.8; }
+    #adminGrantToggleIcon { font-style: normal; font-size: 0.85em; }
+    #adminGrantInput {
+      width: 100%;
+      box-sizing: border-box;
+      background: #1e2124;
+      border: 1.5px solid #3a3f48;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 0.95em;
+      padding: 7px 10px;
+      margin-bottom: 8px;
+      outline: none;
+    }
+    #adminGrantInput:focus { border-color: #5865f2; }
+    #adminGrantMsg {
+      font-size: 0.82em;
+      min-height: 18px;
+      margin-top: 4px;
+      font-weight: 700;
+    }
+    #spinGrantDivider { border-top: 1px solid #3a3f48; margin: 14px 0 12px 0; }
+    #spinGrantLabel { font-size: 0.85em; font-weight: 800; color: #ff4757; letter-spacing: 0.06em; margin-bottom: 8px; text-transform: uppercase; text-align: center; }
+    #spinGrantInput { width: 100%; box-sizing: border-box; background: #1e2124; border: 1.5px solid #3a3f48; border-radius: 8px; color: #fff; font-size: 0.95em; padding: 7px 10px; outline: none; }
+    #spinGrantInput:focus { border-color: #ff4757; }
+    #spinGrantMsg { font-size: 0.82em; min-height: 18px; margin-top: 6px; font-weight: 700; }
+    .lb-name-link {
+      cursor: pointer;
+      color: #8ab4f8;
+      text-decoration: underline dotted;
+      text-underline-offset: 3px;
+    }
+    .lb-name-link:hover { color: #fff; }
+    #newTitleToast {
+      position: fixed;
+      bottom: 80px;
+      right: 24px;
+      background: linear-gradient(90deg,#5865f2,#43b581);
+      color: #fff;
+      font-weight: 800;
+      font-size: 1em;
+      padding: 10px 20px;
+      border-radius: 30px;
+      box-shadow: 0 3px 18px #5865f244;
+      z-index: 2000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s, transform 0.3s;
+      transform: translateY(10px);
+    }
+    #newTitleToast.show { opacity: 1; transform: translateY(0); }
+    #globalTimeBox {
+      background: #21242b;
+      border: 1.3px solid #5557;
+      border-radius: 17px;
+      color: #ffeb3b;
+      font-size: 1.15em;
+      font-weight: 600;
+      box-shadow: 0 2px 10px #181a22a8;
+      padding: 10px 12px 8px 12px;
+      margin: 45px auto 18px auto;
+      text-align: center;
+      width: fit-content;
+      min-width: 0;
+      letter-spacing: 0.03em;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+    }
+    #globalTimeLabel {
+      color: #aaa;
+      font-size: 0.97em;
+      letter-spacing: 0.04em;
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+    #globalTimeValue {
+      font-size: 1.18em;
+      color: #43b581;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-shadow: 0 2px 8px #181c20b0;
+    }
+    
+    /* Command Panel Overlay Styles: vertical right sidebar, draggable */
+    #commandPanelOverlay {
+      position: fixed;
+      top: 0; right: 0; bottom: 0;
+      width: 350px;
+      min-width: 220px;
+      background: rgba(30,35,41,0.97);
+      z-index: 3000;
+      display: none;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: flex-start;
+      user-select: none;
+    }
+    #commandPanel {
+      background: #23272a;
+      border-radius: 0 0 0 18px;
+      box-shadow: 0 2px 30px #0009;
+      width: 100%;
+      height: 100vh;
+      text-align: center;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      align-items: center;
+      position: absolute;
+      top: 0; left: 0;
+      justify-content: flex-start;
+      padding: 36px 30px 26px 30px;
+      transition: box-shadow 0.2s;
+      cursor: default;
+      overflow-y: auto;
+      box-sizing: border-box;
+    }
+    .cpanel-close {
+      position: absolute;
+      top: 15px; right: 23px;
+      color: #bbb; font-size: 1.2em; cursor: pointer;
+      font-family: sans-serif;
+      background: none;
+      border: none;
+      z-index: 20;
+    }
+    #cpanelDragHandle {
+      cursor: move;
+      width: 100%;
+      height: 32px;
+      position: absolute;
+      left: 0; top: 0;
+      z-index: 10;
+      background: transparent;
+    }
+    @media (max-width: 600px) {
+      #commandPanelOverlay {
+        width: 100vw;
+        min-width: unset;
+        max-width: 100vw;
+      }
+      #commandPanel {
+        min-width: unset;
+        max-width: 100vw;
+        border-radius: 0;
+        padding: 18px 10vw 18px 10vw;
+      }
+      #cpanelDragHandle {
+        height: 36px;
+      }
+    }
+    .title-tier-badge { font-size: 0.68em; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase; margin-top: 3px; opacity: 0.85; }
+    .title-group-header { font-size: 0.72em; font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase; color: #888; margin: 10px 0 5px 0; padding-bottom: 4px; border-bottom: 1px solid #333; }
+    .title-group-header:first-child { margin-top: 2px; }
+    .pack-daily-badge { font-size: 0.7em; font-weight: 900; letter-spacing: 0.1em; color: #ff4757; text-transform: uppercase; margin-bottom: 6px; }
+    .evo-badge { display: inline-block; font-size: 0.67em; font-weight: 900; letter-spacing: 0.09em; text-transform: uppercase; padding: 1px 7px; border-radius: 20px; margin-left: 6px; vertical-align: middle; }
+    .evo-count-pill { font-size: 0.68em; font-weight: 800; color: #aaa; margin-top: 2px; }
+    .evo-section-header { font-size: 0.78em; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase; margin: 14px 0 6px 0; padding: 6px 10px; border-radius: 8px; text-align: center; }
+    .evo-section-divider { border-top: 2px solid #3a3f48; margin: 14px 0 10px 0; }
+    .evo-section-title { font-size: 1em; font-weight: 900; color: #fff; margin: 0 0 10px 0; text-align: center; letter-spacing: 0.05em; }
+    .evo-stage-row { display: flex; align-items: center; gap: 8px; padding: 7px 10px; background: #2c2f33; border-radius: 10px; margin-bottom: 5px; border: 1.5px solid #3a3f4888; }
+    .evo-stage-icon { font-size: 1.3em; }
+    .evo-stage-name { font-weight: 800; font-size: 0.95em; }
+    .evo-stage-count { font-size: 0.75em; color: #888; margin-top: 1px; }
+    .pack-daily-btn { background: linear-gradient(135deg, #ff4757, #ff6b81) !important; }
+    #diamondCounter {
+      position: fixed; top: 14px; right: 18px;
+      background: linear-gradient(135deg, #23272a, #1a1c2e);
+      border: 1.5px solid #5865f244;
+      border-radius: 30px; color: #fff; font-size: 1em; font-weight: 800;
+      padding: 7px 16px; z-index: 1200; cursor: pointer;
+      display: none; align-items: center; gap: 6px;
+      box-shadow: 0 2px 14px #0007;
+      transition: background 0.15s, transform 0.12s; user-select: none;
+    }
+    #diamondCounter:hover { background: linear-gradient(135deg,#2c2f33,#1e2040); transform: scale(1.05); }
+    #shopOverlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.75);
+      z-index: 4000; align-items: center; justify-content: center; display: none;
+    }
+    #shopModal {
+      background: #23272a; border: 1.5px solid #5865f244; border-radius: 22px;
+      box-shadow: 0 8px 48px #000c; padding: 28px 24px 24px 24px;
+      width: 420px; max-width: 96vw; max-height: 90vh; overflow-y: auto; position: relative;
+    }
+    #shopModal h2 { text-align:center; font-size:1.4em; font-weight:900; color:#fff; margin:0 0 4px 0; }
+    #shopDiamondBal { text-align:center; color:#7289da; font-weight:800; font-size:1em; margin:0 0 18px 0; }
+    #shopClose { position:absolute; top:14px; right:16px; background:none; border:none; color:#888; font-size:1.3em; cursor:pointer; padding:2px 6px; border-radius:6px; transition:color 0.15s,background 0.15s; }
+    #shopClose:hover { color:#fff; background:#3a3f48; }
+    #packContainer { display:flex; flex-direction:column; gap:14px; }
+    .pack-card { background:#2c2f33; border:1.5px solid #3a3f48; border-radius:16px; padding:16px 18px 14px 18px; text-align:center; }
+    .pack-icon { font-size:2.2em; margin-bottom:4px; }
+    .pack-name { font-size:1.1em; font-weight:900; color:#fff; margin-bottom:8px; }
+    .pack-titles { margin-bottom:8px; letter-spacing:3px; }
+    .pack-odds { margin-bottom:12px; display:flex; flex-wrap:wrap; gap:4px 8px; justify-content:center; }
+    .pack-roll-btn { background:linear-gradient(135deg,#5865f2,#43b581); color:#fff; border:none; border-radius:20px; font-size:0.95em; font-weight:800; padding:9px 24px; cursor:pointer; transition:opacity 0.15s,transform 0.12s; margin-top:2px; }
+    .pack-roll-btn:hover:not(.pack-roll-disabled) { opacity:0.85; transform:scale(1.04); }
+    .pack-roll-disabled { background:#3a3f48 !important; color:#555 !important; cursor:default; }
+    #rollResultOverlay { position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:5000; display:none; align-items:center; justify-content:center; }
+    #rollResultCard { background:#23272a; border:2px solid #5865f2; border-radius:22px; box-shadow:0 8px 48px #0008; padding:36px 34px 28px 34px; text-align:center; min-width:240px; max-width:90vw; animation:rollReveal 0.35s cubic-bezier(0.34,1.56,0.64,1); }
+    @keyframes rollReveal { from{opacity:0;transform:scale(0.5) rotate(-6deg);} to{opacity:1;transform:scale(1) rotate(0);} }
+    /* Max title animations */
+    @keyframes maxGlitch {
+      0%,100% { text-shadow: 2px 0 #ff0080, -2px 0 #00ffff; filter: hue-rotate(0deg); }
+      25% { text-shadow: -3px 0 #ff0080, 3px 0 #00ffff; filter: hue-rotate(90deg); }
+      50% { text-shadow: 3px 2px #ff0080, -3px -2px #00ffff; filter: hue-rotate(180deg); }
+      75% { text-shadow: -1px 0 #ff0080, 1px 0 #00ffff; filter: hue-rotate(270deg); }
+    }
+    @keyframes maxBorderPulse {
+      0%,100% { box-shadow: 0 0 10px #ff0080, 0 0 24px #ff008044; border-color: #ff0080 !important; }
+      50% { box-shadow: 0 0 10px #00ffff, 0 0 24px #00ffff44; border-color: #00ffff !important; }
+    }
+    .title-card-max { animation: maxBorderPulse 1.8s infinite !important; background: linear-gradient(135deg,#1a0010,#001a1a) !important; }
+    .title-name-max { animation: maxGlitch 1.2s infinite; display: inline-block; }
+    /* Profile redesign */
+    #profileModal { padding: 0 0 26px 0 !important; width: 400px !important; overflow-x: hidden; }
+    #profileBanner { height: 68px; border-radius: 18px 18px 0 0; }
+    #profileAvatar { width: 76px; height: 76px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.1em; font-weight: 900; color: #fff; margin: -38px auto 10px auto; border: 4px solid #23272a; position: relative; z-index: 2; text-transform: uppercase; }
+    #profileEquippedTitle { text-align: center; font-size: 0.83em; font-weight: 800; min-height: 18px; padding: 0 30px; margin-bottom: 2px; }
+    #profileUsername { padding: 0 30px; font-size: 1.28em !important; }
+    #profileOgBadge { margin-bottom: 6px !important; }
+    #profileBioText { text-align: center; font-size: 0.87em; color: #b9bbbe; margin: 0 26px 10px 26px; font-style: italic; min-height: 16px; }
+    #profileLikeArea { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 0 26px 14px 26px; }
+    #profileLikeBtn { background: #2c2f33; border: 1.5px solid #ff6b81; color: #ff6b81; font-size: 0.88em; font-weight: 800; padding: 6px 18px; border-radius: 20px; cursor: pointer; transition: background 0.15s, transform 0.1s; margin-top: 0; }
+    #profileLikeBtn:hover { background: #ff6b8122; transform: scale(1.06); }
+    #profileLikeBtn.liked { background: #ff6b81; color: #fff; }
+    #profileLikeCount { font-size: 0.85em; color: #888; font-weight: 700; }
+    #profileStats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin: 0 18px 14px 18px !important; }
+    .profile-stat { padding: 8px 6px !important; }
+    .profile-stat-val { font-size: 1em !important; }
+    .profile-stat-lbl { font-size: 0.61em !important; text-transform: uppercase; }
+    #profileRarest { text-align: center; margin: 0 20px 12px 20px; font-size: 0.82em; }
+    #profileTitlesHeading { margin: 0 20px 8px 20px !important; padding: 0; }
+    #profileTitlesList { margin: 0 20px; }
+    #profileEditSection { margin: 14px 20px 0 20px; padding-top: 14px; border-top: 1px solid #3a3f48; }
+    .profile-color-swatch { width: 26px; height: 26px; border-radius: 50%; cursor: pointer; border: 2.5px solid transparent; transition: transform 0.12s, border-color 0.12s; display: inline-block; margin: 2px 3px; }
+    .profile-color-swatch:hover { transform: scale(1.2); }
+    .profile-color-swatch.selected { border-color: #fff !important; transform: scale(1.15); }
+    #profileBioInput { width: 100%; box-sizing: border-box; background: #1e2124; border: 1.5px solid #3a3f48; border-radius: 8px; color: #fff; font-size: 0.92em; padding: 7px 10px; margin-bottom: 8px; outline: none; }
+    #profileBioInput:focus { border-color: #5865f2; }
+    #profileSaveBtn { width: 100%; margin-top: 4px; background: #5865f2; }
+    /* Equipped title badge on leaderboard */
+    .lb-equipped { font-size: 0.72em; font-weight: 700; opacity: 0.85; margin-left: 5px; vertical-align: middle; }
+    /* Equip button */
+    .title-equip-btn { font-size: 0.64em; font-weight: 800; padding: 2px 9px; border-radius: 10px; border: 1.5px solid #5865f288; background: transparent; color: #8ab4f8; cursor: pointer; margin-top: 4px; transition: all 0.12s; letter-spacing: 0.04em; }
+    .title-equip-btn:hover { background: #5865f2; color: #fff; border-color: #5865f2; }
+    .title-equip-btn.equipped { background: #5865f2; color: #fff; border-color: #5865f2; }
+    /* Global title count */
+    .title-global-count { font-size: 0.64em; color: #555; font-weight: 700; margin-top: 1px; }
+    /* RNG pack */
+    .pack-card-rng { background: linear-gradient(135deg,#0d0005,#001010) !important; border: 1.5px solid #ff008066 !important; }
+    .rng-ultra-text { font-weight: 900; background: linear-gradient(90deg,#ff0080,#00ffff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: maxGlitch 1.2s infinite; display: inline-block; }
+    /* Cave entrance button */
+    #caveBtn {
+      display: none; position: fixed; bottom: 0; left: 18px;
+      background: linear-gradient(135deg, #1a0e00, #2d1a00);
+      color: #c8860a; font-weight: 900; font-size: 1em;
+      padding: 10px 20px 8px 20px; border-radius: 14px 14px 0 0;
+      cursor: pointer; z-index: 1500; border: 1.5px solid #5a3a0044;
+      box-shadow: 0 -2px 16px #0006; letter-spacing: 0.04em;
+      transition: background 0.18s, transform 0.15s; user-select: none; margin-top: 0;
+    }
+    #caveBtn:hover { background: linear-gradient(135deg, #2d1a00, #4a2a00); transform: translateY(-2px); }
+    /* Cave overlay */
+    #caveOverlay {
+      display: none; position: fixed; inset: 0; z-index: 3000;
+      background: radial-gradient(ellipse at 50% 110%, #2a1200 0%, #0e0a00 40%, #050505 100%);
+      overflow-y: auto; flex-direction: column; align-items: center; padding-bottom: 40px;
+    }
+    #caveContent {
+      width: 100%; max-width: 480px; padding: 0 18px;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    #caveHeader {
+      width: 100%; display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 0 10px 0;
+    }
+    #caveHeader h2 { margin: 0; font-size: 1.5em; font-weight: 900; color: #c8860a; letter-spacing: 0.08em; }
+    #caveClose {
+      background: #2a1800; border: 1.5px solid #5a3a00; color: #c8860a;
+      border-radius: 20px; font-size: 0.85em; font-weight: 800; padding: 6px 16px;
+      cursor: pointer; transition: background 0.15s; margin-top: 0;
+    }
+    #caveClose:hover { background: #4a2800; }
+    #caveGemBal {
+      font-size: 1.6em; font-weight: 900; color: #ffe680; margin: 8px 0 6px 0;
+      text-shadow: 0 0 20px #ffb30055;
+    }
+    #caveStats {
+      display: flex; gap: 16px; margin-bottom: 16px; flex-wrap: wrap; justify-content: center;
+    }
+    .cave-stat {
+      background: #1a0e0088; border: 1px solid #5a3a0055; border-radius: 12px;
+      padding: 7px 16px; font-size: 0.84em; color: #c8a060; font-weight: 700;
+      text-align: center;
+    }
+    .cave-stat span { color: #ffe680; font-weight: 900; }
+    #caveMineBtn {
+      width: 100%; font-size: 2em; font-weight: 900; padding: 22px 0;
+      background: radial-gradient(ellipse at 50% 80%, #3d2200, #1a0e00);
+      border: 2px solid #c8860a66; border-radius: 20px; color: #ffe680;
+      cursor: pointer; margin: 0 0 22px 0; letter-spacing: 0.06em;
+      transition: transform 0.1s, border-color 0.15s, background 0.15s;
+      user-select: none; text-shadow: 0 0 14px #c8860a88; box-shadow: 0 0 30px #c8860a22;
+    }
+    #caveMineBtn:hover { border-color: #c8860a; background: radial-gradient(ellipse at 50% 80%, #5a3200, #2a1200); }
+    #caveMineBtn:active { transform: scale(0.95); }
+    .cave-section-title {
+      width: 100%; font-size: 0.78em; font-weight: 900; letter-spacing: 0.14em;
+      text-transform: uppercase; color: #7a5820; margin: 0 0 12px 0;
+      text-align: center; border-bottom: 1px solid #3a2000; padding-bottom: 8px;
+    }
+    #caveUpgradeList { width: 100%; display: flex; flex-direction: column; gap: 10px; }
+    .mine-upgrade-card {
+      background: #1a0e0099; border: 1.5px solid #3a2000; border-radius: 14px;
+      padding: 14px 16px; display: flex; align-items: center; gap: 14px;
+    }
+    .mine-upgrade-card.current { border-color: #c8860a88; background: #2a1a00aa; }
+    .mine-upgrade-card.maxed { border-color: #43b58144; background: #001a0a88; }
+    .mine-ug-icon { font-size: 1.8em; flex-shrink: 0; }
+    .mine-ug-info { flex: 1; }
+    .mine-ug-name { font-weight: 900; font-size: 0.95em; }
+    .mine-ug-desc { font-size: 0.74em; color: #7a6040; margin-top: 2px; }
+    .mine-ug-stat { font-size: 0.78em; font-weight: 800; margin-top: 3px; }
+    .mine-ug-btn {
+      font-size: 0.8em; font-weight: 900; padding: 7px 14px; border-radius: 20px;
+      border: none; cursor: pointer; white-space: nowrap; margin-top: 0;
+      transition: background 0.15s, transform 0.1s;
+    }
+    .mine-ug-btn:hover:not(:disabled) { transform: scale(1.06); }
+    .mine-ug-btn.affordable  { background: linear-gradient(135deg,#c8860a,#e8a020); color: #000; }
+    .mine-ug-btn.too-poor    { background: #2a1800; color: #5a4020; cursor: not-allowed; }
+    .mine-ug-btn.owned-badge { background: #43b58122; color: #43b581; cursor: default; border: 1px solid #43b58155; }
+    #caveTitleBonusNote { font-size: 0.76em; color: #7a6040; margin-top: 2px; }
+    /* Shop section label */
+    .shop-section-label {
+      font-size: 0.75em; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase;
+      color: #888; margin: 18px 0 8px 0; text-align: center; padding-bottom: 6px;
+      border-bottom: 1.5px solid #3a3f48;
+    }
+    /* Pack maxed banner */
+    .pack-maxed-banner {
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      background: #ff475722; border: 1.5px solid #ff475755; border-radius: 10px;
+      color: #ff4757; font-size: 0.75em; font-weight: 900; padding: 5px 12px;
+      margin-bottom: 8px; letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    /* Buyable title card */
+    .buy-title-card {
+      background: #2c2f33; border: 1.5px solid #5865f244; border-radius: 14px;
+      padding: 13px 16px; display: flex; align-items: center; gap: 13px;
+      margin-bottom: 10px;
+    }
+    .buy-title-card .buy-icon { font-size: 2em; flex-shrink: 0; }
+    .buy-title-card .buy-info { flex: 1; text-align: left; }
+    .buy-title-card .buy-name { font-weight: 800; font-size: 1em; }
+    .buy-title-card .buy-desc { font-size: 0.78em; color: #b9bbbe; margin-top: 2px; }
+    .buy-title-card .buy-cost { font-size: 0.8em; font-weight: 900; color: #5865f2; margin-top: 3px; }
+    .buy-title-btn {
+      font-size: 0.82em; font-weight: 800; padding: 6px 14px; border-radius: 20px;
+      border: none; cursor: pointer; margin-top: 0; white-space: nowrap;
+      transition: background 0.15s, transform 0.1s;
+    }
+    .buy-title-btn:hover:not(:disabled) { transform: scale(1.05); }
+    .buy-title-btn.owned { background: #43b58122; color: #43b581; cursor: default; border: 1.5px solid #43b58155; }
+    .buy-title-btn.buyable { background: #5865f2; color: #fff; }
+    .buy-title-btn.cant-afford { background: #3a3f48; color: #666; cursor: not-allowed; }
+    /* ======== CLAN SYSTEM ======== */
+    #clanTab {
+      display: none; position: fixed; bottom: 0; right: 140px;
+      background: linear-gradient(135deg, #1a0e2a, #2d1050);
+      color: #a855f7; font-weight: 900; font-size: 1em;
+      padding: 10px 18px 8px 18px; border-radius: 14px 14px 0 0;
+      cursor: pointer; z-index: 1500; border: none;
+      box-shadow: 0 -2px 16px #0006; letter-spacing: 0.04em;
+      transition: background 0.18s, transform 0.15s; user-select: none; margin-top: 0;
+    }
+    #clanTab:hover { background: linear-gradient(135deg, #2d1050, #4a1a80); transform: translateY(-2px); }
+    #clanOverlay {
+      display: none; position: fixed; inset: 0; z-index: 3500;
+      background: rgba(0,0,0,0.82); align-items: center; justify-content: center;
+    }
+    #clanPanel {
+      background: #1a1028; border: 1.5px solid #a855f733; border-radius: 22px;
+      box-shadow: 0 8px 48px #0009; padding: 26px 22px 22px 22px;
+      width: 420px; max-width: 96vw; max-height: 85vh; overflow-y: auto;
+      position: relative; display: flex; flex-direction: column; gap: 14px;
+    }
+    #clanPanel h2 { margin: 0; font-size: 1.3em; font-weight: 900; color: #a855f7; }
+    #clanPanelClose {
+      position: absolute; top: 14px; right: 16px; background: none; border: none;
+      color: #888; font-size: 1.2em; cursor: pointer; padding: 2px 6px;
+      border-radius: 6px; transition: color 0.15s, background 0.15s; margin-top: 0;
+    }
+    #clanPanelClose:hover { color: #fff; background: #3a2a4a; }
+    .clan-section-title {
+      font-size: 0.74em; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase;
+      color: #7a5a9a; padding-bottom: 7px; border-bottom: 1px solid #3a2a4a; margin-top: 4px;
+    }
+    .clan-form { display: flex; flex-direction: column; gap: 7px; }
+    .clan-form input {
+      background: #2a1a3a; border: 1.5px solid #4a3a5a; border-radius: 10px;
+      color: #fff; padding: 8px 12px; font-size: 0.9em; outline: none; margin-top: 0;
+    }
+    .clan-form input:focus { border-color: #a855f7; }
+    .clan-form-btn {
+      font-size: 0.9em; font-weight: 800; padding: 9px 0; border-radius: 10px;
+      border: none; cursor: pointer; margin-top: 2px; transition: opacity 0.15s;
+      background: linear-gradient(135deg, #a855f7, #7c3aed); color: #fff;
+    }
+    .clan-form-btn:hover { opacity: 0.85; }
+    .clan-form-msg { font-size: 0.8em; font-weight: 700; min-height: 16px; text-align: center; }
+    .clan-divider { border: none; border-top: 1px solid #3a2a4a; margin: 4px 0; }
+    #clanInfoName {
+      font-size: 1.6em; font-weight: 900; color: #a855f7; text-align: center;
+      letter-spacing: 0.06em; text-shadow: 0 0 20px #a855f744;
+    }
+    #clanOwnerNote { font-size: 0.82em; color: #7a5a9a; text-align: center; }
+    #clanMemberList { display: flex; flex-direction: column; gap: 6px; }
+    .clan-member-row {
+      display: flex; align-items: center; gap: 10px;
+      background: #2a1a3a; border-radius: 10px; padding: 9px 13px;
+      border: 1px solid #3a2a4a;
+    }
+    .clan-member-name { flex: 1; font-weight: 700; font-size: 0.9em; color: #d8b8ff; }
+    .clan-member-badge {
+      font-size: 0.65em; font-weight: 900; padding: 2px 8px; border-radius: 20px;
+      background: #a855f722; color: #a855f7; border: 1px solid #a855f744;
+      letter-spacing: 0.07em; text-transform: uppercase;
+    }
+    .clan-kick-btn {
+      font-size: 0.7em; font-weight: 800; padding: 4px 11px; border-radius: 16px;
+      border: 1.5px solid #ff475555; background: transparent; color: #ff4757;
+      cursor: pointer; transition: background 0.13s; margin-top: 0;
+    }
+    .clan-kick-btn:hover { background: #ff475522; }
+    .clan-leave-btn {
+      font-size: 0.88em; font-weight: 800; padding: 10px 0; border-radius: 10px;
+      border: 1.5px solid #ff475566; background: transparent; color: #ff4757;
+      cursor: pointer; transition: background 0.15s; margin-top: 0; width: 100%;
+    }
+    .clan-leave-btn:hover { background: #ff475514; }
+    .clan-disband-btn {
+      font-size: 0.88em; font-weight: 800; padding: 10px 0; border-radius: 10px;
+      border: none; background: linear-gradient(135deg, #ff4757, #cc2b3a);
+      color: #fff; cursor: pointer; transition: opacity 0.15s; margin-top: 0; width: 100%;
+    }
+    .clan-disband-btn:hover { opacity: 0.85; }
+    body.light-mode #clanPanel { background: #f8f0ff; border-color: #a855f733; }
+    body.light-mode .clan-form input { background: #f0e8ff; border-color: #c5a0e8; color: #1a1a2e; }
+    body.light-mode .clan-member-row { background: #ede0ff; border-color: #c5a0e8; }
+    body.light-mode .clan-member-name { color: #3a1a6e; }
+    body.light-mode #clanPanel h2, body.light-mode #clanInfoName { color: #7c3aed; }
+    body.light-mode .clan-section-title { color: #9a6ab0; border-color: #c5a0e8; }
+    body.light-mode #clanOwnerNote { color: #7a5a9a; }
+    body.light-mode .clan-divider { border-color: #c5a0e8; }
+    .clan-tab-bar { display: flex; gap: 6px; margin-bottom: 4px; }
+    .clan-tab-btn {
+      flex: 1; font-size: 0.82em; font-weight: 800; padding: 7px 0;
+      border-radius: 9px; border: 1.5px solid #4a3a5a; background: transparent;
+      color: #9a7ab0; cursor: pointer; transition: all 0.15s; margin-top: 0;
+    }
+    .clan-tab-btn.active { background: #a855f722; border-color: #a855f7; color: #a855f7; }
+    .clan-tab-btn:hover:not(.active) { background: #3a2a4a; color: #c8a0f0; }
+    .clan-lb-row {
+      display: flex; align-items: center; gap: 10px;
+      background: #2a1a3a; border-radius: 10px; padding: 9px 13px;
+      border: 1px solid #3a2a4a; transition: background 0.13s;
+    }
+    .clan-lb-row.is-mine { border-color: #a855f766; background: #3a1a5a; }
+    .clan-lb-rank {
+      font-size: 0.85em; font-weight: 900; color: #7a5a9a;
+      min-width: 26px; text-align: center;
+    }
+    .clan-lb-rank.gold { color: #ffd700; }
+    .clan-lb-rank.silver { color: #c0c0c0; }
+    .clan-lb-rank.bronze { color: #cd7f32; }
+    .clan-lb-name { flex: 1; font-weight: 800; font-size: 0.9em; color: #d8b8ff; }
+    .clan-lb-members { font-size: 0.75em; color: #7a5a9a; }
+    .clan-lb-clicks { font-weight: 900; font-size: 0.9em; color: #a855f7; white-space: nowrap; }
+    .clan-lb-empty { text-align: center; color: #7a5a9a; font-size: 0.88em; padding: 18px 0; }
+    body.light-mode .clan-tab-btn { border-color: #c5a0e8; color: #9a6ab0; }
+    body.light-mode .clan-tab-btn.active { background: #e8d8ff; border-color: #7c3aed; color: #7c3aed; }
+    body.light-mode .clan-lb-row { background: #ede0ff; border-color: #c5a0e8; }
+    body.light-mode .clan-lb-row.is-mine { background: #dcc8ff; border-color: #a855f7; }
+    body.light-mode .clan-lb-name { color: #3a1a6e; }
+    body.light-mode .clan-lb-clicks { color: #7c3aed; }
+    /* ======== END CLAN ======== */
+    body.light-mode #gemMineBox { background: #fff; }
+    body.light-mode .buy-title-card { background: #f0f2f5; border-color: #dde1eb; }
+    body.light-mode .buy-title-card .buy-desc { color: #555; }
+    body.light-mode .shop-section-label { color: #999; border-color: #dde1eb; }
+    /* Light mode toggle button */
+    #lightModeToggle {
+      position: fixed; top: 14px; left: 18px;
+      background: #23272a; border: 1.5px solid #3a3f48; color: #fff;
+      font-size: 1.1em; padding: 6px 12px; border-radius: 22px;
+      cursor: pointer; z-index: 1300; font-weight: 700;
+      box-shadow: 0 2px 10px #0005; transition: background 0.18s, transform 0.12s;
+      margin-top: 0;
+    }
+    #lightModeToggle:hover { transform: scale(1.07); background: #3a3f48; }
+    /* Title filter */
+    #titlesFilterWrap { display: flex; flex-direction: column; gap: 6px; margin-bottom: 10px; }
+    #titlesFilterInput {
+      width: 100%; box-sizing: border-box; background: #1e2124; border: 1.5px solid #3a3f48;
+      border-radius: 10px; color: #fff; font-size: 0.88em; padding: 7px 11px;
+      outline: none; margin-top: 0;
+    }
+    #titlesFilterInput:focus { border-color: #5865f2; }
+    .tier-filter-btns { display: flex; flex-wrap: wrap; gap: 4px; }
+    .tier-filter-btn {
+      font-size: 0.66em; font-weight: 800; padding: 2px 9px; border-radius: 20px;
+      border: 1.5px solid #3a3f48; background: transparent; color: #888;
+      cursor: pointer; margin-top: 0; transition: all 0.12s; letter-spacing: 0.04em;
+    }
+    .tier-filter-btn:hover { background: #3a3f48; color: #fff; }
+    .tier-filter-btn.active { background: #5865f2; border-color: #5865f2; color: #fff; }
+    /* Pack completion badge */
+    .pack-full-banner {
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      background: #43b58122; border: 1.5px solid #43b58155; border-radius: 10px;
+      color: #43b581; font-size: 0.75em; font-weight: 900; padding: 5px 12px;
+      margin-bottom: 8px; letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    /* ====== LIGHT MODE ====== */
+    body.light-mode {
+      background: linear-gradient(135deg,#e8edf5 0%,#f5f7fa 60%,#c5cae9 120%) !important;
+      color: #1a1a2e;
+    }
+    body.light-mode .quiz-box { background: #fff; color: #1a1a2e; box-shadow: 0 4px 24px #5865f222; }
+    body.light-mode .quiz-box h2 { text-shadow: none; }
+    body.light-mode #leaderboard { background: #fff; color: #1a1a2e; border-color: #dde1eb; }
+    body.light-mode #leaderboard th { background: #f0f2f5; color: #1a1a2e; }
+    body.light-mode #leaderboard td, body.light-mode #leaderboard th { border-color: #e0e3ec; }
+    body.light-mode #timerBox { background: #e8edf580; border-color: #c5cae9; }
+    body.light-mode #timerLabel { color: #333; }
+    body.light-mode .big-count { background: #f5f5ff; color: #5865f2; border-color: #c5cae9; text-shadow: none; }
+    body.light-mode input { background: #f0f2f5; border-color: #c5cae9; color: #1a1a2e; }
+    body.light-mode input:focus { background: #e8edf5; border-color: #5865f2; }
+    body.light-mode #globalTimeBox { background: #fff; border-color: #dde1eb; }
+    body.light-mode #globalTimeLabel { color: #555; }
+    body.light-mode #titlesPanel { background: #fff; border-color: #dde1eb; color: #1a1a2e; }
+    body.light-mode #titlesPanel h3 { color: #5865f2; }
+    body.light-mode .title-card { background: #f0f2f5; border-color: #dde1eb; }
+    body.light-mode .title-card .title-desc { color: #555; }
+    body.light-mode #titlesEmpty { color: #888; }
+    body.light-mode .title-group-header { color: #5865f2; border-color: #dde1eb; }
+    body.light-mode .evo-stage-row { background: #f0f2f5; border-color: #dde1eb; }
+    body.light-mode #profileModal { background: #fff; color: #1a1a2e; }
+    body.light-mode #profileClose { background: rgba(0,0,0,0.08); color: #333; }
+    body.light-mode .profile-stat { background: #f0f2f5; border-color: #dde1eb; }
+    body.light-mode .profile-stat-val { color: #5865f2; }
+    body.light-mode .profile-stat-lbl { color: #888; }
+    body.light-mode #profileBioText { color: #555; }
+    body.light-mode #profileOgBadge { color: #c8a800; }
+    body.light-mode #profileTitlesHeading { color: #5865f2; }
+    body.light-mode #profileBioInput { background: #f0f2f5; border-color: #c5cae9; color: #1a1a2e; }
+    body.light-mode #shopModal { background: #fff; color: #1a1a2e; }
+    body.light-mode #shopModal h2 { color: #1a1a2e; }
+    body.light-mode .pack-card { background: #f0f2f5; border-color: #dde1eb; }
+    body.light-mode .pack-name { color: #1a1a2e; }
+    body.light-mode #shopDiamondBal { color: #5865f2; }
+    body.light-mode #shopClose, body.light-mode #profileClose { color: #555; }
+    body.light-mode #shopClose:hover, body.light-mode #profileClose:hover { color: #1a1a2e; background: #e0e3ec; }
+    body.light-mode #commandPanel { background: #fff; color: #1a1a2e; }
+    body.light-mode .cpanel-btn { background: #f0f2f5; color: #1a1a2e; border: 1.5px solid #dde1eb; }
+    body.light-mode .lb-sort-btn { background: #f0f2f5; border-color: #dde1eb; color: #555; }
+    body.light-mode .lb-sort-btn.lb-sort-active { background: #5865f2; color: #fff; border-color: #5865f2; }
+    body.light-mode #lightModeToggle { background: #fff; border-color: #dde1eb; color: #1a1a2e; }
+    body.light-mode #lightModeToggle:hover { background: #f0f2f5; }
+    body.light-mode #diamondCounter { background: linear-gradient(135deg,#fff,#f0f2f5); color: #1a1a2e; border-color: #dde1eb; }
+    body.light-mode #titlesFilterInput { background: #f0f2f5; border-color: #c5cae9; color: #1a1a2e; }
+    body.light-mode .tier-filter-btn { border-color: #dde1eb; color: #555; }
+    body.light-mode .tier-filter-btn:hover { background: #e0e3ec; }
+    body.light-mode .tier-filter-btn.active { background: #5865f2; color: #fff; }
+    body.light-mode .title-global-count { color: #999; }
+    body.light-mode .evo-count-pill { color: #777; }
+    body.light-mode #rollResultCard { background: #fff; }
+    body.light-mode #noGravityBtn { background: #fff; color: #1a1a2e; border: 1.5px solid #dde1eb; }
+    /* CHAT */
+    .chat-messages{display:flex;flex-direction:column;gap:6px;max-height:250px;overflow-y:auto;padding:8px 4px;}
+    .chat-bubble{max-width:84%;padding:7px 12px;border-radius:14px;font-size:0.86em;line-height:1.4;word-break:break-word;}
+    .chat-bubble.mine{align-self:flex-end;background:linear-gradient(135deg,#a855f7,#7c3aed);color:#fff;border-bottom-right-radius:4px;}
+    .chat-bubble.theirs{align-self:flex-start;background:#2a1a3a;color:#d8b8ff;border-bottom-left-radius:4px;}
+    .chat-bubble-user{font-size:0.71em;font-weight:900;margin-bottom:2px;opacity:0.7;}
+    .chat-input-bar{display:flex;gap:6px;padding-top:8px;border-top:1px solid #3a2a4a;}
+    .chat-input{flex:1;background:#2a1a3a;border:1.5px solid #4a3a5a;border-radius:9px;color:#fff;padding:7px 10px;font-size:0.87em;outline:none;margin-top:0;}
+    .chat-input:focus{border-color:#a855f7;}
+    .chat-send-btn{background:#a855f7;border:none;color:#fff;font-weight:900;padding:7px 13px;border-radius:9px;cursor:pointer;font-size:0.87em;margin-top:0;}
+    .chat-send-btn:hover{opacity:0.85;}
+    .chat-empty{text-align:center;color:#7a5a9a;font-size:0.84em;padding:14px 0;}
+    /* FRIENDS */
+    #friendsBtn{display:none;position:fixed;bottom:0;right:270px;background:linear-gradient(135deg,#0e1a2a,#103060);color:#4a9eff;font-weight:900;font-size:1em;padding:10px 18px 8px 18px;border-radius:14px 14px 0 0;cursor:pointer;z-index:1500;border:none;box-shadow:0 -2px 16px #0006;letter-spacing:0.04em;transition:background 0.18s,transform 0.15s;user-select:none;margin-top:0;position:fixed;}
+    #friendsBtn:hover{background:linear-gradient(135deg,#103060,#1a4a90);transform:translateY(-2px);}
+    #friendsNotifDot{display:none;position:absolute;top:6px;right:9px;width:9px;height:9px;background:#ff4757;border-radius:50%;border:2px solid #23272a;}
+    #friendsOverlay{display:none;position:fixed;inset:0;z-index:3600;background:rgba(0,0,0,0.82);align-items:center;justify-content:center;}
+    #friendsPanel{background:#0e1828;border:1.5px solid #4a9eff33;border-radius:22px;box-shadow:0 8px 48px #0009;padding:26px 22px 22px;width:400px;max-width:96vw;max-height:85vh;overflow-y:auto;position:relative;display:flex;flex-direction:column;gap:12px;}
+    #friendsPanel h2{margin:0;font-size:1.25em;font-weight:900;color:#4a9eff;}
+    #friendsPanelClose{position:absolute;top:14px;right:16px;background:none;border:none;color:#888;font-size:1.2em;cursor:pointer;padding:2px 6px;border-radius:6px;margin-top:0;}
+    #friendsPanelClose:hover{color:#fff;background:#1a3050;}
+    .friends-tab-bar{display:flex;gap:6px;}
+    .friends-tab-btn{flex:1;font-size:0.82em;font-weight:800;padding:7px 0;border-radius:9px;border:1.5px solid #2a4060;background:transparent;color:#4a7090;cursor:pointer;margin-top:0;transition:all 0.15s;}
+    .friends-tab-btn.active{background:#4a9eff22;border-color:#4a9eff;color:#4a9eff;}
+    .friends-tab-btn:hover:not(.active){background:#1a3050;color:#70b8ff;}
+    .friend-row{display:flex;align-items:center;gap:9px;background:#1a2a3a;border-radius:10px;padding:9px 12px;border:1px solid #2a4060;}
+    .friend-name{flex:1;font-weight:700;font-size:0.9em;color:#a0d0ff;}
+    .friend-action-btn{font-size:0.72em;font-weight:800;padding:4px 10px;border-radius:14px;border:1.5px solid;background:transparent;cursor:pointer;margin-top:0;transition:background 0.13s;}
+    .friend-chat-btn{border-color:#4a9eff55;color:#4a9eff;}.friend-chat-btn:hover{background:#4a9eff22;}
+    .friend-trade-btn{border-color:#43b58155;color:#43b581;}.friend-trade-btn:hover{background:#43b58122;}
+    .friend-remove-btn{border-color:#ff475555;color:#ff4757;}.friend-remove-btn:hover{background:#ff475520;}
+    .friend-req-row{display:flex;align-items:center;gap:9px;background:#1a2a3a;border-radius:10px;padding:9px 12px;border:1px solid #2a4060;}
+    .friend-req-name{flex:1;font-weight:700;font-size:0.9em;color:#a0d0ff;}
+    .friend-accept-btn{font-size:0.72em;font-weight:800;padding:4px 10px;border-radius:14px;border:none;background:#43b581;color:#fff;cursor:pointer;margin-top:0;}
+    .friend-accept-btn:hover{opacity:0.85;}
+    .friend-decline-btn{font-size:0.72em;font-weight:800;padding:4px 10px;border-radius:14px;border:1.5px solid #ff475555;color:#ff4757;background:transparent;cursor:pointer;margin-top:0;}
+    .friend-decline-btn:hover{background:#ff475520;}
+    .friends-empty{text-align:center;color:#4a6080;font-size:0.87em;padding:14px 0;}
+    .friends-add-form{display:flex;flex-direction:column;gap:7px;}
+    .friends-add-form input{background:#1a2a3a;border:1.5px solid #2a4060;border-radius:10px;color:#fff;padding:8px 12px;font-size:0.9em;outline:none;margin-top:0;}
+    .friends-add-form input:focus{border-color:#4a9eff;}
+    .friends-add-btn{font-size:0.9em;font-weight:800;padding:9px 0;border-radius:10px;border:none;cursor:pointer;margin-top:0;background:linear-gradient(135deg,#4a9eff,#2a70d0);color:#fff;}
+    .friends-add-btn:hover{opacity:0.85;}
+    .friends-section-title{font-size:0.74em;font-weight:900;letter-spacing:0.12em;text-transform:uppercase;color:#4a6080;padding-bottom:7px;border-bottom:1px solid #2a4060;margin-top:2px;}
+    .friends-divider{border:none;border-top:1px solid #2a4060;margin:4px 0;}
+    /* DM WINDOW */
+    #dmWindow{display:none;position:fixed;bottom:76px;right:20px;z-index:4000;width:310px;background:#0e1828;border:1.5px solid #4a9eff44;border-radius:16px;box-shadow:0 8px 40px #0008;flex-direction:column;overflow:hidden;}
+    #dmHeader{display:flex;align-items:center;gap:8px;padding:10px 14px;background:#1a2a3a;border-bottom:1px solid #2a4060;}
+    #dmTitle{flex:1;font-weight:900;font-size:0.92em;color:#4a9eff;}
+    #dmTradeBtn{font-size:0.71em;font-weight:800;padding:4px 9px;border-radius:9px;border:1.5px solid #43b58155;color:#43b581;background:transparent;cursor:pointer;margin-top:0;transition:background 0.13s;}
+    #dmTradeBtn:hover{background:#43b58120;}
+    #dmCloseBtn{background:none;border:none;color:#666;font-size:1em;cursor:pointer;padding:0 2px;margin-top:0;transition:color 0.15s;}
+    #dmCloseBtn:hover{color:#fff;}
+    #dmMessages{display:flex;flex-direction:column;gap:5px;max-height:200px;min-height:60px;overflow-y:auto;padding:10px 12px;}
+    .dm-bubble{max-width:86%;padding:6px 10px;border-radius:12px;font-size:0.85em;word-break:break-word;}
+    .dm-bubble.mine{align-self:flex-end;background:#4a9eff;color:#fff;border-bottom-right-radius:3px;}
+    .dm-bubble.theirs{align-self:flex-start;background:#1a3050;color:#a0d0ff;border-bottom-left-radius:3px;}
+    #dmInputBar{display:flex;gap:6px;padding:8px 12px;border-top:1px solid #2a4060;}
+    #dmInput{flex:1;background:#1a2a3a;border:1.5px solid #2a4060;border-radius:8px;color:#fff;padding:6px 10px;font-size:0.84em;outline:none;margin-top:0;}
+    #dmInput:focus{border-color:#4a9eff;}
+    #dmSendBtn{background:#4a9eff;border:none;color:#fff;font-weight:900;padding:6px 12px;border-radius:8px;cursor:pointer;font-size:0.84em;margin-top:0;}
+    #dmSendBtn:hover{opacity:0.85;}
+    /* TRADE */
+    #tradeModal{display:none;position:fixed;inset:0;z-index:5000;background:rgba(0,0,0,0.86);align-items:center;justify-content:center;}
+    #tradePanel{background:#0e1828;border:1.5px solid #43b58144;border-radius:20px;padding:24px 22px;width:370px;max-width:96vw;position:relative;display:flex;flex-direction:column;gap:12px;}
+    #tradePanel h3{margin:0;font-size:1.1em;font-weight:900;color:#43b581;}
+    #tradeClose{position:absolute;top:14px;right:16px;background:none;border:none;color:#888;font-size:1.1em;cursor:pointer;padding:2px 5px;margin-top:0;border-radius:5px;}
+    #tradeClose:hover{color:#fff;background:#1a3028;}
+    .trade-section{display:flex;flex-direction:column;gap:7px;}
+    .trade-section-label{font-size:0.74em;font-weight:900;letter-spacing:0.1em;text-transform:uppercase;color:#3a7050;padding-bottom:5px;border-bottom:1px solid #1a3028;}
+    .trade-row{display:flex;align-items:center;gap:8px;}
+    .trade-row label{font-size:0.85em;color:#a0c8b0;flex:1;}
+    .trade-num-input{width:80px;background:#1a2a1a;border:1.5px solid #2a4030;border-radius:8px;color:#fff;padding:5px 9px;font-size:0.88em;outline:none;margin-top:0;}
+    .trade-num-input:focus{border-color:#43b581;}
+    .trade-send-btn{font-size:0.9em;font-weight:800;padding:10px 0;border-radius:10px;border:none;background:linear-gradient(135deg,#43b581,#2a8060);color:#fff;cursor:pointer;margin-top:0;width:100%;}
+    .trade-send-btn:hover{opacity:0.85;}
+    .trade-msg{font-size:0.8em;font-weight:700;text-align:center;min-height:16px;}
+    .trade-offer-bubble{background:#1a2a1a;border:1.5px solid #43b58166;border-radius:12px;padding:10px 12px;font-size:0.82em;display:flex;flex-direction:column;gap:6px;align-self:center;width:90%;}
+    .trade-offer-title{font-weight:900;color:#43b581;font-size:0.88em;}
+    .trade-offer-accept{background:#43b581;border:none;color:#fff;font-weight:800;padding:5px 10px;border-radius:7px;cursor:pointer;font-size:0.8em;margin-top:0;}
+    .trade-offer-decline{background:transparent;border:1.5px solid #ff475555;color:#ff4757;font-weight:800;padding:5px 10px;border-radius:7px;cursor:pointer;font-size:0.8em;margin-top:0;}
+    .clan-settings-toggle{font-size:0.78em;font-weight:800;color:#7a5a9a;background:none;border:1.5px solid #3a2a4a;cursor:pointer;padding:6px 12px;text-align:left;margin-top:0;border-radius:8px;width:100%;transition:color 0.15s;}
+    .clan-settings-toggle:hover{color:#a855f7;border-color:#a855f7;}
+    .clan-settings-body{display:flex;flex-direction:column;gap:8px;padding:10px;background:#2a1a3a;border-radius:10px;border:1px solid #3a2a4a;}
+    body.light-mode .friend-row,body.light-mode .friend-req-row{background:#e8f0ff;border-color:#b0c8e8;}
+    body.light-mode .friend-name,body.light-mode .friend-req-name{color:#1a3a6e;}
+    body.light-mode #friendsPanel{background:#f0f6ff;border-color:#4a9eff33;}
+    body.light-mode .friends-add-form input{background:#e0eeff;border-color:#90b8e8;color:#1a2a4e;}
+    body.light-mode #dmWindow{background:#e8f4ff;border-color:#4a9eff44;}
+    body.light-mode .dm-bubble.theirs{background:#c8e4ff;color:#1a3050;}
+    body.light-mode #dmHeader,body.light-mode #dmInputBar{background:#d8ecff;border-color:#90c0e0;}
+  </style>
+  <link href="https://fonts.googleapis.com/css?family=Inter:400,600,700,800&display=swap" rel="stylesheet">
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js";
+    import { getDatabase, ref, get, set, update, onValue, increment, off } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-database.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-analytics.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDD2UtUAYNE47QhaUV4e2MPS30wWEDjGzk",
+      authDomain: "web-timer-68ca7.firebaseapp.com",
+      databaseURL: "https://web-timer-68ca7-default-rtdb.firebaseio.com",
+      projectId: "web-timer-68ca7",
+      storageBucket: "web-timer-68ca7.appspot.com",
+      messagingSenderId: "876106729530",
+      appId: "1:876106729530:web:3ce898e156061404eb4d03",
+      measurementId: "G-V229PCNCFK"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    getAnalytics(app);
+
+    let user = "", password = "";
+    let userClicks = 0;
+    let unsubGlobal = null, unsubUser = null, unsubLB = null;
+    let timer = 0;
+    let timerInterval = null;
+    let timerDBListener = null;
+    let updatingFromDB = false;
+    let justWrote = false;
+    let unsubGlobalTime = null;
+    let lastThousand = 0;
+    let animatingGlitch = false;
+
+    const ALL_TITLES = [
+      { id: 'og',          label: 'OG',            icon: '👑', desc: 'One of the originals.',             tier: 'legendary' },
+      { id: 'dih',         label: 'dih',            icon: '💀', desc: 'Granted by Me.',                   tier: 'mythical'  },
+      { id: 'observer',    label: 'Observer',       icon: '👁️', desc: '10 minutes on site.',              tier: 'common'    },
+      { id: 'stargazer',   label: 'Stargazer',      icon: '⭐', desc: '1 hour on site.',                  tier: 'uncommon'  },
+      { id: 'timekeeper',  label: 'Time Keeper',    icon: '⏱️', desc: '24 hours on site.',               tier: 'rare'      },
+      { id: 'dedication2', label: 'Dedication 2.',  icon: '🔥', desc: '2 days on site.',                  tier: 'epic'      },
+      // Bronze Crate
+      { id: 'btn_masher',  label: 'Button Masher',  icon: '🎮', desc: 'The clicker among clickers.',      tier: 'common',    pack: 1 },
+      { id: 'regular',     label: 'Regular',        icon: '🪑', desc: 'Shows up every day.',              tier: 'uncommon',  pack: 1 },
+      { id: 'night_owl',   label: 'Night Owl',      icon: '🦉', desc: 'Active when others sleep.',        tier: 'rare',      pack: 1 },
+      { id: 'spark',       label: 'Spark',          icon: '⚡', desc: 'Brief but brilliant.',             tier: 'epic',      pack: 1 },
+      { id: 'phantom',     label: 'Phantom',        icon: '👻', desc: 'Exists between blinks.',           tier: 'legendary', pack: 1 },
+      { id: 'glitch',      label: 'Glitch',         icon: '📡', desc: 'Something went wrong. Or right.',  tier: 'mythical',  pack: 1 },
+      // Silver Crate
+      { id: 'wanderer',    label: 'Wanderer',       icon: '🌊', desc: 'Just passing through.',            tier: 'common',    pack: 2 },
+      { id: 'grinder',     label: 'Grinder',        icon: '⚙️', desc: 'Never stops.',                    tier: 'uncommon',  pack: 2 },
+      { id: 'shadow',      label: 'Shadow',         icon: '🌑', desc: 'Hard to pin down.',                tier: 'rare',      pack: 2 },
+      { id: 'cosmos',      label: 'Cosmos',         icon: '🌌', desc: 'Bigger than it looks.',            tier: 'epic',      pack: 2 },
+      { id: 'ascended',    label: 'Ascended',       icon: '🔮', desc: 'Beyond the ordinary.',             tier: 'legendary', pack: 2 },
+      { id: 'eclipse',     label: 'Eclipse',        icon: '🌘', desc: 'Rare as totality.',                tier: 'mythical',  pack: 2 },
+      // Diamond Crate
+      { id: 'drifter',     label: 'Drifter',        icon: '💨', desc: 'Comes and goes.',                  tier: 'common',    pack: 3 },
+      { id: 'zero',        label: 'Zero',           icon: '🎯', desc: 'Back to the start.',               tier: 'uncommon',  pack: 3 },
+      { id: 'crimson',     label: 'Crimson',        icon: '🩸', desc: 'Bold and unyielding.',             tier: 'rare',      pack: 3 },
+      { id: 'revenant',    label: 'Revenant',       icon: '☠️', desc: 'Back from nothing.',              tier: 'epic',      pack: 3 },
+      { id: 'celestial',   label: 'Celestial',      icon: '🌠', desc: 'Among the stars.',                tier: 'legendary', pack: 3 },
+      { id: 'void',        label: 'Void',           icon: '🕳️', desc: 'Nothing and everything.',         tier: 'mythical',  pack: 3 },
+      // Mythical Crate
+      { id: 'apex',         label: 'Apex',          icon: '🏔️', desc: 'The summit of everything.',       tier: 'mythical',  pack: 4 },
+      { id: 'eternal',      label: 'Eternal',        icon: '♾️', desc: 'Time means nothing.',            tier: 'mythical',  pack: 4 },
+      { id: 'sovereign',    label: 'Sovereign',      icon: '⚜️', desc: 'Authority absolute.',             tier: 'mythical',  pack: 4 },
+      { id: 'nemesis',      label: 'Nemesis',        icon: '⚔️', desc: 'The final opponent.',            tier: 'mythical',  pack: 4 },
+      { id: 'transcendent', label: 'Transcendent',   icon: '✨', desc: 'Beyond all limits.',             tier: 'mythical',  pack: 4 },
+      { id: 'oracle',       label: 'Oracle',         icon: '🧿', desc: 'Sees what others cannot.',      tier: 'mythical',  pack: 4 },
+      
+      { id: 'grungus',         label: 'Grungus',          icon: '🏔️', desc: 'Gruunugus.',       tier: 'lowgrungus',  pack: 5 },
+      { id: 'father-grungus',      label: 'Father Grungus',        icon: '♾️', desc: 'Time means nothing.',            tier: 'lowgrungus',  pack: 5 },
+      { id: 'grungy-grungus',    label: 'Grungy Grungus',      icon: '⚜️', desc: 'Authority absolute.',             tier: 'grungus',  pack: 5 },
+      { id: 'crimson-grungus',      label: 'Crimson Grungus',        icon: '⚔️', desc: 'The final opponent.',            tier: 'grungus',  pack: 5 },
+      { id: 'transcendent-grungus', label: 'Transcendent Grungus',   icon: '✨', desc: 'Beyond all limits.',             tier: 'highgrungus',  pack: 5 },
+      { id: 'lord-grungus',       label: 'Lord Grungus',         icon: '🧿', desc: 'Sees what others cannot.',      tier: 'lordgrungus',  pack: 5 },
+      { id: 'doop-grungus',       label: 'Doop Grungus',         icon: 'e', desc: 'Sees what others cannot.',      tier: 'doopgrungus',  pack: 5 },
+
+          { id: 'theodore',         label: 'Theodore',          icon: '️t', desc: 'Gruunugus.',       tier: 'teador',  pack: 6 },
+      { id: 'theo',      label: 'Theo',        icon: '️e', desc: 'Time means nothing.',            tier: 'teador',  pack: 5 },
+      { id: 'cranky-theodore',    label: 'Cranky Theodore',      icon: '️a', desc: 'Authority absolute.',             tier: 'teador',  pack: 6 },
+      { id: 'teador',      label: 'Teador',        icon: '️d', desc: 'The final opponent.',            tier: 'teador',  pack: 6 },
+      { id: 'teador-bub', label: 'Teador Bub',   icon: 'o', desc: 'Beyond all limits.',             tier: 'teador',  pack: 6 },
+      { id: 'cranky-teador',       label: 'Cranky Theodore',         icon: 'r', desc: 'Sees what others cannot.',      tier: 'teador',  pack: 6},
+      { id: 'taiwanese-teador',       label: 'Taiwanese Teador',         icon: '.', desc: 'https://open.spotify.com/track/6lFbknHYKQ3c7IzbLRHd6p',      tier: 'teador',  pack: 6 },
+
+      // RNG Pack (true per-title odds)
+      { id: 'rng_dust',    label: 'Dust',       icon: '🌫️', desc: 'Scattered to the winds.',         tier: 'rng_c',     pack: 7 },
+      { id: 'rng_echo',    label: 'Echo',       icon: '🔊',  desc: 'A sound returning.',              tier: 'rng_c',     pack: 7 },
+      { id: 'rng_flicker', label: 'Flicker',    icon: '🕯️', desc: 'Brief light in darkness.',        tier: 'rng_u',     pack: 7 },
+      { id: 'rng_static',  label: 'Static',     icon: '📺',  desc: 'Nothing but noise.',              tier: 'rng_r',     pack: 7 },
+      { id: 'rng_wraith',  label: 'Wraith',     icon: '👤',  desc: 'Barely there.',                  tier: 'rng_e',     pack: 7 },
+      { id: 'rng_nova',    label: 'Nova',       icon: '💥',  desc: 'Brilliant and brief.',            tier: 'rng_e',     pack: 7 },
+      { id: 'rng_cipher',  label: 'Cipher',     icon: '🔐',  desc: 'Encrypted existence.',           tier: 'rng_l',     pack: 7 },
+      { id: 'rng_nexus',   label: 'Nexus',      icon: '🔗',  desc: 'The point of connection.',       tier: 'rng_m',     pack: 7 },
+      { id: 'rng_vortex',  label: 'Vortex',     icon: '🌀',  desc: 'Everything spirals inward.',     tier: 'rng_m',     pack: 7 },
+      { id: 'rng_one',     label: 'The One',    icon: '☯️',  desc: '0.01%. You are chosen.',         tier: 'rng_ultra', pack: 7 },
+    ];
+    const TIME_TITLES = [
+      { id: 'observer',    seconds: 600 },
+      { id: 'stargazer',   seconds: 3600 },
+      { id: 'timekeeper',  seconds: 86400 },
+      { id: 'dedication2', seconds: 172800 },
+    ];
+    const TIER_CONFIG = {
+      common:    { label: 'Common',    color: '#9e9e9e', bg: '#252525' },
+      uncommon:  { label: 'Uncommon',  color: '#43b581', bg: '#1a2e24' },
+      rare:      { label: 'Rare',      color: '#5865f2', bg: '#1a1c3a' },
+      epic:      { label: 'Epic',      color: '#9b59b6', bg: '#2a1a35' },
+      legendary: { label: 'Legendary', color: '#ffeb3b', bg: '#2e2900' },
+      mythical:  { label: 'Mythical',  color: '#ff4757', bg: '#2e0a0e' },
+      lowgrungus:  { label: 'Low Grungus',  color: '#00FF00', bg: '#004d00' },
+      grungus:  { label: 'Grungus',  color: '#00FF00', bg: '#004d00' },
+      highgrungus:  { label: 'High Grungus',  color: '#00FF00', bg: '#004d00' },
+      lordgrungus:  { label: 'Lord Grungus',  color: '#00FF00', bg: '#004d00' },
+      doopgrungus:  { label: 'Doop Grungus',  color: '#00FF00', bg: '#004d00' },
+      teador:    { label: 'Teador',    color: '#FFFFFF', bg: '#964B00' },
+      rng_c:     { label: 'Common',    color: '#9e9e9e', bg: '#1a1a1a' },
+      rng_u:     { label: 'Uncommon',  color: '#43b581', bg: '#0d1a11' },
+      rng_r:     { label: 'Rare',      color: '#5865f2', bg: '#0d0e2e' },
+      rng_e:     { label: 'Epic',      color: '#9b59b6', bg: '#160d22' },
+      rng_l:     { label: 'Legendary', color: '#ffeb3b', bg: '#1a1500' },
+      rng_m:     { label: 'Mythical',  color: '#ff4757', bg: '#1a050a' },
+      rng_ultra: { label: 'Ultra Rare',color: '#ff0080', bg: '#0d0005' },
+    };
+    const PACKS = [
+      { id: 'bronze',  name: 'Bronze Crate',  icon: '📦', cost: 1,
+        titleIds: ['btn_masher','regular','night_owl','spark','phantom','glitch'],
+        odds: { common:40, uncommon:30, rare:20, epic:7, legendary:2, mythical:1 } },
+      { id: 'silver',  name: 'Silver Crate',  icon: '🎁', cost: 2,
+        titleIds: ['wanderer','grinder','shadow','cosmos','ascended','eclipse'],
+        odds: { common:30, uncommon:30, rare:25, epic:10, legendary:4, mythical:1 } },
+      { id: 'diamond', name: 'Diamond Crate', icon: '💠', cost: 10,
+        titleIds: ['drifter','zero','crimson','revenant','celestial','void'],
+        odds: { common:15, uncommon:25, rare:30, epic:20, legendary:8, mythical:2 } },
+      { id: 'mythical', name: 'Mythical Crate', icon: '🌟', cost: 0, daily: true,
+        titleIds: ['apex','eternal','sovereign','nemesis','transcendent','oracle'],
+        odds: { common:0, uncommon:0, rare:0, epic:0, legendary:0, mythical:100 } },
+        
+         { id: 'grungus', name: 'Grungus Crate', icon: '💠', cost: 15,
+  titleIds: ['grungus','father-grungus','grungy-grungus','crimson-grungus','transcendent-grungus','lord-grungus','doop-grungus'],
+
+        odds: { common:0, uncommon:0, rare:0, epic:0, legendary:0, mythical:100 } },
+
+ { id: 'teador', name: 'Teador Crate', icon: '💠', cost: 20,
+  titleIds: ['theodore','theo','cranky-theodore','teador','teador-bub','cranky-teador','taiwanese-teador'],
+        odds: { common:0, uncommon:0, rare:0, epic:0, legendary:0, mythical:100 } },
+
+      { id: 'rng', name: '🎲 RNG Pack', icon: '🎲', cost: 30,
+        titleIds: ['rng_dust','rng_echo','rng_flicker','rng_static','rng_wraith','rng_nova','rng_cipher','rng_nexus','rng_vortex','rng_one'],
+        odds: {},
+        rngOdds: [
+          { id: 'rng_dust',    pct: 40.99 },
+          { id: 'rng_echo',    pct: 25.00 },
+          { id: 'rng_flicker', pct: 15.00 },
+          { id: 'rng_static',  pct: 8.00  },
+          { id: 'rng_wraith',  pct: 4.00  },
+          { id: 'rng_nova',    pct: 3.00  },
+          { id: 'rng_cipher',  pct: 2.00  },
+          { id: 'rng_nexus',   pct: 0.50  },
+          { id: 'rng_vortex',  pct: 0.50  },
+          { id: 'rng_one',     pct: 0.01  },
+        ]},
+    ];
+    // Buyable titles (direct gem purchase)
+    const BUYABLE_TITLES = [
+      { id: 'buy_broke',    label: 'Broke',          icon: '💸', desc: 'Spent it all.',                    tier: 'common',    cost: 10   },
+      { id: 'buy_rich',     label: 'Rich',            icon: '💰', desc: 'Diamonds to spare.',               tier: 'epic',      cost: 500  },
+      { id: 'buy_champion', label: 'Champion',        icon: '🏆', desc: 'Earned through wealth.',           tier: 'rare',      cost: 750  },
+      { id: 'buy_baron',    label: 'Diamond Baron',   icon: '🏦', desc: 'Amassed a fortune in gems.',       tier: 'legendary', cost: 1000 },
+      { id: 'buy_infinite', label: 'Infinite',        icon: '♾️',  desc: 'Beyond all limits.',             tier: 'mythical',  cost: 2500 },
+      { id: 'buy_whale',    label: 'Whale',           icon: '🐋', desc: 'The ultimate big spender.',        tier: 'mythical',  cost: 5000 },
+    ];
+    BUYABLE_TITLES.forEach(bt => { if (!ALL_TITLES.find(t => t.id === bt.id)) ALL_TITLES.push(bt); });
+
+    const MINE_UPGRADES = [
+      { level: 1, name: 'Wooden Pickaxe', icon: '🪓', perClick: 0.3,  cost: 50,    color: '#c8860a', desc: 'Better than bare hands.'      },
+      { level: 2, name: 'Stone Pickaxe',  icon: '⛏️', perClick: 0.8,  cost: 200,   color: '#aaaaaa', desc: 'Chips away at harder rock.'   },
+      { level: 3, name: 'Iron Pickaxe',   icon: '🔩', perClick: 2.0,  cost: 700,   color: '#c5c5c5', desc: 'A serious mining tool.'         },
+      { level: 4, name: 'Diamond Drill',  icon: '💠', perClick: 6.0,  cost: 2500,  color: '#5af0ff', desc: 'Cuts through anything.'         },
+      { level: 5, name: 'Laser Cutter',   icon: '🔦', perClick: 20.0, cost: 10000, color: '#ff44ff', desc: 'Technology beyond reality.'     },
+      { level: 6, name: 'Quantum Miner',  icon: '⚛️', perClick: 75.0, cost: 40000, color: '#00ffcc', desc: 'Mine across dimensions.'        },
+    ];
+    const TITLE_GROUPS = [
+      { label: '✨ Special',        ids: ['og', 'dih'] },
+      { label: '⏱️ Time Earned',    ids: ['observer', 'stargazer', 'timekeeper', 'dedication2'] },
+      { label: '📦 Bronze Crate',   ids: ['btn_masher', 'regular', 'night_owl', 'spark', 'phantom', 'glitch'] },
+      { label: '🎁 Silver Crate',   ids: ['wanderer', 'grinder', 'shadow', 'cosmos', 'ascended', 'eclipse'] },
+      { label: '💠 Diamond Crate',  ids: ['drifter', 'zero', 'crimson', 'revenant', 'celestial', 'void'] },
+      { label: '🌟 Mythical Crate', ids: ['apex', 'eternal', 'sovereign', 'nemesis', 'transcendent', 'oracle'] },
+      { label: '🌟 Grungus Crate', ids: ['grungus', 'father-grungus', 'grungy-grungus', 'crimson-grungus', 'transcendent-grungus', 'lord-grungus','doop-grungus'] },
+      { label: '🌟 Teador Crate', ids: ['theodore','theo','cranky-theodore','teador','teador-bub','cranky-teador','taiwanese-teador'] },
+      { label: '🎲 RNG Pack', ids: ['rng_dust','rng_echo','rng_flicker','rng_static','rng_wraith','rng_nova','rng_cipher','rng_nexus','rng_vortex','rng_one'] },
+      { label: '🛒 Purchased', ids: ['buy_broke','buy_rich','buy_champion','buy_baron','buy_infinite','buy_whale'] },
+    ];
+    let diamonds = 0;
+    let lastDiamondTick = 0;
+    let lastFreeSpin = null;
+    let mythicalSpins = 0;
+    let myTitles = [];
+    let titleCounts = {};
+    let titlesInitialized = false;
+    let equippedTitleId = null;
+    let profileColor = '#5865f2';
+    let profileBio = '';
+    let globalTitleCounts = {};
+    let titleFilter = '';
+    let tierFilter = 'all';
+    let lightMode = false;
+    let gemSaveTimeout = null;
+    let lastEnterRoll = 0;
+    let mineLevel = 0;
+    let myClan = null;
+    let myClanName = null;
+    let unsubClan = null;
+    let clanPanelTab = 'mine';
+    let unsubClanChat = null;
+    let myFriends = {};
+    let pendingRequests = {};
+    let unsubFriendRequests = null;
+    let unsubFriendsList = null;
+    let friendsPanelTab = 'list';
+    let dmFriendSafe = null;
+    let dmFriendName = null;
+    let dmChatKey = null;
+    let unsubDM = null;
+
+    // ===== CLAN FUNCTIONS =====
+    function safeClanKey(name) {
+      return name.replace(/[.#$[\]\s]/g, '_').toLowerCase().slice(0, 28);
+    }
+
+    async function createClan(name, password) {
+      if (!user) return { error: 'Not logged in.' };
+      if (!name || name.trim().length < 2) return { error: 'Name must be at least 2 characters.' };
+      if (!password) return { error: 'Password required.' };
+      if (myClan) return { error: 'Leave your current clan first.' };
+      const key = safeClanKey(name.trim());
+      const snap = await get(ref(db, 'clans/' + key));
+      if (snap.exists()) return { error: 'Clan name already taken.' };
+      const safeMe = user.replace(/[.#$[\]]/g, '_');
+      await set(ref(db, 'clans/' + key), {
+        name: name.trim(), password, owner: user,
+        members: { [safeMe]: user }, createdAt: Date.now()
+      });
+      await update(ref(db, 'users/' + safeMe), { clan: key });
+      myClanName = key;
+      listenClan(key);
+      return { ok: true };
+    }
+
+    async function joinClan(name, password) {
+      if (!user) return { error: 'Not logged in.' };
+      if (!name || !password) return { error: 'Fill in all fields.' };
+      if (myClan) return { error: 'Leave your current clan first.' };
+      const key = safeClanKey(name.trim());
+      const snap = await get(ref(db, 'clans/' + key));
+      if (!snap.exists()) return { error: 'Clan not found.' };
+      const clan = snap.val();
+      if (clan.password !== password) return { error: 'Wrong password.' };
+      const safeMe = user.replace(/[.#$[\]]/g, '_');
+      const updates = {};
+      updates['clans/' + key + '/members/' + safeMe] = user;
+      updates['users/' + safeMe + '/clan'] = key;
+      await update(ref(db, '/'), updates);
+      myClanName = key;
+      listenClan(key);
+      return { ok: true };
+    }
+
+    async function kickClanMember(memberSafe) {
+      if (!myClan || myClan.owner !== user || !myClanName) return;
+      const updates = {};
+      updates['clans/' + myClanName + '/members/' + memberSafe] = null;
+      updates['users/' + memberSafe + '/clan'] = null;
+      await update(ref(db, '/'), updates);
+    }
+
+    async function leaveClan() {
+      if (!myClanName || !myClan) return;
+      const safeMe = user.replace(/[.#$[\]]/g, '_');
+      const updates = {};
+      if (myClan.owner === user) {
+        Object.keys(myClan.members || {}).forEach(mk => { updates['users/' + mk + '/clan'] = null; });
+        updates['clans/' + myClanName] = null;
+      } else {
+        updates['clans/' + myClanName + '/members/' + safeMe] = null;
+        updates['users/' + safeMe + '/clan'] = null;
+      }
+      await update(ref(db, '/'), updates);
+      if (unsubClan) { unsubClan(); unsubClan = null; }
+      myClan = null; myClanName = null;
+      updateClanTab();
+      renderClanPanel();
+    }
+
+    function listenClan(key) {
+      if (unsubClan) { unsubClan(); unsubClan = null; }
+      unsubClan = onValue(ref(db, 'clans/' + key), snap => {
+        if (!snap.exists()) {
+          myClan = null; myClanName = null;
+          const safeMe = user ? user.replace(/[.#$[\]]/g, '_') : null;
+          if (safeMe) update(ref(db, 'users/' + safeMe), { clan: null });
+        } else {
+          myClan = snap.val();
+        }
+        updateClanTab();
+        const overlay = document.getElementById('clanOverlay');
+        if (overlay && overlay.style.display === 'flex') renderClanPanel();
+      });
+    }
+
+    async function initClan(userData) {
+      const key = userData.clan;
+      if (!key) return;
+      const snap = await get(ref(db, 'clans/' + key));
+      if (snap.exists()) {
+        myClanName = key; myClan = snap.val();
+        listenClan(key);
+      } else {
+        myClanName = null; myClan = null;
+        update(ref(db, 'users/' + user.replace(/[.#$[\]]/g, '_')), { clan: null });
+      }
+      updateClanTab();
+    }
+
+    function updateClanTab() {
+      const btn = document.getElementById('clanTab');
+      if (!btn) return;
+      btn.textContent = myClan ? `⚔️ ${myClan.name}` : '⚔️ Clan';
+    }
+
+    function openClanPanel() {
+      document.getElementById('clanOverlay').style.display = 'flex';
+      renderClanPanel();
+    }
+    function closeClanPanel() {
+      document.getElementById('clanOverlay').style.display = 'none';
+    }
+
+    async function fetchClanLeaderboard() {
+      const snap = await get(ref(db, 'clans'));
+      if (!snap.exists()) return [];
+      const clans = snap.val();
+      const results = Object.entries(clans).map(([key, clan]) => ({
+        key, name: clan.name,
+        totalSeconds: clan.totalSeconds || 0,
+        memberCount: Object.keys(clan.members || {}).length
+      }));
+      results.sort((a, b) => b.totalSeconds - a.totalSeconds);
+      return results;
+    }
+
+    function renderClanPanel() {
+      const titleEl = document.getElementById('clanPanelTitle');
+      const body = document.getElementById('clanPanelBody');
+      if (!body) return;
+      body.innerHTML = '';
+      if (titleEl) titleEl.textContent = myClan ? `⚔️ ${myClan.name}` : '⚔️ Clan Hub';
+
+      // Tab bar — Chat tab only when in a clan
+      const tabs = myClan
+        ? [['mine','👤 My Clan'],['chat','💬 Chat'],['lb','🏆 Rankings']]
+        : [['mine','👤 My Clan'],['lb','🏆 Rankings']];
+      const tabBar = document.createElement('div');
+      tabBar.className = 'clan-tab-bar';
+      tabBar.innerHTML = tabs.map(([t,l]) => `<button class="clan-tab-btn ${clanPanelTab===t?'active':''}" data-tab="${t}">${l}</button>`).join('');
+      tabBar.querySelectorAll('.clan-tab-btn').forEach(btn => {
+        btn.onclick = () => {
+          if (clanPanelTab === 'chat' && unsubClanChat) { unsubClanChat(); unsubClanChat = null; }
+          clanPanelTab = btn.dataset.tab;
+          renderClanPanel();
+        };
+      });
+      body.appendChild(tabBar);
+
+      if (clanPanelTab === 'lb') {
+        const lbWrap = document.createElement('div');
+        lbWrap.style.cssText = 'display:flex;flex-direction:column;gap:7px;';
+        lbWrap.innerHTML = '<div class="clan-lb-empty">Loading…</div>';
+        body.appendChild(lbWrap);
+        fetchClanLeaderboard().then(rows => {
+          lbWrap.innerHTML = '';
+          if (!rows.length) { lbWrap.innerHTML = '<div class="clan-lb-empty">No clans yet. Be the first!</div>'; return; }
+          rows.forEach((clan, i) => {
+            const rank = i+1;
+            const rc = rank===1?'gold':rank===2?'silver':rank===3?'bronze':'';
+            const ri = rank===1?'🥇':rank===2?'🥈':rank===3?'🥉':('#'+rank);
+            const isMe = clan.key === myClanName;
+            const row = document.createElement('div');
+            row.className = 'clan-lb-row' + (isMe?' is-mine':'');
+            row.innerHTML = `<span class="clan-lb-rank ${rc}">${ri}</span>
+              <span class="clan-lb-name">${clan.name}${isMe?' <span style="font-size:0.72em;color:#a855f7;">(yours)</span>':''}</span>
+              <span class="clan-lb-members">${clan.memberCount}👤</span>
+              <span class="clan-lb-time">⏱ ${formatClanTime(clan.totalSeconds)}</span>`;
+            lbWrap.appendChild(row);
+          });
+        });
+
+      } else if (clanPanelTab === 'chat' && myClan) {
+        renderClanChat(body);
+
+      } else {
+        if (!myClan) {
+          const createDiv = document.createElement('div');
+          createDiv.innerHTML = `<div class="clan-section-title">🏗️ Create a Clan</div>
+            <div class="clan-form">
+              <input id="clanCreateName" type="text" placeholder="Clan name…" maxlength="24" autocomplete="off">
+              <input id="clanCreatePwd" type="password" placeholder="Password…" autocomplete="new-password">
+              <button class="clan-form-btn" id="clanCreateBtn">Create Clan</button>
+              <div class="clan-form-msg" id="clanCreateMsg"></div>
+            </div>`;
+          body.appendChild(createDiv);
+          const hr = document.createElement('hr'); hr.className = 'clan-divider'; body.appendChild(hr);
+          const joinDiv = document.createElement('div');
+          joinDiv.innerHTML = `<div class="clan-section-title">🚪 Join a Clan</div>
+            <div class="clan-form">
+              <input id="clanJoinName" type="text" placeholder="Clan name…" maxlength="24" autocomplete="off">
+              <input id="clanJoinPwd" type="password" placeholder="Password…" autocomplete="current-password">
+              <button class="clan-form-btn" id="clanJoinBtn">Join Clan</button>
+              <div class="clan-form-msg" id="clanJoinMsg"></div>
+            </div>`;
+          body.appendChild(joinDiv);
+          document.getElementById('clanCreateBtn').onclick = async function() {
+            const n = document.getElementById('clanCreateName').value.trim();
+            const p = document.getElementById('clanCreatePwd').value;
+            const msg = document.getElementById('clanCreateMsg');
+            msg.style.color='#aaa'; msg.textContent='Creating…'; this.disabled=true;
+            const res = await createClan(n, p);
+            this.disabled=false;
+            if (res.error) { msg.style.color='#ff4757'; msg.textContent=res.error; }
+            else { msg.style.color='#43b581'; msg.textContent='✓ Clan created!'; setTimeout(renderClanPanel,700); }
+          };
+          document.getElementById('clanJoinBtn').onclick = async function() {
+            const n = document.getElementById('clanJoinName').value.trim();
+            const p = document.getElementById('clanJoinPwd').value;
+            const msg = document.getElementById('clanJoinMsg');
+            msg.style.color='#aaa'; msg.textContent='Joining…'; this.disabled=true;
+            const res = await joinClan(n, p);
+            this.disabled=false;
+            if (res.error) { msg.style.color='#ff4757'; msg.textContent=res.error; }
+            else { msg.style.color='#43b581'; msg.textContent='✓ Joined!'; setTimeout(renderClanPanel,700); }
+          };
+        } else {
+          const isOwner = myClan.owner === user;
+          const members = myClan.members || {};
+          const count = Object.keys(members).length;
+          const infoDiv = document.createElement('div');
+          infoDiv.style.cssText = 'display:flex;flex-direction:column;gap:10px;';
+          infoDiv.innerHTML = `<div id="clanInfoName">⚔️ ${myClan.name}</div>
+            <div id="clanOwnerNote">👑 Owner: <strong>${myClan.owner}</strong>${isOwner?' (you)':''}</div>
+            <div class="clan-section-title">👥 Members (${count})</div>
+            <div id="clanMemberList"></div>`;
+          body.appendChild(infoDiv);
+          const memberList = infoDiv.querySelector('#clanMemberList');
+          Object.entries(members).forEach(([safeName, displayName]) => {
+            const isThisOwner = displayName === myClan.owner;
+            const isMe = displayName === user;
+            const row = document.createElement('div'); row.className = 'clan-member-row';
+            row.innerHTML = `<span class="clan-member-name">${displayName}${isMe?' <span style="color:#888;font-size:0.78em;">(you)</span>':''}</span>${isThisOwner?'<span class="clan-member-badge">Owner</span>':''}`;
+            if (isOwner && !isThisOwner) {
+              const kBtn = document.createElement('button'); kBtn.className='clan-kick-btn'; kBtn.textContent='Kick';
+              kBtn.onclick = async () => { kBtn.textContent='…'; kBtn.disabled=true; await kickClanMember(safeName); };
+              row.appendChild(kBtn);
+            }
+            memberList.appendChild(row);
+          });
+          if (!isOwner) {
+            const leaveBtn = document.createElement('button'); leaveBtn.className='clan-leave-btn'; leaveBtn.textContent='🚪 Leave Clan';
+            leaveBtn.onclick = async () => { leaveBtn.disabled=true; await leaveClan(); };
+            body.appendChild(leaveBtn);
+          } else {
+            // Collapsible settings with disband inside
+            const toggle = document.createElement('button'); toggle.className='clan-settings-toggle'; toggle.textContent='⚙️ Clan Settings';
+            const settingsBody = document.createElement('div'); settingsBody.className='clan-settings-body'; settingsBody.style.display='none';
+            const disbandBtn = document.createElement('button'); disbandBtn.className='clan-disband-btn'; disbandBtn.textContent='💥 Disband Clan';
+            let armed = false;
+            disbandBtn.onclick = async () => {
+              if (!armed) { armed=true; disbandBtn.textContent='⚠️ Tap again to confirm'; return; }
+              disbandBtn.disabled=true; disbandBtn.textContent='Disbanding…'; await leaveClan();
+            };
+            settingsBody.appendChild(disbandBtn);
+            toggle.onclick = () => { const open=settingsBody.style.display!=='none'; settingsBody.style.display=open?'none':'flex'; toggle.textContent=open?'⚙️ Clan Settings':'⚙️ Clan Settings ▲'; };
+            body.appendChild(toggle); body.appendChild(settingsBody);
+          }
+        }
+      }
+    }
+    // ===== CLAN CHAT =====
+    function formatClanTime(s) {
+      s = Math.floor(s || 0);
+      if (s < 60) return s + 's';
+      if (s < 3600) return Math.floor(s/60) + 'm ' + (s%60) + 's';
+      if (s < 86400) return Math.floor(s/3600) + 'h ' + Math.floor((s%3600)/60) + 'm';
+      return Math.floor(s/86400) + 'd ' + Math.floor((s%86400)/3600) + 'h';
+    }
+
+    function renderClanChat(container) {
+      const msgList = document.createElement('div');
+      msgList.className = 'chat-messages';
+      msgList.id = 'clanChatMessages';
+      container.appendChild(msgList);
+      const inputBar = document.createElement('div');
+      inputBar.className = 'chat-input-bar';
+      inputBar.innerHTML = `<input class="chat-input" id="clanChatInput" placeholder="Say something…" maxlength="200" autocomplete="off">
+        <button class="chat-send-btn" id="clanChatSend">Send</button>`;
+      container.appendChild(inputBar);
+      if (unsubClanChat) { unsubClanChat(); unsubClanChat = null; }
+      unsubClanChat = onValue(ref(db, 'clans/' + myClanName + '/chat'), snap => {
+        const msgs = snap.exists() ? snap.val() : {};
+        const el = document.getElementById('clanChatMessages');
+        if (!el) return;
+        el.innerHTML = '';
+        const entries = Object.entries(msgs).sort((a,b) => (a[1].ts||0)-(b[1].ts||0)).slice(-50);
+        if (!entries.length) { el.innerHTML = '<div class="chat-empty">No messages yet. Say hi! 👋</div>'; }
+        else entries.forEach(([,msg]) => {
+          const isMe = msg.user === user;
+          const b = document.createElement('div');
+          b.className = 'chat-bubble ' + (isMe ? 'mine' : 'theirs');
+          if (!isMe) { const u = document.createElement('div'); u.className='chat-bubble-user'; u.textContent=msg.user; b.appendChild(u); }
+          b.appendChild(document.createTextNode(msg.text));
+          el.appendChild(b);
+        });
+        el.scrollTop = el.scrollHeight;
+      });
+      const sendFn = async () => {
+        const inp = document.getElementById('clanChatInput');
+        if (!inp || !inp.value.trim() || !myClanName) return;
+        const text = inp.value.trim(); inp.value = '';
+        const key = Date.now() + '_' + Math.random().toString(36).slice(2,6);
+        await set(ref(db, 'clans/' + myClanName + '/chat/' + key), { user, text, ts: Date.now() });
+      };
+      document.getElementById('clanChatSend').onclick = sendFn;
+      document.getElementById('clanChatInput').onkeydown = e => { if (e.key === 'Enter') sendFn(); };
+    }
+
+    // ===== FRIENDS =====
+    function friendChatKey(a, b) { return [a,b].sort().join('__'); }
+
+    async function sendFriendRequest(target) {
+      if (!user || !target) return { error: 'Enter a username.' };
+      if (target === user) return { error: "Can't add yourself." };
+      const safeTarget = target.replace(/[.#$[\]]/g, '_');
+      const safeMe = user.replace(/[.#$[\]]/g, '_');
+      const snap = await get(ref(db, 'users/' + safeTarget + '/password'));
+      if (!snap.exists()) return { error: 'User not found.' };
+      if (myFriends[safeTarget]) return { error: 'Already friends.' };
+      const existing = await get(ref(db, 'users/' + safeTarget + '/friendRequests/' + safeMe));
+      if (existing.exists()) return { error: 'Request already sent.' };
+      await update(ref(db, 'users/' + safeTarget + '/friendRequests/' + safeMe), { from: user, ts: Date.now() });
+      return { ok: true };
+    }
+
+    async function acceptFriendRequest(fromSafe) {
+      const safeMe = user.replace(/[.#$[\]]/g, '_');
+      const req = pendingRequests[fromSafe];
+      if (!req) return;
+      const updates = {};
+      updates['users/' + safeMe + '/friends/' + fromSafe] = req.from;
+      updates['users/' + fromSafe + '/friends/' + safeMe] = user;
+      updates['users/' + safeMe + '/friendRequests/' + fromSafe] = null;
+      await update(ref(db, '/'), updates);
+    }
+
+    async function declineFriendRequest(fromSafe) {
+      const safeMe = user.replace(/[.#$[\]]/g, '_');
+      await set(ref(db, 'users/' + safeMe + '/friendRequests/' + fromSafe), null);
+    }
+
+    async function removeFriend(friendSafe) {
+      const safeMe = user.replace(/[.#$[\]]/g, '_');
+      const updates = {};
+      updates['users/' + safeMe + '/friends/' + friendSafe] = null;
+      updates['users/' + friendSafe + '/friends/' + safeMe] = null;
+      await update(ref(db, '/'), updates);
+    }
+
+    function listenFriendRequests() {
+      if (unsubFriendRequests) { unsubFriendRequests(); unsubFriendRequests = null; }
+      const safeMe = user.replace(/[.#$[\]]/g, '_');
+      unsubFriendRequests = onValue(ref(db, 'users/' + safeMe + '/friendRequests'), snap => {
+        pendingRequests = snap.exists() ? (snap.val() || {}) : {};
+        const cnt = Object.keys(pendingRequests).length;
+        const dot = document.getElementById('friendsNotifDot');
+        if (dot) dot.style.display = cnt > 0 ? 'block' : 'none';
+        const btn = document.getElementById('friendsBtn');
+        if (btn) btn.textContent = cnt > 0 ? `👥 Friends (${cnt})` : '👥 Friends';
+        const overlay = document.getElementById('friendsOverlay');
+        if (overlay && overlay.style.display === 'flex' && friendsPanelTab === 'requests') renderFriendsPanel();
+      });
+    }
+
+    function listenFriends() {
+      if (unsubFriendsList) { unsubFriendsList(); unsubFriendsList = null; }
+      const safeMe = user.replace(/[.#$[\]]/g, '_');
+      unsubFriendsList = onValue(ref(db, 'users/' + safeMe + '/friends'), snap => {
+        myFriends = snap.exists() ? (snap.val() || {}) : {};
+        const overlay = document.getElementById('friendsOverlay');
+        if (overlay && overlay.style.display === 'flex' && friendsPanelTab === 'list') renderFriendsPanel();
+      });
+    }
+
+    async function initFriends(userData) {
+      myFriends = userData.friends || {};
+      pendingRequests = userData.friendRequests || {};
+      listenFriendRequests();
+      listenFriends();
+    }
+
+    function openFriendsPanel() {
+      document.getElementById('friendsOverlay').style.display = 'flex';
+      renderFriendsPanel();
+    }
+    function closeFriendsPanel() {
+      document.getElementById('friendsOverlay').style.display = 'none';
+    }
+
+    function renderFriendsPanel() {
+      const body = document.getElementById('friendsPanelBody');
+      if (!body) return;
+      body.innerHTML = '';
+      const reqCnt = Object.keys(pendingRequests).length;
+      const tabBar = document.createElement('div');
+      tabBar.className = 'friends-tab-bar';
+      tabBar.innerHTML = `<button class="friends-tab-btn ${friendsPanelTab==='list'?'active':''}" data-tab="list">👥 Friends (${Object.keys(myFriends).length})</button>
+        <button class="friends-tab-btn ${friendsPanelTab==='requests'?'active':''}" data-tab="requests">📬 Requests${reqCnt>0?' ('+reqCnt+')':''}</button>`;
+      tabBar.querySelectorAll('.friends-tab-btn').forEach(b => { b.onclick = () => { friendsPanelTab = b.dataset.tab; renderFriendsPanel(); }; });
+      body.appendChild(tabBar);
+
+      if (friendsPanelTab === 'list') {
+        const entries = Object.entries(myFriends);
+        if (!entries.length) { const e=document.createElement('div'); e.className='friends-empty'; e.textContent='No friends yet. Add some in Requests!'; body.appendChild(e); }
+        else {
+          const list = document.createElement('div');
+          list.style.cssText = 'display:flex;flex-direction:column;gap:7px;';
+          entries.forEach(([safeName, displayName]) => {
+            const row = document.createElement('div'); row.className = 'friend-row';
+            row.innerHTML = `<span class="friend-name">${displayName}</span>`;
+            const chatBtn = document.createElement('button'); chatBtn.className='friend-action-btn friend-chat-btn'; chatBtn.textContent='💬';
+            chatBtn.onclick = () => { closeFriendsPanel(); openDM(safeName, displayName); };
+            const tradeBtn = document.createElement('button'); tradeBtn.className='friend-action-btn friend-trade-btn'; tradeBtn.textContent='🔄';
+            tradeBtn.onclick = () => { closeFriendsPanel(); openDM(safeName, displayName); openTradeWith(safeName, displayName); };
+            const rmBtn = document.createElement('button'); rmBtn.className='friend-action-btn friend-remove-btn'; rmBtn.textContent='✕';
+            rmBtn.onclick = async () => { rmBtn.disabled=true; await removeFriend(safeName); };
+            row.appendChild(chatBtn); row.appendChild(tradeBtn); row.appendChild(rmBtn);
+            list.appendChild(row);
+          });
+          body.appendChild(list);
+        }
+      } else {
+        const addDiv = document.createElement('div');
+        addDiv.innerHTML = `<div class="friends-section-title">➕ Add Friend</div>
+          <div class="friends-add-form">
+            <input id="friendAddInput" type="text" placeholder="Enter exact username…" maxlength="32" autocomplete="off">
+            <button class="friends-add-btn" id="friendAddBtn">Send Request</button>
+            <div class="clan-form-msg" id="friendAddMsg"></div>
+          </div>`;
+        body.appendChild(addDiv);
+        const pending = Object.entries(pendingRequests);
+        if (pending.length) {
+          const hr = document.createElement('hr'); hr.className='friends-divider'; body.appendChild(hr);
+          const sec = document.createElement('div');
+          sec.innerHTML = `<div class="friends-section-title">📬 Incoming (${pending.length})</div>`;
+          const rList = document.createElement('div'); rList.style.cssText='display:flex;flex-direction:column;gap:7px;margin-top:6px;';
+          pending.forEach(([fromSafe, reqData]) => {
+            const row = document.createElement('div'); row.className='friend-req-row';
+            row.innerHTML = `<span class="friend-req-name">${reqData.from}</span>`;
+            const acc = document.createElement('button'); acc.className='friend-accept-btn'; acc.textContent='✓ Accept';
+            acc.onclick = async () => { acc.disabled=true; await acceptFriendRequest(fromSafe); renderFriendsPanel(); };
+            const dec = document.createElement('button'); dec.className='friend-decline-btn'; dec.textContent='✕';
+            dec.onclick = async () => { dec.disabled=true; await declineFriendRequest(fromSafe); renderFriendsPanel(); };
+            row.appendChild(acc); row.appendChild(dec); rList.appendChild(row);
+          });
+          sec.appendChild(rList); body.appendChild(sec);
+        }
+        document.getElementById('friendAddBtn').onclick = async function() {
+          const target = document.getElementById('friendAddInput').value.trim();
+          const msg = document.getElementById('friendAddMsg');
+          msg.style.color='#aaa'; msg.textContent='Sending…'; this.disabled=true;
+          const res = await sendFriendRequest(target);
+          this.disabled=false;
+          if (res.error) { msg.style.color='#ff4757'; msg.textContent=res.error; }
+          else { msg.style.color='#43b581'; msg.textContent=`✓ Request sent to ${target}!`; document.getElementById('friendAddInput').value=''; }
+        };
+        document.getElementById('friendAddInput').onkeydown = e => { if(e.key==='Enter') document.getElementById('friendAddBtn').click(); };
+      }
+    }
+
+    // ===== DM =====
+    function openDM(friendSafe, friendName) {
+      dmFriendSafe = friendSafe; dmFriendName = friendName;
+      dmChatKey = friendChatKey(user.replace(/[.#$[\]]/g,'_'), friendSafe);
+      document.getElementById('dmTitle').textContent = '💬 ' + friendName;
+      const win = document.getElementById('dmWindow');
+      win.style.display = 'flex';
+      if (unsubDM) { unsubDM(); unsubDM = null; }
+      unsubDM = onValue(ref(db, 'friendChats/' + dmChatKey + '/messages'), snap => {
+        renderDMMessages(snap.exists() ? snap.val() : {});
+      });
+    }
+
+    function renderDMMessages(messages) {
+      const container = document.getElementById('dmMessages');
+      if (!container) return;
+      container.innerHTML = '';
+      const entries = Object.entries(messages).sort((a,b) => (a[1].ts||0)-(b[1].ts||0));
+      if (!entries.length) { container.innerHTML='<div style="text-align:center;color:#4a6080;font-size:0.82em;padding:10px 0;">No messages yet</div>'; return; }
+      entries.forEach(([,msg]) => {
+        if (msg.type === 'trade') { renderTradeMsg(container, msg); return; }
+        const isMe = msg.from === user;
+        const b = document.createElement('div');
+        b.className = 'dm-bubble ' + (isMe ? 'mine' : 'theirs');
+        b.textContent = msg.text;
+        container.appendChild(b);
+      });
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function renderTradeMsg(container, msg) {
+      const isMe = msg.from === user;
+      const wrap = document.createElement('div');
+      wrap.className = 'trade-offer-bubble';
+      let statusHtml = '';
+      if (msg.status === 'pending' && !isMe) statusHtml = `<div style="display:flex;gap:6px;"><button class="trade-offer-accept" data-key="${msg.tradeKey}">✓ Accept</button><button class="trade-offer-decline" data-key="${msg.tradeKey}">✕ Decline</button></div>`;
+      else if (msg.status === 'accepted') statusHtml = '<div style="color:#43b581;font-size:0.82em;font-weight:700;">✓ Trade accepted</div>';
+      else if (msg.status === 'declined') statusHtml = '<div style="color:#ff4757;font-size:0.82em;font-weight:700;">✕ Declined</div>';
+      else if (msg.status === 'pending' && isMe) statusHtml = '<div style="color:#888;font-size:0.82em;">⏳ Awaiting response…</div>';
+      wrap.innerHTML = `<div class="trade-offer-title">🔄 Trade Offer${isMe?' (you sent)':' from '+msg.from}</div><div style="font-size:0.82em;color:#a0c8b0;">Offering: 💎 ${msg.offerGems} gems</div>${statusHtml}`;
+      container.appendChild(wrap);
+      if (!isMe && msg.status === 'pending') {
+        wrap.querySelector('[data-key]').onclick = () => acceptTradeOffer(msg.tradeKey);
+        wrap.querySelectorAll('[data-key]')[1].onclick = () => declineTradeOffer(msg.tradeKey);
+      }
+    }
+
+    function closeDM() {
+      document.getElementById('dmWindow').style.display = 'none';
+      if (unsubDM) { unsubDM(); unsubDM = null; }
+      dmFriendSafe = null; dmFriendName = null; dmChatKey = null;
+    }
+
+    async function sendDMMsg() {
+      const inp = document.getElementById('dmInput');
+      if (!inp || !inp.value.trim() || !dmChatKey) return;
+      const text = inp.value.trim(); inp.value = '';
+      const key = Date.now() + '_' + Math.random().toString(36).slice(2,6);
+      await set(ref(db, 'friendChats/' + dmChatKey + '/messages/' + key), { from: user, text, ts: Date.now() });
+    }
+
+    // ===== TRADE =====
+    function openTradeWith(friendSafe, friendName) {
+      if (!dmChatKey) dmChatKey = friendChatKey(user.replace(/[.#$[\]]/g,'_'), friendSafe);
+      document.getElementById('tradeTargetName').textContent = friendName;
+      document.getElementById('tradeGemOffer').value = '';
+      document.getElementById('tradeMsg').textContent = '';
+      document.getElementById('tradeModal').style.display = 'flex';
+    }
+
+    async function sendTradeOffer() {
+      const gems = parseInt(document.getElementById('tradeGemOffer').value) || 0;
+      const msg = document.getElementById('tradeMsg');
+      if (gems <= 0) { msg.style.color='#ff4757'; msg.textContent='Enter gems to offer.'; return; }
+      if (gems > diamonds) { msg.style.color='#ff4757'; msg.textContent="Not enough gems."; return; }
+      if (!dmChatKey) { msg.style.color='#ff4757'; msg.textContent='Open a chat first.'; return; }
+      msg.style.color='#aaa'; msg.textContent='Sending…';
+      document.getElementById('tradeSendBtn').disabled = true;
+      const tradeKey = Date.now() + '_' + Math.random().toString(36).slice(2,6);
+      const msgKey = 'trade_' + tradeKey;
+      await set(ref(db, 'friendChats/' + dmChatKey + '/messages/' + msgKey), {
+        type:'trade', from:user, to:dmFriendName, offerGems:gems, tradeKey, status:'pending', ts:Date.now()
+      });
+      document.getElementById('tradeSendBtn').disabled = false;
+      document.getElementById('tradeModal').style.display = 'none';
+    }
+
+    async function acceptTradeOffer(tradeKey) {
+      if (!dmChatKey) return;
+      const msgKey = 'trade_' + tradeKey;
+      const snap = await get(ref(db, 'friendChats/' + dmChatKey + '/messages/' + msgKey));
+      if (!snap.exists()) return;
+      const tradeData = snap.val();
+      if (tradeData.status !== 'pending') return;
+      const safeFrom = tradeData.from.replace(/[.#$[\]]/g,'_');
+      const safeMe = user.replace(/[.#$[\]]/g,'_');
+      const senderSnap = await get(ref(db, 'users/' + safeFrom + '/diamonds'));
+      const senderGems = senderSnap.exists() ? (senderSnap.val()||0) : 0;
+      if (senderGems < tradeData.offerGems) {
+        await update(ref(db, 'friendChats/' + dmChatKey + '/messages/' + msgKey), {status:'declined'});
+        return;
+      }
+      const updates = {};
+      updates['users/' + safeFrom + '/diamonds'] = senderGems - tradeData.offerGems;
+      updates['users/' + safeMe + '/diamonds'] = diamonds + tradeData.offerGems;
+      updates['friendChats/' + dmChatKey + '/messages/' + msgKey + '/status'] = 'accepted';
+      await update(ref(db, '/'), updates);
+      diamonds += tradeData.offerGems;
+      updateDiamondDisplay();
+    }
+
+    async function declineTradeOffer(tradeKey) {
+      if (!dmChatKey) return;
+      await update(ref(db, 'friendChats/' + dmChatKey + '/messages/trade_' + tradeKey), {status:'declined'});
+    }
+    // ===== END CLAN FUNCTIONS =====
+
+    function toggleLightMode() {
+      lightMode = !lightMode;
+      document.body.classList.toggle('light-mode', lightMode);
+      document.getElementById('lightModeToggle').textContent = lightMode ? '🌙 Dark' : '☀️ Light';
+      try { localStorage.setItem('lightMode', lightMode ? '1' : '0'); } catch(e) {}
+    }
+    function initLightMode() {
+      try {
+        const saved = localStorage.getItem('lightMode');
+        if (saved === '1') { lightMode = true; document.body.classList.add('light-mode'); document.getElementById('lightModeToggle').textContent = '🌙 Dark'; }
+      } catch(e) {}
+    }
+
+    const MAX_TITLE_COUNT = 50;
+
+    const PROFILE_COLORS = [
+      { name: 'Indigo',  value: '#5865f2' }, { name: 'Green',  value: '#43b581' },
+      { name: 'Red',     value: '#ff4757' }, { name: 'Gold',   value: '#f0c040' },
+      { name: 'Cyan',    value: '#00e5ff' }, { name: 'Pink',   value: '#ff6b81' },
+      { name: 'Orange',  value: '#ff7f50' }, { name: 'Purple', value: '#9b59b6' },
+    ];
+
+    const TIER_PRIORITY = ['rng_ultra','mythical','rng_m','legendary','rng_l','epic','rng_e','rare','rng_r','uncommon','rng_u','common','rng_c','lowgrungus','grungus','highgrungus','lordgrungus','doopgrungus','teador'];
+
+    function getEvolutionStage(count) {
+      if (!count || count <= 1) return null;
+      if (count >= MAX_TITLE_COUNT) return { name: 'Max', color: '#ff0080', bg: '#1a0010', icon: '⚡', isMax: true };
+      if (count === 2) return { name: 'Bronze',   color: '#cd7f32', bg: '#2a1800', icon: '🥉' };
+      if (count === 3) return { name: 'Silver',   color: '#c0c0c0', bg: '#252525', icon: '🥈' };
+      if (count === 4) return { name: 'Gold',     color: '#ffd700', bg: '#2a2200', icon: '🥇' };
+      if (count === 5) return { name: 'Platinum', color: '#b9f2ff', bg: '#0a1e22', icon: '💎' };
+      const lvl = count - 4;
+      return { name: `Platinum Lvl ${lvl}`, color: '#e0aaff', bg: '#1a0a2e', icon: '✨' };
+    }
+
+    const EVO_STAGES = [
+      { minCount: 2,  name: 'Bronze',   color: '#cd7f32', bg: '#2a1800', icon: '🥉' },
+      { minCount: 3,  name: 'Silver',   color: '#c0c0c0', bg: '#252525', icon: '🥈' },
+      { minCount: 4,  name: 'Gold',     color: '#ffd700', bg: '#2a2200', icon: '🥇' },
+      { minCount: 5,  name: 'Platinum', color: '#b9f2ff', bg: '#0a1e22', icon: '💎' },
+      { minCount: MAX_TITLE_COUNT, name: 'Max', color: '#ff0080', bg: '#1a0010', icon: '⚡', isMax: true },
+    ];
+
+    function getRarestOwnedTitle(titlesArr, countsObj) {
+      const owned = ALL_TITLES.filter(t => titlesArr.includes(t.id));
+      if (!owned.length) return null;
+      owned.sort((a, b) => {
+        const pa = TIER_PRIORITY.indexOf(a.tier), pb = TIER_PRIORITY.indexOf(b.tier);
+        const ra = pa === -1 ? 99 : pa, rb = pb === -1 ? 99 : pb;
+        if (ra !== rb) return ra - rb;
+        return (countsObj[b.id] || 1) - (countsObj[a.id] || 1);
+      });
+      return owned[0];
+    }
+
+    function getMyEquippedTitle() {
+      if (equippedTitleId) {
+        const t = ALL_TITLES.find(tt => tt.id === equippedTitleId && myTitles.includes(tt.id));
+        if (t) return t;
+      }
+      return getRarestOwnedTitle(myTitles, titleCounts);
+    }
+
+    function renderTitlesPanel() {
+      const container = document.getElementById('titlesList');
+      if (!container) return;
+      container.innerHTML = '';
+      const earned = ALL_TITLES.filter(t => myTitles.includes(t.id));
+      if (earned.length === 0) {
+        container.innerHTML = '<div id="titlesEmpty">No titles yet — keep playing!</div>';
+        return;
+      }
+      // Apply filters
+      const searchLower = titleFilter.toLowerCase().trim();
+      const TIER_GROUPS_MAP = { common:['common','rng_c'], uncommon:['uncommon','rng_u'], rare:['rare','rng_r'], epic:['epic','rng_e'], legendary:['legendary','rng_l'], mythical:['mythical','rng_m','rng_ultra','doopgrungus','lowgrungus','grungus','highgrungus','lordgrungus','teador'], evolved:[] };
+      function passesTierFilter(t) {
+        if (tierFilter === 'all') return true;
+        if (tierFilter === 'evolved') return (titleCounts[t.id] || 1) >= 2;
+        const allowed = TIER_GROUPS_MAP[tierFilter];
+        return allowed && allowed.includes(t.tier);
+      }
+      function passesSearch(t, evo) {
+        if (!searchLower) return true;
+        const dispName = evo ? `${evo.name} ${t.label}` : t.label;
+        return dispName.toLowerCase().includes(searchLower) || t.desc.toLowerCase().includes(searchLower) || t.tier.toLowerCase().includes(searchLower);
+      }
+      let totalCount = 0;
+      let filteredAny = false;
+      const myEquipped = getMyEquippedTitle();
+      TITLE_GROUPS.forEach(group => {
+        const groupEarned = group.ids
+          .map(id => ALL_TITLES.find(t => t.id === id))
+          .filter(t => t && myTitles.includes(t.id))
+          .filter(t => { const evo = getEvolutionStage(titleCounts[t.id] || 1); return passesTierFilter(t) && passesSearch(t, evo); });
+        if (groupEarned.length === 0) return;
+        totalCount += groupEarned.length;
+        const header = document.createElement('div');
+        header.className = 'title-group-header';
+        header.textContent = group.label;
+        container.appendChild(header);
+        groupEarned.forEach(t => {
+          const tc = TIER_CONFIG[t.tier] || TIER_CONFIG.common;
+          const count = titleCounts[t.id] || 1;
+          const evo = getEvolutionStage(count);
+          const isMax = evo && evo.isMax;
+          const isEquipped = myEquipped && myEquipped.id === t.id;
+          const card = document.createElement('div');
+          card.className = 'title-card' + (isMax ? ' title-card-max' : '');
+          card.style.borderColor = evo ? evo.color + 'aa' : tc.color + '88';
+          card.style.background = evo ? evo.bg : tc.bg;
+          const displayName = evo ? `${evo.name} ${t.label}` : t.label;
+          const nameClass = isMax ? 'title-name title-name-max' : 'title-name';
+          const evoBadge = evo ? `<span class="evo-badge" style="background:${evo.color}22;color:${evo.color};border:1px solid ${evo.color}55;">${evo.icon} ${evo.name}</span>` : '';
+          const countPill = count > 1 ? `<div class="evo-count-pill">x${count} owned${count >= MAX_TITLE_COUNT ? ' — MAX' : ''}</div>` : '';
+          const globalCount = globalTitleCounts[t.id] || 0;
+          const globalStr = globalCount > 0 ? `<div class="title-global-count">🌍 ${globalCount} player${globalCount !== 1 ? 's' : ''} have this</div>` : '';
+          const equipLabel = isEquipped ? '✓ Equipped' : 'Equip';
+          card.innerHTML = `<div class="title-icon">${t.icon}</div><div style="flex:1"><div class="${nameClass}" style="color:${evo ? evo.color : tc.color}">${isMax ? displayName : t.label}${!isMax && evo ? evoBadge : ''}</div><div class="title-desc">${t.desc}</div><div class="title-tier-badge" style="color:${tc.color}">${tc.label}</div>${countPill}${globalStr}<button class="title-equip-btn${isEquipped ? ' equipped' : ''}" data-tid="${t.id}">${equipLabel}</button></div>`;
+          container.appendChild(card);
+          filteredAny = true;
+        });
+      });
+
+      if (!filteredAny && (searchLower || tierFilter !== 'all')) {
+        container.innerHTML = '<div id="titlesEmpty">No titles match that filter.</div>';
+        return;
+      }
+
+      // Equip button handlers
+      container.querySelectorAll('.title-equip-btn').forEach(btn => {
+        btn.onclick = (e) => {
+          e.stopPropagation();
+          const tid = btn.dataset.tid;
+          equippedTitleId = equippedTitleId === tid ? null : tid;
+          saveTitlesToDB();
+          renderTitlesPanel();
+        };
+      });
+
+      // --- Evolution Section ---
+      const hasEvolved = Object.entries(titleCounts).some(([,c]) => c >= 2);
+      if (hasEvolved) {
+        const divider = document.createElement('div');
+        divider.className = 'evo-section-divider';
+        container.appendChild(divider);
+        const evoTitle = document.createElement('div');
+        evoTitle.className = 'evo-section-title';
+        evoTitle.textContent = '⚗️ Evolved Titles';
+        container.appendChild(evoTitle);
+        EVO_STAGES.forEach(stage => {
+          const isMaxStage = stage.isMax;
+          const titlesAtStage = ALL_TITLES.filter(t => {
+            const c = titleCounts[t.id] || 0;
+            if (isMaxStage) return c >= MAX_TITLE_COUNT;
+            const nextStage = EVO_STAGES.find(s => s.minCount > stage.minCount && !s.isMax);
+            return c >= stage.minCount && (!nextStage || c < nextStage.minCount) && c < MAX_TITLE_COUNT;
+          });
+          if (titlesAtStage.length === 0) return;
+          const hdr = document.createElement('div');
+          hdr.className = 'evo-section-header';
+          hdr.style.cssText = `background:${stage.bg};color:${stage.color};border:1.5px solid ${stage.color}44;`;
+          hdr.textContent = `${stage.icon} ${stage.name}`;
+          container.appendChild(hdr);
+          titlesAtStage.forEach(t => {
+            const row = document.createElement('div');
+            row.className = 'evo-stage-row' + (isMaxStage ? ' title-card-max' : '');
+            row.style.borderColor = stage.color + '55';
+            row.style.background = stage.bg;
+            const c = titleCounts[t.id] || 1;
+            const dispName = isMaxStage ? `Max ${t.label}` : `${stage.name} ${t.label}`;
+            const nameEl = isMaxStage ? `<div class="evo-stage-name title-name-max" style="color:${stage.color}">${dispName}</div>` : `<div class="evo-stage-name" style="color:${stage.color}">${dispName}</div>`;
+            row.innerHTML = `<div class="evo-stage-icon">${t.icon}</div><div>${nameEl}<div class="evo-stage-count">x${c} owned${isMaxStage ? ' — MAXED OUT' : ''}</div></div>`;
+            container.appendChild(row);
+          });
+        });
+        const platTitles = ALL_TITLES.filter(t => { const c = titleCounts[t.id] || 0; return c >= 6 && c < MAX_TITLE_COUNT; });
+        platTitles.forEach(t => {
+          const c = titleCounts[t.id];
+          const evo = getEvolutionStage(c);
+          const row = document.createElement('div');
+          row.className = 'evo-stage-row';
+          row.style.borderColor = evo.color + '55';
+          row.style.background = evo.bg;
+          row.innerHTML = `<div class="evo-stage-icon">${t.icon}</div><div><div class="evo-stage-name" style="color:${evo.color}">${evo.name} ${t.label}</div><div class="evo-stage-count">x${c} owned · ${evo.name}</div></div>`;
+          container.appendChild(row);
+        });
+      }
+
+      const tab = document.getElementById('titlesTab');
+      if (tab) tab.textContent = '🏅 Titles (' + totalCount + ')';
+    }
+
+    function showTitleToast(titleLabel) {
+      const toast = document.getElementById('newTitleToast');
+      if (!toast) return;
+      toast.textContent = '🎉 New title: ' + titleLabel + '!';
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3500);
+    }
+
+    function saveTitlesToDB() {
+      if (!user) return;
+      const safeUsername = user.replace(/[.#$[\]]/g, '_');
+      update(ref(db, 'users/' + safeUsername), { titles: myTitles, titleCounts, equippedTitleId: equippedTitleId || null });
+    }
+
+    function checkAndGrantTimeTitles() {
+      if (!user) return;
+      let changed = false;
+      TIME_TITLES.forEach(t => {
+        if (timer >= t.seconds && !myTitles.includes(t.id)) {
+          myTitles.push(t.id);
+          changed = true;
+          const meta = ALL_TITLES.find(a => a.id === t.id);
+          if (meta) showTitleToast(meta.label);
+        }
+      });
+      if (changed) {
+        saveTitlesToDB();
+        renderTitlesPanel();
+      }
+    }
+
+    function initTitles(userData) {
+      if (titlesInitialized) return;
+      titlesInitialized = true;
+      titleCounts = (userData.titleCounts && typeof userData.titleCounts === 'object') ? { ...userData.titleCounts } : {};
+      equippedTitleId = userData.equippedTitleId || null;
+      profileColor = userData.profileColor || '#5865f2';
+      profileBio = userData.profileBio || '';
+      if (userData.notOg !== true) {
+        const existing = Array.isArray(userData.titles) ? [...userData.titles] : [];
+        myTitles = existing.includes('og') ? existing : ['og', ...existing];
+        TIME_TITLES.forEach(t => {
+          if ((userData.seconds || 0) >= t.seconds && !myTitles.includes(t.id)) myTitles.push(t.id);
+        });
+        myTitles.forEach(id => { if (!titleCounts[id]) titleCounts[id] = 1; });
+        saveTitlesToDB();
+      } else {
+        myTitles = Array.isArray(userData.titles) ? [...userData.titles] : [];
+        myTitles.forEach(id => { if (!titleCounts[id]) titleCounts[id] = 1; });
+        checkAndGrantTimeTitles();
+      }
+      renderTitlesPanel();
+    }
+
+
+    function updateDiamondDisplay() {
+      const el = document.getElementById('diamondCount');
+      if (!el) return;
+      const frac = diamonds - Math.floor(diamonds);
+      el.textContent = frac > 0.005 ? diamonds.toFixed(1) : Math.floor(diamonds).toLocaleString();
+    }
+
+    function getMinePerClick() {
+      if (mineLevel === 0) return 0.1;
+      const upg = MINE_UPGRADES.find(u => u.level === mineLevel);
+      return upg ? upg.perClick : 0.1;
+    }
+
+    function getDiamondTickAmount() {
+      return 10 + myTitles.length;
+    }
+
+    function clickGemMine() {
+      if (!user) return;
+      const gain = getMinePerClick();
+      diamonds = Math.round((diamonds + gain) * 100) / 100;
+      updateDiamondDisplay();
+      // Update cave balance if open
+      const caveGemCount = document.getElementById('caveGemCount');
+      if (caveGemCount) caveGemCount.textContent = (diamonds % 1 > 0.005 ? diamonds.toFixed(1) : Math.floor(diamonds).toLocaleString());
+      const btn = document.getElementById('caveMineBtn');
+      if (btn) {
+        const prev = btn.textContent;
+        btn.textContent = `+${gain} 💎`;
+        clearTimeout(btn._resetTimer);
+        btn._resetTimer = setTimeout(() => {
+          const cur = MINE_UPGRADES.find(u => u.level === mineLevel);
+          btn.textContent = cur ? `${cur.icon} Mine!` : '⛏️ Mine!';
+        }, 320);
+      }
+      clearTimeout(gemSaveTimeout);
+      gemSaveTimeout = setTimeout(() => {
+        const safe = user.replace(/[.#$[\]]/g, '_');
+        update(ref(db, 'users/' + safe), { diamonds });
+      }, 600);
+    }
+
+    function openCave() {
+      const overlay = document.getElementById('caveOverlay');
+      overlay.style.display = 'flex';
+      renderCave();
+    }
+    function closeCave() {
+      document.getElementById('caveOverlay').style.display = 'none';
+    }
+
+    function renderCave() {
+      const frac = diamonds - Math.floor(diamonds);
+      document.getElementById('caveGemCount').textContent = frac > 0.005 ? diamonds.toFixed(1) : Math.floor(diamonds).toLocaleString();
+      const perClick = getMinePerClick();
+      document.getElementById('cavePerClick').textContent = perClick;
+      const tickAmt = getDiamondTickAmount();
+      document.getElementById('cavePerTick').textContent = tickAmt;
+      document.getElementById('caveTitleBonusNote').textContent = myTitles.length > 0
+        ? `(base 10 + ${myTitles.length} titles)`
+        : '(earn titles for a bonus)';
+      // Mine button label
+      const cur = MINE_UPGRADES.find(u => u.level === mineLevel);
+      document.getElementById('caveMineBtn').textContent = cur ? `${cur.icon} Mine!` : '⛏️ Mine!';
+      // Upgrades
+      const list = document.getElementById('caveUpgradeList');
+      list.innerHTML = '';
+      MINE_UPGRADES.forEach(upg => {
+        const owned = mineLevel >= upg.level;
+        const isCurrent = mineLevel === upg.level;
+        const isNext = mineLevel === upg.level - 1;
+        const canAfford = diamonds >= upg.cost;
+        const card = document.createElement('div');
+        card.className = 'mine-upgrade-card' + (isCurrent ? ' current' : owned && !isCurrent ? ' maxed' : '');
+        let btnHtml = '';
+        if (owned) {
+          btnHtml = `<button class="mine-ug-btn owned-badge" disabled>✓ Owned</button>`;
+        } else if (isNext) {
+          btnHtml = `<button class="mine-ug-btn ${canAfford ? 'affordable' : 'too-poor'}" data-lvl="${upg.level}">${canAfford ? `💎 ${upg.cost.toLocaleString()}` : `Need ${upg.cost.toLocaleString()} 💎`}</button>`;
+        } else {
+          btnHtml = `<button class="mine-ug-btn too-poor" disabled>🔒 Unlock previous</button>`;
+        }
+        card.innerHTML = `<div class="mine-ug-icon">${upg.icon}</div><div class="mine-ug-info"><div class="mine-ug-name" style="color:${upg.color}">${upg.name}</div><div class="mine-ug-desc">${upg.desc}</div><div class="mine-ug-stat" style="color:${upg.color}">+${upg.perClick} 💎/click</div></div>${btnHtml}`;
+        card.querySelector('.mine-ug-btn.affordable')?.addEventListener('click', () => buyMineUpgrade(upg.level));
+        list.appendChild(card);
+      });
+    }
+
+    function buyMineUpgrade(level) {
+      const upg = MINE_UPGRADES.find(u => u.level === level);
+      if (!upg || !user) return;
+      if (mineLevel >= level) return;
+      if (mineLevel !== level - 1) return;
+      if (diamonds < upg.cost) return;
+      diamonds = Math.round((diamonds - upg.cost) * 100) / 100;
+      mineLevel = level;
+      update(ref(db, 'users/' + user.replace(/[.#$[\]]/g, '_')), { diamonds, mineLevel });
+      updateDiamondDisplay();
+      renderCave();
+    }
+
+    function buyTitle(id) {
+      const bt = BUYABLE_TITLES.find(t => t.id === id);
+      if (!bt || !user) return;
+      if (myTitles.includes(id)) return;
+      if (diamonds < bt.cost) return;
+      diamonds -= bt.cost;
+      update(ref(db, 'users/' + user.replace(/[.#$[\]]/g, '_')), { diamonds });
+      updateDiamondDisplay();
+      if (!myTitles.includes(id)) myTitles.push(id);
+      if (!titleCounts[id]) titleCounts[id] = 1;
+      saveTitlesToDB();
+      renderTitlesPanel();
+      openShop();
+      const t = ALL_TITLES.find(tt => tt.id === id);
+      if (t) {
+        const toast = document.getElementById('newTitleToast');
+        toast.textContent = `${t.icon} Purchased "${t.label}"!`;
+        toast.className = 'show';
+        setTimeout(() => { toast.className = ''; }, 2800);
+      }
+    }
+
+    function getTodayStr() {
+      return new Date().toISOString().split('T')[0];
+    }
+    function canFreeSpinToday() {
+      return lastFreeSpin !== getTodayStr();
+    }
+
+    function initDiamonds(userData) {
+      if (typeof userData.diamonds === 'number') {
+        diamonds = userData.diamonds;
+      } else {
+        diamonds = Math.floor((userData.seconds || 0) / 100) * 10;
+        const safe = user.replace(/[.#$[\]]/g, '_');
+        update(ref(db, 'users/' + safe), { diamonds });
+      }
+      lastDiamondTick = Math.floor((userData.seconds || 0) / 100);
+      lastFreeSpin = userData.lastFreeSpin || null;
+      mythicalSpins = typeof userData.mythicalSpins === 'number' ? userData.mythicalSpins : 0;
+      mineLevel = typeof userData.mineLevel === 'number' ? userData.mineLevel : 0;
+      updateDiamondDisplay();
+    }
+
+    function rollPack(packIdx) {
+      const pack = PACKS[packIdx];
+      const safeU = user.replace(/[.#$[\]]/g, '_');
+      if (pack.daily) {
+        if (mythicalSpins > 0) {
+          mythicalSpins--;
+          update(ref(db, 'users/' + safeU), { mythicalSpins });
+        } else if (canFreeSpinToday()) {
+          const today = getTodayStr();
+          lastFreeSpin = today;
+          update(ref(db, 'users/' + safeU), { lastFreeSpin: today });
+        } else {
+          return;
+        }
+      } else {
+        if (diamonds < pack.cost) { showRollResult(null, null, true); return; }
+        diamonds -= pack.cost;
+        update(ref(db, 'users/' + safeU), { diamonds });
+        updateDiamondDisplay();
+      }
+
+      // RNG Pack: per-title odds
+      if (pack.rngOdds) {
+        const notMaxed = pack.rngOdds.filter(o => (titleCounts[o.id] || 0) < MAX_TITLE_COUNT);
+        const pool = notMaxed.length > 0 ? notMaxed : pack.rngOdds;
+        const totalPct = pool.reduce((s, o) => s + o.pct, 0);
+        const rand = Math.random() * totalPct;
+        let cum = 0, wonOdds = pool[pool.length - 1];
+        for (const o of pool) { cum += o.pct; if (rand < cum) { wonOdds = o; break; } }
+        const won = ALL_TITLES.find(t => t.id === wonOdds.id);
+        if (!won) return;
+        const isDuplicate = myTitles.includes(won.id);
+        if ((titleCounts[won.id] || 0) < MAX_TITLE_COUNT) titleCounts[won.id] = (titleCounts[won.id] || 0) + 1;
+        if (!isDuplicate) myTitles.push(won.id);
+        saveTitlesToDB();
+        renderTitlesPanel();
+        showRollResult(won, won.tier, false, false, isDuplicate);
+        return;
+      }
+
+      // Standard tier-based rolling
+      const rand = Math.random() * 100;
+      let cumulative = 0, selectedTier = 'common';
+      for (const [tier, chance] of Object.entries(pack.odds)) {
+        cumulative += chance;
+        if (rand < cumulative) { selectedTier = tier; break; }
+      }
+      const poolTitles = pack.titleIds.map(id => ALL_TITLES.find(t => t.id === id)).filter(Boolean);
+      let eligible = poolTitles.filter(t => t.tier === selectedTier && (titleCounts[t.id] || 0) < MAX_TITLE_COUNT);
+      if (eligible.length === 0) eligible = poolTitles.filter(t => (titleCounts[t.id] || 0) < MAX_TITLE_COUNT);
+      if (eligible.length === 0) {
+        // All titles in this pack are maxed — refund and bail
+        diamonds += pack.cost;
+        update(ref(db, 'users/' + safeU), { diamonds });
+        updateDiamondDisplay();
+        openShop();
+        return;
+      }
+      const won = eligible[Math.floor(Math.random() * eligible.length)];
+      const isDuplicate = myTitles.includes(won.id);
+      if ((titleCounts[won.id] || 0) < MAX_TITLE_COUNT) titleCounts[won.id] = (titleCounts[won.id] || 0) + 1;
+      if (!isDuplicate) myTitles.push(won.id);
+      saveTitlesToDB();
+      renderTitlesPanel();
+      showRollResult(won, selectedTier, false, false, isDuplicate);
+    }
+
+    function showRollResult(title, tier, insufficient, allCollected, isDuplicate) {
+      const overlay = document.getElementById('rollResultOverlay');
+      const card = document.getElementById('rollResultCard');
+      card.style.animation = 'none'; card.offsetHeight; card.style.animation = '';
+      if (insufficient) {
+        card.style.borderColor = '#f04747'; card.style.boxShadow = ''; card.style.background = '#23272a';
+        card.innerHTML = `<div style="font-size:2.2em">💸</div><div style="font-size:1.1em;font-weight:800;margin:10px 0;color:#f04747;">Not enough 💎</div><button id="rollCloseBtn" style="margin-top:16px;padding:10px 28px;background:#444;color:#fff;border:none;border-radius:20px;font-weight:800;cursor:pointer;">Close</button>`;
+      } else {
+        const tc = TIER_CONFIG[tier] || TIER_CONFIG.common;
+        const count = titleCounts[title.id] || 1;
+        const evo = getEvolutionStage(count);
+        const borderColor = evo ? evo.color : tc.color;
+        const bgColor = evo ? evo.bg : tc.bg;
+        card.style.borderColor = borderColor;
+        card.style.boxShadow = `0 0 36px ${borderColor}55`;
+        card.style.background = bgColor;
+        let evoBanner = '';
+        if (isDuplicate && evo) {
+          evoBanner = `<div style="margin-bottom:10px;padding:5px 14px;background:${evo.color}22;border:1.5px solid ${evo.color}55;border-radius:20px;display:inline-block;"><span style="font-size:0.85em;font-weight:900;color:${evo.color};letter-spacing:0.1em;text-transform:uppercase;">${evo.icon} EVOLVED → ${evo.name}!</span></div>`;
+        } else if (isDuplicate) {
+          evoBanner = `<div style="margin-bottom:10px;color:#aaa;font-size:0.82em;font-weight:700;">Duplicate! x${count} owned</div>`;
+        }
+        const titleDisplay = evo ? `${evo.name} ${title.label}` : title.label;
+        card.innerHTML = `<div style="font-size:0.75em;font-weight:900;letter-spacing:0.14em;color:${tc.color};text-transform:uppercase;margin-bottom:10px;">${tc.label}</div>${evoBanner}<div style="font-size:3em;margin-bottom:8px;">${title.icon}</div><div style="font-size:1.5em;font-weight:900;color:${evo ? evo.color : '#fff'};margin-bottom:6px;">${titleDisplay}</div><div style="font-size:0.88em;color:#b9bbbe;">${title.desc}</div><button id="rollCloseBtn" style="margin-top:20px;padding:10px 32px;background:${borderColor};color:${tier==='legendary'&&!evo?'#222':'#fff'};border:none;border-radius:20px;font-weight:900;font-size:1em;cursor:pointer;">${isDuplicate && evo ? `${evo.icon} Evolved!` : 'Nice!'}</button>`;
+      }
+      overlay.style.display = 'flex';
+      document.getElementById('rollCloseBtn').onclick = () => { overlay.style.display = 'none'; openShop(); };
+    }
+
+    function openShop() {
+      if (!user) return;
+      document.getElementById('shopDiamondBal').textContent = '💎 ' + diamonds.toLocaleString();
+      const container = document.getElementById('packContainer');
+      container.innerHTML = '';
+      PACKS.forEach((pack, idx) => {
+        const poolTitles = pack.titleIds.map(id => ALL_TITLES.find(t => t.id === id)).filter(Boolean);
+        const allOwned = poolTitles.every(t => myTitles.includes(t.id));
+        const titlesHtml = poolTitles.map(t => {
+          const tc = TIER_CONFIG[t.tier];
+          const owned = myTitles.includes(t.id);
+          return `<span style="color:${owned ? '#444' : tc.color};font-size:1.35em;filter:${owned ? 'grayscale(1)' : 'none'}" title="${t.label} (${tc.label})">${t.icon}</span>`;
+        }).join(' ');
+        const card = document.createElement('div');
+        card.className = 'pack-card';
+        if (pack.daily) {
+          const canSpin = mythicalSpins > 0 || canFreeSpinToday();
+          const tc = TIER_CONFIG.mythical;
+          const allOwnedNote = allOwned ? `<div class="pack-full-banner">✅ Pack Complete — rolling to evolve</div>` : '';
+          const badgeHtml = mythicalSpins > 0
+            ? `<div class="pack-daily-badge" style="color:#ff4757;">🎰 FREE DAILY SPIN &nbsp;·&nbsp; <span style="color:#ffeb3b;">+${mythicalSpins} admin spin${mythicalSpins > 1 ? 's' : ''}</span></div>`
+            : `<div class="pack-daily-badge">🎰 FREE DAILY SPIN</div>`;
+          card.innerHTML = `<div class="pack-icon">${pack.icon}</div><div class="pack-name">${pack.name}</div>${badgeHtml}${allOwnedNote}<div class="pack-titles">${titlesHtml}</div><div class="pack-odds"><span style="color:${tc.color};font-weight:700;font-size:0.76em;">100% Mythical</span></div>`;
+          const btn = document.createElement('button');
+          btn.className = 'pack-roll-btn' + (canSpin ? ' pack-daily-btn' : ' pack-roll-disabled');
+          if (mythicalSpins > 0) btn.textContent = `🌟 Roll (${mythicalSpins} spin${mythicalSpins > 1 ? 's' : ''} left)`;
+          else if (canFreeSpinToday()) btn.textContent = '🌟 Claim Free Roll';
+          else btn.textContent = '⏳ Come back tomorrow';
+          if (canSpin) btn.onclick = () => rollPack(idx);
+          card.appendChild(btn);
+        } else if (pack.rngOdds) {
+          // RNG Pack — per-title odds display
+          if (pack.rngOdds) card.classList.add('pack-card-rng');
+          const canAfford = diamonds >= pack.cost;
+          const rngOddsHtml = pack.rngOdds.map(o => {
+            const t = ALL_TITLES.find(tt => tt.id === o.id);
+            if (!t) return '';
+            const tc = TIER_CONFIG[t.tier] || TIER_CONFIG.common;
+            const owned = myTitles.includes(t.id);
+            const isUltra = t.tier === 'rng_ultra';
+            const pctLabel = isUltra ? `<span class="rng-ultra-text">${o.pct}%</span>` : `<span style="color:${tc.color};font-weight:800;">${o.pct}%</span>`;
+            const ownedMark = owned ? ' ✓' : '';
+            return `<div style="display:flex;justify-content:space-between;align-items:center;padding:4px 8px;background:${tc.bg};border-radius:8px;margin-bottom:3px;border:1px solid ${tc.color}33;"><span style="color:${isUltra ? '#ff0080' : tc.color};font-weight:700;font-size:0.84em;">${t.icon} ${t.label}${ownedMark}</span>${pctLabel}</div>`;
+          }).join('');
+          card.innerHTML = `<div class="pack-icon">🎲</div><div class="pack-name" style="background:linear-gradient(90deg,#ff0080,#00ffff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">RNG Pack</div><div style="font-size:0.7em;color:#888;margin-bottom:8px;">True random — 10 titles, real odds</div><div style="margin-bottom:10px;">${rngOddsHtml}</div>`;
+          const btn = document.createElement('button');
+          btn.className = 'pack-roll-btn' + (canAfford ? '' : ' pack-roll-disabled');
+          btn.style.cssText = canAfford ? 'background:linear-gradient(135deg,#ff0080,#00ffff);color:#000;' : '';
+          btn.textContent = '💎 ' + pack.cost + ' — Roll the RNG';
+          if (canAfford) btn.onclick = () => rollPack(idx);
+          card.appendChild(btn);
+        } else {
+          const canAfford = diamonds >= pack.cost;
+          const oddsHtml = Object.entries(pack.odds).filter(([,pct]) => pct > 0).map(([tier, pct]) => {
+            const tc = TIER_CONFIG[tier];
+            return `<span style="color:${tc.color};font-weight:700;font-size:0.76em;">${tc.label}: ${pct}%</span>`;
+          }).join('<span style="color:#555"> · </span>');
+          const titlesHtmlWithEvo = poolTitles.map(t => {
+            const tc = TIER_CONFIG[t.tier];
+            const count = titleCounts[t.id] || 0;
+            const evo = getEvolutionStage(count);
+            const owned = myTitles.includes(t.id);
+            const borderStyle = evo ? `outline:2px solid ${evo.color};border-radius:4px;` : '';
+            return `<span style="color:${owned ? tc.color : '#444'};font-size:1.35em;filter:${owned ? 'none' : 'grayscale(1)'};${borderStyle}" title="${t.label} (${tc.label})${evo ? ' — '+evo.name : ''}">${t.icon}${count>1?'<sup style="font-size:0.45em;color:'+evo.color+'">'+evo.name[0]+'</sup>':''}</span>`;
+          }).join(' ');
+          const allMaxed = poolTitles.every(t => (titleCounts[t.id] || 0) >= MAX_TITLE_COUNT);
+          const allOwnedBadge = allMaxed
+            ? `<div class="pack-maxed-banner">🚫 All Titles Maxed — can't roll more</div>`
+            : allOwned ? `<div class="pack-full-banner">✅ Pack Complete — rolling for evolutions</div>` : '';
+          card.innerHTML = `<div class="pack-icon">${pack.icon}</div><div class="pack-name">${pack.name}</div>${allOwnedBadge}<div class="pack-titles">${titlesHtmlWithEvo}</div><div class="pack-odds">${oddsHtml}</div>`;
+          const btn = document.createElement('button');
+          btn.className = 'pack-roll-btn' + ((canAfford && !allMaxed) ? '' : ' pack-roll-disabled');
+          btn.textContent = allMaxed ? '🚫 Maxed Out' : '💎 ' + pack.cost + ' — Roll';
+          if (canAfford && !allMaxed) btn.onclick = () => rollPack(idx);
+          card.appendChild(btn);
+        }
+        container.appendChild(card);
+      });
+      // Buyable titles section
+      const buySection = document.createElement('div');
+      buySection.innerHTML = '<div class="shop-section-label">🛒 Buy Titles Directly</div>';
+      BUYABLE_TITLES.forEach(bt => {
+        const tc = TIER_CONFIG[bt.tier] || TIER_CONFIG.common;
+        const owned = myTitles.includes(bt.id);
+        const canAfford = diamonds >= bt.cost;
+        const card = document.createElement('div');
+        card.className = 'buy-title-card';
+        let btnClass = owned ? 'owned' : (canAfford ? 'buyable' : 'cant-afford');
+        let btnText = owned ? '✓ Owned' : `💎 ${bt.cost.toLocaleString()}`;
+        card.innerHTML = `<div class="buy-icon">${bt.icon}</div><div class="buy-info"><div class="buy-name" style="color:${tc.color}">${bt.label}</div><div class="buy-desc">${bt.desc}</div><div class="buy-cost" style="color:${tc.color}">${tc.label}</div></div><button class="buy-title-btn ${btnClass}" data-buyid="${bt.id}">${btnText}</button>`;
+        buySection.appendChild(card);
+      });
+      buySection.querySelectorAll('.buy-title-btn.buyable').forEach(btn => {
+        btn.onclick = () => buyTitle(btn.dataset.buyid);
+      });
+      container.appendChild(buySection);
+
+      document.getElementById('shopOverlay').style.display = 'flex';
+    }
+
+    // --- SINGLE TAB TIMER CONTROL ---
+const tabChannel = new BroadcastChannel('timer-control');
+let isActiveTab = false;
+let tabId = Math.random().toString(36).slice(2);
+let activeTabId = null;
+
+// Listen for messages from other tabs
+tabChannel.onmessage = (e) => {
+  if (e.data.type === 'active-tab') {
+    activeTabId = e.data.tabId;
+    if (activeTabId !== tabId) {
+      // Another tab is active, stop timer if running
+      if (timerInterval) clearInterval(timerInterval);
+      timerInterval = null;
+      // Optionally, visually indicate this tab is "view only"
+      document.getElementById('timerLabel').textContent = "Time (view only)";
+    }
+  }
+  if (e.data.type === 'request-active') {
+    // Respond with our active status if we are active
+    if (isActiveTab) {
+      tabChannel.postMessage({ type: 'active-tab', tabId });
+    }
+  }
+};
+
+// On load, ask if another tab is active
+tabChannel.postMessage({ type: 'request-active' });
+
+// If no response in 300ms, become the active tab
+setTimeout(() => {
+  if (!activeTabId) {
+    isActiveTab = true;
+    activeTabId = tabId;
+    tabChannel.postMessage({ type: 'active-tab', tabId });
+    document.getElementById('timerLabel').textContent = "Time on site";
+  }
+}, 300);
+
+// When closing, if we are the active tab, let others compete for active
+window.addEventListener('beforeunload', () => {
+  if (isActiveTab) {
+    tabChannel.postMessage({ type: 'active-tab', tabId: null });
+  }
+});
+    function saveSession(username, password) {
+      try {
+        localStorage.setItem("quiz_username", username);
+        localStorage.setItem("quiz_password", password);
+      } catch (e) {}
+    }
+    function clearSession() {
+      try {
+        localStorage.removeItem("quiz_username");
+        localStorage.removeItem("quiz_password");
+      } catch (e) {}
+    }
+    function getSession() {
+      try {
+        const username = localStorage.getItem("quiz_username");
+        const password = localStorage.getItem("quiz_password");
+        if (username && password) return {username, password};
+      } catch (e) {}
+      return null;
+    }
+
+    // ...existing code...
+function startTimer() {
+  let safeUsername = user.replace(/[.#$[\]]/g, '_');
+  if (timerDBListener) timerDBListener();
+  timerDBListener = onValue(ref(db, 'users/' + safeUsername + '/seconds'), snapshot => {
+    if (snapshot.exists() && typeof snapshot.val() === "number") {
+      if (timer !== snapshot.val() && !justWrote) {
+        updatingFromDB = true;
+        timer = snapshot.val();
+        updateTimerDisplay();
+        updatingFromDB = false;
+      }
+    }
+  });
+  get(ref(db, 'users/' + safeUsername + '/seconds')).then(snapshot => {
+    timer = (snapshot.exists() && typeof snapshot.val() === "number") ? snapshot.val() : 0;
+    lastThousand = Math.floor(timer / 1000);
+    updateTimerDisplay();
+    if (timerInterval) clearInterval(timerInterval);
+    // Only run timer if this is the active tab
+    if (isActiveTab) {
+      timerInterval = setInterval(() => {
+        timer++;
+        const dTick = Math.floor(timer / 100);
+        if (dTick > lastDiamondTick) {
+          lastDiamondTick = dTick;
+          diamonds = Math.round((diamonds + getDiamondTickAmount()) * 100) / 100;
+          update(ref(db, 'users/' + safeUsername), { diamonds });
+          updateDiamondDisplay();
+        }
+        updateTimerDisplay();
+        checkAndGrantTimeTitles();
+        justWrote = true;
+        update(ref(db, 'users/' + safeUsername), {seconds: timer}).then(() => {
+          justWrote = false;
+          update(ref(db, 'meta'), { global_time: increment(1) });
+          if (myClanName) update(ref(db, 'clans/' + myClanName), { totalSeconds: increment(1) });
+        });
+      }, 1000);
+    }
+  });
+}
+// ...existing code...
+
+    const timerUnitDivisors = [1, 60, 3600, 86400];
+    const timerUnitNames = ["seconds", "minutes", "hours", "days"];
+    const timerUnitDecimals = [0, 2, 4, 6];
+
+    function getTimerUnitSliderValue() {
+      const slider = document.getElementById("timerUnitSlider");
+      return slider ? parseInt(slider.value) : 0;
+    }
+
+    function updateTimerUnitLabels(idx) {
+      for (let i = 0; i <= 3; i++) {
+        const el = document.getElementById("ulabel-" + i);
+        if (el) el.className = i === idx ? "active-unit" : "";
+      }
+      const unitEl = document.getElementById("timerUnit");
+      if (unitEl) unitEl.textContent = timerUnitNames[idx];
+    }
+
+    function updateTimerDisplay() {
+      const timerElem = document.getElementById("timer");
+      let newThousand = Math.floor(timer / 1000);
+      if (newThousand > lastThousand && !animatingGlitch) {
+        triggerGlitchDrop();
+        lastThousand = newThousand;
+      }
+      const unitIdx = getTimerUnitSliderValue();
+      const divisor = timerUnitDivisors[unitIdx];
+      const decimals = timerUnitDecimals[unitIdx];
+      const displayVal = (timer / divisor).toFixed(decimals);
+      timerElem.textContent = displayVal;
+      if (!animatingGlitch) {
+        timerElem.style.color = `hsl(${Math.floor(Math.random()*360)},95%,60%)`;
+        const offset = Math.floor(Math.random() * 101) - 50;
+        timerElem.style.transform = `translateX(${offset}px)`;
+      } else {
+        timerElem.style.transform = '';
+        timerElem.style.color = '';
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const slider = document.getElementById("timerUnitSlider");
+      if (slider) {
+        slider.addEventListener("input", () => {
+          const idx = parseInt(slider.value);
+          updateTimerUnitLabels(idx);
+          updateTimerDisplay();
+        });
+      }
+    });
+
+    function triggerGlitchDrop() {
+      const timerElem = document.getElementById("timer");
+      if (animatingGlitch) return;
+      animatingGlitch = true;
+      timerElem.classList.remove("timer-fly-back");
+      timerElem.classList.add("timer-glitch");
+      setTimeout(() => {
+        timerElem.classList.remove("timer-glitch");
+        timerElem.classList.add("timer-fly-back");
+        setTimeout(() => {
+          timerElem.classList.remove("timer-fly-back");
+          animatingGlitch = false;
+        }, 1100);
+      }, 500);
+    }
+
+    window.triggerGlitchDrop = triggerGlitchDrop;
+
+let bounceTimerActive = false;
+let bounceTimerInterval = null;
+
+function startBounceTimer() {
+  if (bounceTimerActive) return;
+  bounceTimerActive = true;
+  const timerElem = document.getElementById("timer");
+
+  function bounce() {
+    // Get current X transform from updateTimerDisplay
+    const match = timerElem.style.transform.match(/translateX\([^)]+\)/);
+    const xTransform = match ? match[0] : "translateX(0px)";
+    timerElem.style.transform = `${xTransform} translateY(-30px)`;
+    setTimeout(() => {
+      timerElem.style.transform = `${xTransform} translateY(0)`;
+    }, 700); // 0.7s up, then smoothly back
+  }
+
+  bounceTimerInterval = setInterval(bounce, 10000); // every 10 seconds
+  bounce(); // initial bounce
+}
+
+function stopBounceTimer() {
+  bounceTimerActive = false;
+  clearInterval(bounceTimerInterval);
+  bounceTimerInterval = null;
+  const timerElem = document.getElementById("timer");
+  // Reset to just the X transform (from updateTimerDisplay)
+  const match = timerElem.style.transform.match(/translateX\([^)]+\)/);
+  timerElem.style.transform = match ? match[0] : "translateX(0px)";
+}
+// Make typing "panel" in the console open the panel (no parentheses needed)
+window.panel = new Proxy(function openPanelProxy() {
+  document.getElementById('commandPanelOverlay').style.display = 'flex';
+}, {
+  apply(target, thisArg, argumentsList) {
+    target();
+    return undefined;
+  },
+  get(target, prop) {
+    target();
+    return () => '';
+  }
+});
+function bounceTimerOnce() {
+  const timerElem = document.getElementById("timer");
+  // Get current X transform from updateTimerDisplay
+  const match = timerElem.style.transform.match(/translateX\([^)]+\)/);
+  const xTransform = match ? match[0] : "translateX(0px)";
+  timerElem.style.transform = `${xTransform} translateY(-30px)`;
+  setTimeout(() => {
+    timerElem.style.transform = `${xTransform} translateY(0)`;
+  }, 700);
+}
+// Make typing "panel" in the console open the panel (no parentheses needed)
+
+    function closePanel() {
+      document.getElementById('commandPanelOverlay').style.display = 'none';
+      resetPanelPosition();
+    }
+window.panel = new Proxy(function openPanelProxy() {
+  document.getElementById('commandPanelOverlay').style.display = 'flex';
+}, {
+  apply(target, thisArg, argumentsList) {
+    target();
+    return undefined;
+  },
+  get(target, prop) {
+    target();
+    return () => '';
+  }
+});
+let noGravity = false;
+let gravityInterval = null;
+let floatingElems = [];
+
+function setNoGravityMode(on) {
+  noGravity = on;
+  document.getElementById('noGravityBtn').textContent = `No Gravity: ${noGravity ? "On" : "Off"}`;
+  if (noGravity) {
+    floatingElems = Array.from(document.querySelectorAll('body > *:not(#commandPanelOverlay):not(script):not(style)'));
+    floatingElems.forEach(el => {
+      el.style.position = 'absolute';
+      el.style.cursor = 'grab';
+      // Store the original random velocity as "normal" speed
+      if (!el.dataset.normalFvx || !el.dataset.normalFvy) {
+        let angle = Math.random() * 2 * Math.PI;
+        let speed = 6 + Math.random() * 4;
+        el.dataset.normalFvx = Math.cos(angle) * speed;
+        el.dataset.normalFvy = Math.sin(angle) * speed;
+      }
+      el.dataset.fvx = el.dataset.fvx || el.dataset.normalFvx;
+      el.dataset.fvy = el.dataset.fvy || el.dataset.normalFvy;
+      el.dataset.dragging = '0';
+      if (!el.style.left) el.style.left = (el.offsetLeft || 100) + "px";
+      if (!el.style.top) el.style.top = (el.offsetTop || 100) + "px";
+      el.onmousedown = function(e) {
+        e.preventDefault();
+        el.dataset.dragging = '1';
+        el.style.cursor = 'grabbing';
+        let startX = e.clientX, startY = e.clientY;
+        let origLeft = parseFloat(el.style.left) || 0;
+        let origTop = parseFloat(el.style.top) || 0;
+        let lastX = startX, lastY = startY, lastTime = Date.now();
+        let vx = 0, vy = 0;
+        document.onmousemove = function(ev) {
+          let dx = ev.clientX - startX;
+          let dy = ev.clientY - startY;
+          el.style.left = (origLeft + dx) + "px";
+          el.style.top = (origTop + dy) + "px";
+          // Track velocity for inertia
+          let now = Date.now();
+          let dt = now - lastTime;
+          if (dt > 0) {
+            vx = (ev.clientX - lastX) / dt * 16;
+            vy = (ev.clientY - lastY) / dt * 16;
+            lastX = ev.clientX;
+            lastY = ev.clientY;
+            lastTime = now;
+          }
+        };
+        document.onmouseup = function() {
+          el.dataset.dragging = '0';
+          el.style.cursor = 'grab';
+          el.dataset.fvx = vx;
+          el.dataset.fvy = vy;
+          document.onmousemove = null;
+          document.onmouseup = null;
+        };
+      };
+    });
+    if (!gravityInterval) gravityInterval = setInterval(updateFloatingElems, 30);
+  } else {
+    if (gravityInterval) clearInterval(gravityInterval);
+    gravityInterval = null;
+    floatingElems.forEach(el => {
+      el.style.position = '';
+      el.style.left = '';
+      el.style.top = '';
+      el.style.cursor = '';
+      delete el.dataset.fvx;
+      delete el.dataset.fvy;
+      delete el.dataset.normalFvx;
+      delete el.dataset.normalFvy;
+      delete el.dataset.dragging;
+      el.onmousedown = null;
+    });
+    floatingElems = [];
+  }
+}
+
+function updateFloatingElems() {
+  floatingElems.forEach(el => {
+    if (el.dataset.dragging === '1') return;
+    let left = parseFloat(el.style.left) || 0;
+    let top = parseFloat(el.style.top) || 0;
+    let vx = parseFloat(el.dataset.fvx) || 0;
+    let vy = parseFloat(el.dataset.fvy) || 0;
+    let normalVx = parseFloat(el.dataset.normalFvx) || 0;
+    let normalVy = parseFloat(el.dataset.normalFvy) || 0;
+    // Slowly interpolate velocity back to normal
+    vx += (normalVx - vx) * 0.01;
+    vy += (normalVy - vy) * 0.01;
+    const rect = el.getBoundingClientRect();
+    const w = rect.width, h = rect.height;
+    let cx = left + w / 2, cy = top + h / 2;
+    cx += vx; cy += vy;
+    if (cx - w / 2 < 0) { cx = w / 2; vx *= -1; }
+    if (cx + w / 2 > window.innerWidth) { cx = window.innerWidth - w / 2; vx *= -1; }
+    if (cy - h / 2 < 0) { cy = h / 2; vy *= -1; }
+    if (cy + h / 2 > window.innerHeight) { cy = window.innerHeight - h / 2; vy *= -1; }
+    el.style.left = (cx - w / 2) + "px";
+    el.style.top = (cy - h / 2) + "px";
+    el.dataset.fvx = vx;
+    el.dataset.fvy = vy;
+  });
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === "Escape") closePanel();
+  if (e.key === "Enter") {
+    const shopOverlay = document.getElementById('shopOverlay');
+    if (shopOverlay && shopOverlay.style.display === 'flex') {
+      e.preventDefault();
+      const now = Date.now();
+      if (now - lastEnterRoll >= 1000) {
+        lastEnterRoll = now;
+        const focused = document.activeElement;
+        if (focused && focused.classList.contains('pack-roll-btn') && !focused.classList.contains('pack-roll-disabled')) {
+          focused.click();
+        } else {
+          const btn = document.querySelector('#packContainer .pack-roll-btn:not(.pack-roll-disabled)');
+          if (btn) btn.click();
+        }
+      }
+    }
+  }
+});
+
+function stopTimerAndSave() {
+  if (timerInterval) {
+    clearInterval(timerInterval);
+    timerInterval = null;
+  }
+  if (timerDBListener) timerDBListener();
+      if (user) {
+        let safeUsername = user.replace(/[.#$[\]]/g, '_');
+        update(ref(db, 'users/' + safeUsername), {seconds: timer});
+      }
+    }
+
+    function listenGlobalTime() {
+      if (unsubGlobalTime) unsubGlobalTime();
+      unsubGlobalTime = onValue(ref(db, 'meta/global_time'), snap => {
+        let v = snap.exists() && typeof snap.val() === "number" ? snap.val() : 0;
+        document.getElementById('globalTimeValue').textContent = v.toLocaleString();
+      });
+    }
+function startTimerWhenReady() {
+  // Wait until activeTabId is set (either by another tab or by ourselves)
+  let waited = 0;
+  function tryStart() {
+    if (isActiveTab !== undefined && (isActiveTab || activeTabId)) {
+      startTimer();
+    } else if (waited < 1000) {
+      waited += 50;
+      setTimeout(tryStart, 50);
+    }
+  }
+  tryStart();
+}
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById('showPasswordCheckbox').onchange = function() {
+        let loginVis = document.getElementById('loginSection').style.display !== "none";
+        let pwdField = loginVis ? document.getElementById('loginPassword') : document.getElementById('createPassword');
+        pwdField.type = this.checked ? "text" : "password";
+      };
+
+      document.getElementById('accountSwitch').onclick = function() {
+        document.getElementById('loginSection').style.display = "none";
+        document.getElementById('createSection').style.display = "block";
+        document.getElementById('errorMsg').textContent = '';
+        document.getElementById('showPasswordBox').style.display = "block";
+      };
+      document.getElementById('accountSwitchBack').onclick = function() {
+        document.getElementById('loginSection').style.display = "block";
+        document.getElementById('createSection').style.display = "none";
+        document.getElementById('errorMsg').textContent = '';
+        document.getElementById('showPasswordBox').style.display = "block";
+      };
+
+      document.getElementById('createBtn').onclick = function() {
+        const uname = document.getElementById('createUsername').value.trim();
+        const pw = document.getElementById('createPassword').value;
+        document.getElementById('errorMsg').textContent = '';
+        if (!uname || !pw) {
+          document.getElementById('errorMsg').textContent = "Enter username and password!";
+          return;
+        }
+        const safeUsername = uname.replace(/[.#$[\]]/g, '_');
+        get(ref(db, 'users/' + safeUsername)).then(snapshot => {
+          if (snapshot.exists()) {
+            document.getElementById('errorMsg').textContent = "Username already exists!";
+          } else {
+            set(ref(db, 'users/' + safeUsername), {clicks: 0, password: pw, seconds: 0, notOg: true});
+            user = uname;
+            password = pw;
+            saveSession(user, password);
+            showClickSection();
+          }
+        });
+      };
+
+      document.getElementById('loginBtn').onclick = function() {
+        const uname = document.getElementById('loginUsername').value.trim();
+        const pw = document.getElementById('loginPassword').value;
+        document.getElementById('errorMsg').textContent = '';
+        document.getElementById('showPasswordBox').style.display = "block";
+        if (!uname || !pw) {
+          document.getElementById('errorMsg').textContent = "Enter username and password!";
+          return;
+        }
+        const safeUsername = uname.replace(/[.#$[\]]/g, '_');
+        get(ref(db, 'users/' + safeUsername)).then(snapshot => {
+          if (!snapshot.exists()) {
+            document.getElementById('errorMsg').textContent = "Username not found!";
+          } else if (snapshot.val().password !== pw) {
+            document.getElementById('errorMsg').textContent = "Incorrect password!";
+          } else {
+            user = uname;
+            password = pw;
+            saveSession(user, password);
+            showClickSection();
+          }
+        });
+      };
+
+      function showClickSection() {
+  document.getElementById('accountBox').style.display = "none";
+  document.getElementById('clickSection').style.display = "block";
+  document.getElementById('currentUser').innerText = user;
+  listenGlobal();
+  listenUser();
+  listenLeaderboard();
+  startTimerWhenReady();
+  listenGlobalTime();
+  titlesInitialized = false;
+  myTitles = []; equippedTitleId = null; profileColor = '#5865f2'; profileBio = '';
+  const safeUsernameT = user.replace(/[.#$[\]]/g, '_');
+  get(ref(db, 'users/' + safeUsernameT)).then(snap => {
+    if (snap.exists()) initTitles(snap.val());
+  });
+  document.getElementById('titlesTab').style.display = 'block';
+  document.getElementById('diamondCounter').style.display = 'flex';
+  document.getElementById('caveBtn').style.display = 'block';
+  document.getElementById('clanTab').style.display = 'block';
+  document.getElementById('friendsBtn').style.display = 'block';
+  get(ref(db, 'users/' + user.replace(/[.#$[\]]/g, '_'))).then(snap => {
+    if (snap.exists()) { initClan(snap.val()); initFriends(snap.val()); }
+  });
+  document.getElementById('adminGrantSection').style.display = user === 'Me' ? 'block' : 'none';
+  document.getElementById('adminGrantMsg').textContent = '';
+  document.getElementById('adminGrantInput').value = '';
+  get(ref(db, 'users/' + user.replace(/[.#$[\]]/g, '_'))).then(snap => {
+    if (snap.exists()) initDiamonds(snap.val());
+  });
+}
+      function listenGlobal() {
+        if (unsubGlobal) unsubGlobal();
+        unsubGlobal = onValue(ref(db, 'meta/global'), snap => {
+          const v = snap.exists() && snap.val() && typeof snap.val().count === "number" ? snap.val().count : 0;
+          document.getElementById('globalCount').textContent = v;
+        });
+      }
+      function listenUser() {
+        if (unsubUser) unsubUser();
+        const safeUsername = user.replace(/[.#$[\]]/g, '_');
+        unsubUser = onValue(ref(db, 'users/' + safeUsername), snap => {
+          const val = snap.exists() && snap.val() ? snap.val() : {};
+          userClicks = typeof val.clicks === "number" ? val.clicks : 0;
+          document.getElementById('yourCount').textContent = userClicks;
+        });
+      }
+      let lbEntries = [];
+      let lbSort = 'clicks';
+
+      function formatTime(seconds) {
+        if (seconds < 60) return seconds + 's';
+        if (seconds < 3600) return Math.floor(seconds / 60) + 'm ' + (seconds % 60) + 's';
+        if (seconds < 86400) {
+          const h = Math.floor(seconds / 3600);
+          const m = Math.floor((seconds % 3600) / 60);
+          return h + 'h ' + m + 'm';
+        }
+        const d = Math.floor(seconds / 86400);
+        const h = Math.floor((seconds % 86400) / 3600);
+        return d + 'd ' + h + 'h';
+      }
+
+      function openProfileModal(username) {
+        const safeUsername = username.replace(/[.#$[\]]/g, '_');
+        get(ref(db, 'users/' + safeUsername)).then(snap => {
+          if (!snap.exists()) return;
+          const v = snap.val() || {};
+          const titles = Array.isArray(v.titles) ? v.titles : [];
+          const tCounts = (v.titleCounts && typeof v.titleCounts === 'object') ? v.titleCounts : {};
+          const isOg = titles.includes('og');
+          const clicks = v.clicks || 0;
+          const seconds = typeof v.seconds === 'number' ? v.seconds : 0;
+          const gems = typeof v.diamonds === 'number' ? v.diamonds : 0;
+          const pColor = v.profileColor || '#5865f2';
+          const pBio = v.profileBio || '';
+          const likedBy = (v.likedBy && typeof v.likedBy === 'object') ? v.likedBy : {};
+          const likeCount = Object.keys(likedBy).length;
+          const isOwn = username === user;
+          const safeMe = user ? user.replace(/[.#$[\]]/g, '_') : '';
+          const iHaveLiked = safeMe && likedBy[safeMe] === true;
+
+          // Count max and evolved titles
+          let maxCount = 0, evoCount = 0;
+          titles.forEach(id => {
+            const c = tCounts[id] || 1;
+            if (c >= MAX_TITLE_COUNT) maxCount++;
+            else if (c >= 2) evoCount++;
+          });
+
+          // Banner
+          document.getElementById('profileBanner').style.background = `linear-gradient(135deg, ${pColor}, ${pColor}99)`;
+
+          // Avatar
+          const avatarEl = document.getElementById('profileAvatar');
+          avatarEl.textContent = username.charAt(0).toUpperCase();
+          avatarEl.style.background = `linear-gradient(135deg, ${pColor}, ${pColor}88)`;
+
+          // Equipped / rarest title
+          const eqId = v.equippedTitleId || null;
+          let eqTitle = eqId ? ALL_TITLES.find(t => t.id === eqId && titles.includes(t.id)) : null;
+          if (!eqTitle) eqTitle = getRarestOwnedTitle(titles, tCounts);
+          const eqEl = document.getElementById('profileEquippedTitle');
+          if (eqTitle) {
+            const tc = TIER_CONFIG[eqTitle.tier] || TIER_CONFIG.common;
+            const c = tCounts[eqTitle.id] || 1;
+            const evo = getEvolutionStage(c);
+            const dispName = evo ? `${evo.name} ${eqTitle.label}` : eqTitle.label;
+            eqEl.innerHTML = `<span style="color:${evo ? evo.color : tc.color}">${eqTitle.icon} ${dispName}</span>`;
+          } else { eqEl.innerHTML = ''; }
+
+          document.getElementById('profileUsername').textContent = username;
+          document.getElementById('profileOgBadge').textContent = isOg ? '👑 OG Member' : '';
+          document.getElementById('profileBioText').textContent = pBio;
+
+          // Like area
+          const likeBtn = document.getElementById('profileLikeBtn');
+          const likeCountEl = document.getElementById('profileLikeCount');
+          likeCountEl.textContent = likeCount + (likeCount === 1 ? ' like' : ' likes');
+          if (isOwn || !user) {
+            likeBtn.style.display = 'none';
+          } else {
+            likeBtn.style.display = '';
+            likeBtn.className = iHaveLiked ? 'liked' : '';
+            likeBtn.textContent = iHaveLiked ? '❤️ Liked' : '❤️ Like';
+            likeBtn.onclick = () => {
+              const updates = {};
+              updates[`users/${safeUsername}/likedBy/${safeMe}`] = iHaveLiked ? null : true;
+              update(ref(db), updates).then(() => openProfileModal(username));
+            };
+          }
+
+          // Stats
+          document.getElementById('profileClicks').textContent = clicks.toLocaleString();
+          document.getElementById('profileTime').textContent = formatTime(seconds);
+          document.getElementById('profileTitleCount').textContent = titles.length;
+          document.getElementById('profileDiamonds').textContent = gems.toLocaleString();
+          document.getElementById('profileMaxTitles').textContent = maxCount;
+          document.getElementById('profileEvoCount').textContent = evoCount + maxCount;
+
+          // Rarest
+          const rarestEl = document.getElementById('profileRarest');
+          if (eqTitle) {
+            const tc = TIER_CONFIG[eqTitle.tier] || TIER_CONFIG.common;
+            rarestEl.innerHTML = `<span style="color:#666;">Rarest: </span><span style="color:${tc.color};font-weight:800;">${eqTitle.icon} ${eqTitle.label} <span style="opacity:0.7;">(${tc.label})</span></span>`;
+          } else { rarestEl.innerHTML = ''; }
+
+          // Titles list
+          const list = document.getElementById('profileTitlesList');
+          list.innerHTML = '';
+          const earned = ALL_TITLES.filter(t => titles.includes(t.id));
+          if (earned.length === 0) {
+            list.innerHTML = '<div style="color:#888;font-size:0.88em;text-align:center;padding:8px 0;">No titles yet.</div>';
+          } else {
+            earned.slice(0, 14).forEach(t => {
+              const tc = TIER_CONFIG[t.tier] || TIER_CONFIG.common;
+              const c = tCounts[t.id] || 1;
+              const evo = getEvolutionStage(c);
+              const isMax = evo && evo.isMax;
+              const card = document.createElement('div');
+              card.className = 'title-card' + (isMax ? ' title-card-max' : '');
+              card.style.borderColor = (evo ? evo.color : tc.color) + '88';
+              card.style.background = evo ? evo.bg : tc.bg;
+              const dispName = evo ? `${evo.name} ${t.label}` : t.label;
+              const nameClass = isMax ? 'title-name title-name-max' : 'title-name';
+              card.innerHTML = `<div class="title-icon">${t.icon}</div><div><div class="${nameClass}" style="color:${evo ? evo.color : tc.color}">${dispName}</div><div class="title-desc">${t.desc}</div></div>`;
+              list.appendChild(card);
+            });
+            if (earned.length > 14) {
+              const more = document.createElement('div');
+              more.style.cssText = 'text-align:center;color:#666;font-size:0.8em;padding:6px 0;';
+              more.textContent = `+${earned.length - 14} more titles`;
+              list.appendChild(more);
+            }
+          }
+
+          // Edit section (own profile)
+          const editSection = document.getElementById('profileEditSection');
+          if (isOwn) {
+            editSection.style.display = 'block';
+            document.getElementById('profileBioInput').value = pBio;
+            const picker = document.getElementById('profileColorPicker');
+            picker.innerHTML = '';
+            PROFILE_COLORS.forEach(c => {
+              const sw = document.createElement('span');
+              sw.className = 'profile-color-swatch' + (pColor === c.value ? ' selected' : '');
+              sw.style.background = c.value;
+              sw.title = c.name;
+              sw.onclick = () => {
+                picker.querySelectorAll('.profile-color-swatch').forEach(s => s.classList.remove('selected'));
+                sw.classList.add('selected');
+              };
+              picker.appendChild(sw);
+            });
+            document.getElementById('profileSaveBtn').onclick = () => {
+              const newBio = document.getElementById('profileBioInput').value.trim().slice(0, 80);
+              const sel = picker.querySelector('.profile-color-swatch.selected');
+              const newColor = sel ? sel.style.background : pColor;
+              const safeU = user.replace(/[.#$[\]]/g, '_');
+              update(ref(db, 'users/' + safeU), { profileBio: newBio, profileColor: newColor }).then(() => {
+                profileBio = newBio; profileColor = newColor;
+                const msg = document.getElementById('profileSaveMsg');
+                msg.style.color = '#43b581'; msg.textContent = '✓ Saved!';
+                setTimeout(() => { msg.textContent = ''; }, 2000);
+                openProfileModal(username);
+              });
+            };
+          } else { editSection.style.display = 'none'; }
+
+          document.getElementById('profileOverlay').classList.add('open');
+        });
+      }
+
+      function renderLeaderboard() {
+        const sorted = [...lbEntries];
+        if (lbSort === 'titles') {
+          sorted.sort((a, b) => b.titleCount - a.titleCount || b.clicks - a.clicks);
+        } else {
+          sorted.sort((a, b) => b.clicks - a.clicks);
+        }
+        document.querySelectorAll('.lb-sort-btn').forEach(btn => {
+          btn.classList.toggle('lb-sort-active', btn.dataset.sort === lbSort);
+        });
+        const tbody = document.getElementById('leaderboardBody');
+        tbody.innerHTML = "";
+        sorted.slice(0, 15).forEach((entry, i) => {
+          const tr = document.createElement("tr");
+          const hasOg = Array.isArray(entry.titles) && entry.titles.includes('og');
+          const titleDisplay = entry.titleCount === 0 ? '—' : (hasOg ? '👑 ' : '') + entry.titleCount + (entry.titleCount === 1 ? ' title' : ' titles');
+          // Equipped title badge
+          let eqTitle = entry.equippedTitleId ? ALL_TITLES.find(t => t.id === entry.equippedTitleId && entry.titles.includes(t.id)) : null;
+          if (!eqTitle) eqTitle = getRarestOwnedTitle(entry.titles, entry.titleCounts);
+          const eqBadge = eqTitle ? `<span class="lb-equipped" title="${eqTitle.label}">${eqTitle.icon}</span>` : '';
+          const pColor = entry.profileColor || '#5865f2';
+          tr.innerHTML = `<td>${i + 1}</td>
+            <td><span class="lb-name-link" data-name="${entry.name}" style="color:${pColor === '#5865f2' ? '' : pColor}">${entry.name}</span>${eqBadge}</td>
+            <td>${entry.clicks}</td>
+            <td>${entry.seconds}</td>
+            <td>${titleDisplay}</td>`;
+          tbody.appendChild(tr);
+        });
+        if (sorted.length === 0) {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `<td colspan="5" style="text-align:center;">No scores yet!</td>`;
+          tbody.appendChild(tr);
+        }
+        tbody.querySelectorAll('.lb-name-link').forEach(el => {
+          el.onclick = () => openProfileModal(el.dataset.name);
+        });
+      }
+
+      function listenLeaderboard() {
+        if (unsubLB) unsubLB();
+        unsubLB = onValue(ref(db, 'users'), snap => {
+          lbEntries = [];
+          globalTitleCounts = {};
+          snap.forEach(child => {
+            const v = child.val() || {};
+            const titles = Array.isArray(v.titles) ? v.titles : [];
+            titles.forEach(id => { globalTitleCounts[id] = (globalTitleCounts[id] || 0) + 1; });
+            lbEntries.push({
+              name: child.key,
+              clicks: v.clicks || 0,
+              seconds: typeof v.seconds === "number" ? v.seconds : 0,
+              titles,
+              titleCount: titles.length,
+              equippedTitleId: v.equippedTitleId || null,
+              titleCounts: (v.titleCounts && typeof v.titleCounts === 'object') ? v.titleCounts : {},
+              profileColor: v.profileColor || '#5865f2',
+            });
+          });
+          renderLeaderboard();
+          if (titlesInitialized) renderTitlesPanel();
+        });
+      }
+
+      document.getElementById('clickBtn').onclick = function() {
+        const safeUsername = user.replace(/[.#$[\]]/g, '_');
+        update(ref(db), {
+          '/meta/global/count': increment(1),
+          ['/users/' + safeUsername + '/clicks']: increment(1)
+        });
+      };
+
+      document.getElementById('logoutBtn').onclick = function() {
+        stopTimerAndSave();
+        clearSession();
+        user = "";
+        password = "";
+        myTitles = [];
+        titlesInitialized = false;
+        document.getElementById('clickSection').style.display = "none";
+        document.getElementById('accountBox').style.display = "block";
+        document.getElementById('loginSection').style.display = "block";
+        document.getElementById('createSection').style.display = "none";
+        document.getElementById('showPasswordBox').style.display = "block";
+        document.getElementById('errorMsg').textContent = '';
+        document.getElementById('titlesTab').style.display = 'none';
+        document.getElementById('titlesPanel').style.display = 'none';
+        document.getElementById('adminGrantSection').style.display = 'none';
+        document.getElementById('diamondCounter').style.display = 'none';
+        document.getElementById('shopOverlay').style.display = 'none';
+        document.getElementById('caveBtn').style.display = 'none';
+        document.getElementById('caveOverlay').style.display = 'none';
+        document.getElementById('clanTab').style.display = 'none';
+        document.getElementById('clanOverlay').style.display = 'none';
+        document.getElementById('friendsBtn').style.display = 'none';
+        document.getElementById('friendsOverlay').style.display = 'none';
+        document.getElementById('dmWindow').style.display = 'none';
+        document.getElementById('tradeModal').style.display = 'none';
+        if (unsubClan) { unsubClan(); unsubClan = null; }
+        if (unsubClanChat) { unsubClanChat(); unsubClanChat = null; }
+        if (unsubFriendRequests) { unsubFriendRequests(); unsubFriendRequests = null; }
+        if (unsubFriendsList) { unsubFriendsList(); unsubFriendsList = null; }
+        if (unsubDM) { unsubDM(); unsubDM = null; }
+        myClan = null; myClanName = null;
+        myFriends = {}; pendingRequests = {};
+        dmFriendSafe = null; dmFriendName = null; dmChatKey = null;
+        mineLevel = 0;
+        diamonds = 0; lastDiamondTick = 0; lastFreeSpin = null; mythicalSpins = 0; equippedTitleId = null; profileColor = '#5865f2'; profileBio = ''; globalTitleCounts = {}; updateDiamondDisplay();
+        if (unsubGlobal) unsubGlobal();
+        if (unsubUser) unsubUser();
+        if (unsubLB) unsubLB();
+        if (unsubGlobalTime) unsubGlobalTime();
+      };
+
+      document.getElementById('showPasswordBox').style.display = "block";
+      const session = getSession();
+      if (session) {
+        user = session.username;
+        password = session.password;
+        get(ref(db, 'users/' + user.replace(/[.#$[\]]/g, '_'))).then(snapshot => {
+          if (snapshot.exists() && snapshot.val().password === password) {
+            showClickSection();
+          } else {
+            clearSession();
+            document.getElementById('accountBox').style.display = "block";
+            document.getElementById('clickSection').style.display = "none";
+          }
+        });
+      } else {
+        document.getElementById('accountBox').style.display = "block";
+        document.getElementById('clickSection').style.display = "none";
+      }
+
+      listenGlobalTime();
+
+      document.getElementById('dropBtn').onclick = triggerGlitchDrop;
+      document.getElementById('bounceTimerBtn').onclick = bounceTimerOnce;
+      document.querySelectorAll('.lb-sort-btn').forEach(btn => {
+        btn.onclick = function() {
+          lbSort = this.dataset.sort;
+          renderLeaderboard();
+        };
+      });
+
+      document.getElementById('profileClose').onclick = () => {
+        document.getElementById('profileOverlay').classList.remove('open');
+      };
+      document.getElementById('profileOverlay').onclick = function(e) {
+        if (e.target === this) this.classList.remove('open');
+      };
+
+      document.getElementById('diamondCounter').onclick = openShop;
+      document.getElementById('shopClose').onclick = () => {
+        document.getElementById('shopOverlay').style.display = 'none';
+      };
+      document.getElementById('shopOverlay').onclick = function(e) {
+        if (e.target === this) this.style.display = 'none';
+      };
+
+      document.getElementById('adminGrantLabel').onclick = function() {
+        const body = document.getElementById('adminGrantBody');
+        const icon = document.getElementById('adminGrantToggleIcon');
+        const hidden = body.style.display === 'none';
+        body.style.display = hidden ? 'block' : 'none';
+        icon.textContent = hidden ? '▲' : '▼';
+      };
+
+      document.getElementById('adminGrantBtn').onclick = function() {
+        const target = document.getElementById('adminGrantInput').value.trim();
+        const msgEl = document.getElementById('adminGrantMsg');
+        if (!target) { msgEl.style.color = '#f04747'; msgEl.textContent = 'Enter a username.'; return; }
+        const safeTarget = target.replace(/[.#$[\]]/g, '_');
+        get(ref(db, 'users/' + safeTarget)).then(snap => {
+          if (!snap.exists()) {
+            msgEl.style.color = '#f04747';
+            msgEl.textContent = 'User not found.';
+            return;
+          }
+          const existing = Array.isArray(snap.val().titles) ? snap.val().titles : [];
+          if (existing.includes('dih')) {
+            msgEl.style.color = '#ffeb3b';
+            msgEl.textContent = target + ' already has dih.';
+            return;
+          }
+          update(ref(db, 'users/' + safeTarget), { titles: [...existing, 'dih'] }).then(() => {
+            msgEl.style.color = '#43b581';
+            msgEl.textContent = '💀 dih granted to ' + target + '!';
+            document.getElementById('adminGrantInput').value = '';
+            if (safeTarget === user.replace(/[.#$[\]]/g, '_')) {
+              myTitles.push('dih');
+              renderTitlesPanel();
+            }
+          });
+        });
+      };
+
+      document.getElementById('spinGrantBtn').onclick = function() {
+        const target = document.getElementById('spinGrantInput').value.trim();
+        const count = Math.max(1, parseInt(document.getElementById('spinGrantCount').value) || 1);
+        const msgEl = document.getElementById('spinGrantMsg');
+        if (!target) { msgEl.style.color = '#f04747'; msgEl.textContent = 'Enter a username.'; return; }
+        const safeTarget = target.replace(/[.#$[\]]/g, '_');
+        get(ref(db, 'users/' + safeTarget)).then(snap => {
+          if (!snap.exists()) { msgEl.style.color = '#f04747'; msgEl.textContent = 'User not found.'; return; }
+          const current = typeof snap.val().mythicalSpins === 'number' ? snap.val().mythicalSpins : 0;
+          update(ref(db, 'users/' + safeTarget), { mythicalSpins: current + count }).then(() => {
+            msgEl.style.color = '#ff4757';
+            msgEl.textContent = `🌟 Granted ${count} spin${count > 1 ? 's' : ''} to ${target}! (Total: ${current + count})`;
+            document.getElementById('spinGrantInput').value = '';
+            if (safeTarget === user.replace(/[.#$[\]]/g, '_')) {
+              mythicalSpins = current + count;
+            }
+          });
+        });
+      };
+
+      document.getElementById('cpanelCloseBtn').onclick = closePanel;
+      document.getElementById('noGravityBtn').onclick = function() {
+  setNoGravityMode(!noGravity);
+};
+      document.getElementById('caveBtn').onclick = openCave;
+      document.getElementById('caveClose').onclick = closeCave;
+      document.getElementById('caveMineBtn').onclick = clickGemMine;
+      document.getElementById('clanTab').onclick = openClanPanel;
+      document.getElementById('clanPanelClose').onclick = () => { if (unsubClanChat) { unsubClanChat(); unsubClanChat = null; } closeClanPanel(); };
+      document.getElementById('clanOverlay').onclick = function(e) { if (e.target === this) { if (unsubClanChat) { unsubClanChat(); unsubClanChat = null; } closeClanPanel(); } };
+      document.getElementById('friendsBtn').onclick = openFriendsPanel;
+      document.getElementById('friendsPanelClose').onclick = closeFriendsPanel;
+      document.getElementById('friendsOverlay').onclick = function(e) { if (e.target === this) closeFriendsPanel(); };
+      document.getElementById('dmCloseBtn').onclick = closeDM;
+      document.getElementById('dmSendBtn').onclick = sendDMMsg;
+      document.getElementById('dmInput').onkeydown = e => { if (e.key === 'Enter') sendDMMsg(); };
+      document.getElementById('dmTradeBtn').onclick = () => { if (dmFriendSafe && dmFriendName) openTradeWith(dmFriendSafe, dmFriendName); };
+      document.getElementById('tradeClose').onclick = () => { document.getElementById('tradeModal').style.display = 'none'; };
+      document.getElementById('tradeSendBtn').onclick = sendTradeOffer;
+      document.getElementById('tradeModal').onclick = function(e) { if (e.target === this) this.style.display = 'none'; };
+      document.getElementById('titlesTab').style.display = 'none';
+      document.getElementById('titlesTab').onclick = function() {
+        const panel = document.getElementById('titlesPanel');
+        panel.style.display = panel.style.display === 'flex' ? 'none' : 'flex';
+      };
+      document.addEventListener('click', function(e) {
+        const panel = document.getElementById('titlesPanel');
+        const tab = document.getElementById('titlesTab');
+        if (panel.style.display === 'flex' && !panel.contains(e.target) && e.target !== tab) {
+          panel.style.display = 'none';
+        }
+      });
+
+      // Light mode toggle
+      document.getElementById('lightModeToggle').onclick = toggleLightMode;
+      initLightMode();
+
+      // Title filter: search input
+      document.getElementById('titlesFilterInput').addEventListener('input', function() {
+        titleFilter = this.value;
+        renderTitlesPanel();
+      });
+
+      // Title filter: tier buttons
+      document.getElementById('tierFilterBtns').addEventListener('click', function(e) {
+        const btn = e.target.closest('.tier-filter-btn');
+        if (!btn) return;
+        tierFilter = btn.dataset.tier;
+        document.querySelectorAll('.tier-filter-btn').forEach(b => b.classList.toggle('active', b === btn));
+        renderTitlesPanel();
+      });
+
+      startBounceTimer();
+    });
+    document.getElementById('confettiBtn').onclick = function() {
+  const panel = document.getElementById('commandPanel');
+  const rect = panel.getBoundingClientRect();
+  const panelLeft = rect.left;
+  const panelBottom = rect.bottom;
+  const panelWidth = rect.width;
+  const colors = ['#ffeb3b','#43b581','#ff5555','#5865f2','#fff','#ffb347','#ff69b4','#00e6e6'];
+  for(let i=0;i<42;i++){
+    const conf = document.createElement('div');
+    const size = 8 + Math.random()*10;
+    conf.style.position = 'fixed';
+    conf.style.left = (panelLeft + Math.random()*panelWidth) + 'px';
+    conf.style.top = (panelBottom-8) + 'px';
+    conf.style.width = size+'px';
+    conf.style.height = size+'px';
+    conf.style.background = colors[Math.floor(Math.random()*colors.length)];
+    conf.style.borderRadius = Math.random()<0.5 ? '50%' : '2px';
+    conf.style.zIndex = 99999;
+    conf.style.pointerEvents = 'none';
+    conf.style.opacity = 0.85;
+    conf.style.transition = 'transform 1.2s cubic-bezier(.2,1.2,.4,1), opacity 1.2s';
+    document.body.appendChild(conf);
+    setTimeout(()=>{
+      const angle = (Math.random()*Math.PI) + Math.PI/2;
+      const dist = 120 + Math.random()*180;
+      const dx = Math.cos(angle)*dist;
+      const dy = -Math.abs(Math.sin(angle))*dist - 60;
+      conf.style.transform = `translate(${dx}px,${dy}px) rotate(${Math.random()*360}deg)`;
+      conf.style.opacity = 0;
+    },10);
+    setTimeout(()=>conf.remove(),1400);
+  }
+};
+
+  </script>
+</head>
+<body>
+  <div class="quiz-box">
+    <h2>Random Game</h2>
+    <div id="accountBox" style="display:block;">
+      <div id="loginSection">
+        <label for="loginUsername">Username:</label>
+        <input type="text" id="loginUsername" autocomplete="username" required>
+        <label for="loginPassword">Password:</label>
+        <input type="password" id="loginPassword" autocomplete="current-password" required>
+        <button type="button" id="loginBtn">Login</button>
+        <div id="toCreate" style="margin-top:7px;"><span id="accountSwitch">Create account</span></div>
+      </div>
+      <div id="createSection" style="display:none;">
+        <label for="createUsername">Username:</label>
+        <input type="text" id="createUsername" autocomplete="username" required>
+        <label for="createPassword">Password:</label>
+        <input type="password" id="createPassword" autocomplete="new-password" required>
+        <button type="button" id="createBtn">Create Account</button>
+        <div id="toLogin" style="margin-top:7px;"><span id="accountSwitchBack">Already have an account? Login</span></div>
+      </div>
+      <div id="errorMsg"></div>
+      <div id="showPasswordBox">
+        <input type="checkbox" id="showPasswordCheckbox">
+        <label id="showPasswordLabel" for="showPasswordCheckbox">Show password</label>
+        <div id="rememberMsg">
+          Make sure to use a password you remember.
+        </div>
+      </div>
+    </div>
+    <div id="clickSection" style="display:none;">
+      <div style="margin-bottom: 10px;">Welcome, <span id="currentUser"></span>! <span id="logoutBtn">Logout</span></div>
+      <div id="timerBox">
+        <span id="timerLabel">Time on site</span>
+        <span id="timer">0</span>
+        <span class="timer-seconds" id="timerUnit">seconds</span>
+        <div id="timerUnitSliderWrap">
+          <input type="range" id="timerUnitSlider" min="0" max="3" step="1" value="0">
+          <div id="timerUnitLabels">
+            <span id="ulabel-0" class="active-unit">Seconds</span>
+            <span id="ulabel-1">Minutes</span>
+            <span id="ulabel-2">Hours</span>
+            <span id="ulabel-3">Days</span>
+          </div>
+        </div>
+      </div>
+      <div class="big-count">
+        <div>Global Count</div>
+        <div id="globalCount">0</div>
+      </div>
+      <button id="clickBtn" style="font-size: 1.5em; margin: 12px 0; width:100%;">Click Me!</button>
+      <div style="margin-top: 15px;">
+        Your Clicks: <span id="yourCount">0</span>
+      </div>
+    </div>
+  </div>
+  <button id="clanTab">⚔️ Clan</button>
+  <button id="caveBtn">🕳️ The Cave</button>
+  <button id="noGravityBtn" class="cpanel-btn">No Gravity: Off</button>
+  <div id="leaderboard">
+    <h3>Global Leaderboard</h3>
+    <div class="lb-sort-bar">
+      <button class="lb-sort-btn lb-sort-active" data-sort="clicks">Most Clicks</button>
+      <button class="lb-sort-btn" data-sort="titles">Most Titles</button>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>User</th>
+          <th>Clicks</th>
+          <th>Time (s)</th>
+          <th>Titles</th>
+        </tr>
+      </thead>
+      <tbody id="leaderboardBody"></tbody>
+    </table>
+  </div>
+      
+  <div id="globalTimeBox">
+    <span id="globalTimeLabel">Global time on site</span>
+    <span id="globalTimeValue">0</span>
+    <span style="font-size:0.9em;color:#bbb;font-weight:600;opacity:0.69;">seconds</span>
+  </div>
+<button id="diamondCounter" title="Open Diamond Shop">💎 <span id="diamondCount">0</span></button>
+<button id="lightModeToggle">☀️ Light</button>
+<button id="titlesTab">🏅 Titles</button>
+<div id="titlesPanel">
+  <h3>🏅 Your Titles</h3>
+  <div id="titlesFilterWrap">
+    <input id="titlesFilterInput" type="text" placeholder="🔍 Search titles..." autocomplete="off">
+    <div class="tier-filter-btns" id="tierFilterBtns">
+      <button class="tier-filter-btn active" data-tier="all">All</button>
+      <button class="tier-filter-btn" data-tier="common">Common</button>
+      <button class="tier-filter-btn" data-tier="uncommon">Uncommon</button>
+      <button class="tier-filter-btn" data-tier="rare">Rare</button>
+      <button class="tier-filter-btn" data-tier="epic">Epic</button>
+      <button class="tier-filter-btn" data-tier="legendary">Legendary</button>
+      <button class="tier-filter-btn" data-tier="mythical">Mythical</button>
+      <button class="tier-filter-btn" data-tier="evolved">Evolved</button>
+    </div>
+  </div>
+  <div id="titlesList"></div>
+</div>
+<div id="newTitleToast"></div>
+<div id="profileOverlay">
+  <div id="profileModal">
+    <div id="profileBanner"></div>
+    <button id="profileClose" title="Close">✕</button>
+    <div id="profileAvatar"></div>
+    <div id="profileEquippedTitle"></div>
+    <div id="profileUsername"></div>
+    <div id="profileOgBadge"></div>
+    <div id="profileBioText"></div>
+    <div id="profileLikeArea">
+      <button id="profileLikeBtn">❤️ Like</button>
+      <span id="profileLikeCount">0 likes</span>
+    </div>
+    <div id="profileStats">
+      <div class="profile-stat"><div class="profile-stat-val" id="profileClicks">0</div><div class="profile-stat-lbl">Clicks</div></div>
+      <div class="profile-stat"><div class="profile-stat-val" id="profileTime">0s</div><div class="profile-stat-lbl">Time</div></div>
+      <div class="profile-stat"><div class="profile-stat-val" id="profileTitleCount">0</div><div class="profile-stat-lbl">Titles</div></div>
+      <div class="profile-stat"><div class="profile-stat-val" id="profileDiamonds">0</div><div class="profile-stat-lbl">💎 Gems</div></div>
+      <div class="profile-stat"><div class="profile-stat-val" id="profileMaxTitles">0</div><div class="profile-stat-lbl">⚡ Max</div></div>
+      <div class="profile-stat"><div class="profile-stat-val" id="profileEvoCount">0</div><div class="profile-stat-lbl">Evolved</div></div>
+    </div>
+    <div id="profileRarest"></div>
+    <div id="profileTitlesHeading">🏅 Titles</div>
+    <div id="profileTitlesList"></div>
+    <div id="profileEditSection" style="display:none">
+      <div style="font-size:0.82em;font-weight:800;color:#5865f2;letter-spacing:0.07em;text-transform:uppercase;margin-bottom:8px;">✏️ Customize Profile</div>
+      <input id="profileBioInput" type="text" placeholder="Bio (max 80 chars)" maxlength="80">
+      <div style="margin-bottom:6px;font-size:0.76em;color:#888;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;">Accent Color</div>
+      <div id="profileColorPicker" style="margin-bottom:10px;"></div>
+      <button id="profileSaveBtn" class="pack-roll-btn">Save Profile</button>
+      <div id="profileSaveMsg" style="font-size:0.8em;min-height:16px;margin-top:6px;font-weight:700;text-align:center;"></div>
+    </div>
+  </div>
+</div>
+<div id="shopOverlay">
+  <div id="shopModal">
+    <button id="shopClose">✕</button>
+    <h2>💎 Diamond Shop</h2>
+    <p id="shopDiamondBal">💎 0</p>
+    <div id="packContainer"></div>
+  </div>
+</div>
+<div id="clanOverlay">
+  <div id="clanPanel">
+    <button id="clanPanelClose">✕</button>
+    <h2 id="clanPanelTitle">⚔️ Clan Hub</h2>
+    <div id="clanPanelBody"></div>
+  </div>
+</div>
+<div id="caveOverlay">
+  <div id="caveContent">
+    <div id="caveHeader">
+      <h2>🕳️ The Cave</h2>
+      <button id="caveClose">✕ Leave Cave</button>
+    </div>
+    <div id="caveGemBal">💎 <span id="caveGemCount">0</span></div>
+    <div id="caveStats">
+      <div class="cave-stat"><span id="cavePerClick">0.1</span> 💎 per click</div>
+      <div class="cave-stat"><span id="cavePerTick">10</span> 💎 per 100s<br><span id="caveTitleBonusNote" style="font-size:0.8em;color:#7a6040;"></span></div>
+    </div>
+    <button id="caveMineBtn">⛏️ Mine!</button>
+    <div class="cave-section-title">🔧 Pickaxe Upgrades</div>
+    <div id="caveUpgradeList"></div>
+  </div>
+</div>
+<div id="rollResultOverlay">
+  <div id="rollResultCard"></div>
+</div>
+<!-- Command Panel Overlay-->
+  <div id="commandPanelOverlay">
+  <div id="commandPanel">
+    <button class="cpanel-close" id="cpanelCloseBtn" title="Close Panel"
+      onclick="document.getElementById('commandPanelOverlay').style.display = 'none';">X</button>
+    <h2 style="margin-top:26px;">Command Panel</h2>
+    <button id="dropBtn" class="cpanel-btn">Drop Down</button>
+    <button id="bounceTimerBtn" class="cpanel-btn">Bounce Timer</button>
+    <button id="noGravityBtn" class="cpanel-btn">No Gravity: Off</button>
+    <button id="idonothing" class="cpanel-btn">i do absolutely nothing.</button>
+<button id="confettiBtn" class="cpanel-btn">Confetti</button>
+    <div id="adminGrantSection" style="display:none;">
+      <div id="adminGrantDivider"></div>
+      <div id="adminGrantLabel">Grant dih 💀 <i id="adminGrantToggleIcon">▲</i></div>
+      <div id="adminGrantBody">
+        <input id="adminGrantInput" type="text" placeholder="Username..." autocomplete="off">
+        <button id="adminGrantBtn" class="cpanel-btn">Grant</button>
+        <div id="adminGrantMsg"></div>
+      </div>
+      <div id="spinGrantDivider"></div>
+      <div id="spinGrantLabel">Grant 🌟 Mythical Spins</div>
+      <div id="spinGrantBody">
+        <input id="spinGrantInput" type="text" placeholder="Username..." autocomplete="off">
+        <div style="display:flex;gap:6px;align-items:center;margin-top:6px;">
+          <input id="spinGrantCount" type="number" value="1" min="1" max="99" style="width:56px;background:#1a1c2e;border:1.5px solid #3a3f48;color:#fff;border-radius:8px;padding:7px 8px;font-size:0.95em;">
+          <button id="spinGrantBtn" class="cpanel-btn" style="margin-top:0;flex:1;">Grant Spins</button>
+        </div>
+        <div id="spinGrantMsg"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<button id="friendsBtn" style="position:relative;">👥 Friends<span id="friendsNotifDot"></span></button>
+<div id="friendsOverlay">
+  <div id="friendsPanel">
+    <button id="friendsPanelClose">✕</button>
+    <h2>👥 Friends</h2>
+    <div id="friendsPanelBody"></div>
+  </div>
+</div>
+<div id="dmWindow">
+  <div id="dmHeader">
+    <span id="dmTitle">💬 Friend</span>
+    <button id="dmTradeBtn">🔄 Trade</button>
+    <button id="dmCloseBtn">✕</button>
+  </div>
+  <div id="dmMessages"></div>
+  <div id="dmInputBar">
+    <input id="dmInput" type="text" placeholder="Message…" maxlength="200" autocomplete="off">
+    <button id="dmSendBtn">↑</button>
+  </div>
+</div>
+<div id="tradeModal">
+  <div id="tradePanel">
+    <button id="tradeClose">✕</button>
+    <h3>🔄 Trade with <span id="tradeTargetName"></span></h3>
+    <div class="trade-section">
+      <div class="trade-section-label">Your Offer</div>
+      <div class="trade-row">
+        <label>💎 Gems to offer:</label>
+        <input class="trade-num-input" id="tradeGemOffer" type="number" min="1" placeholder="0">
+      </div>
+    </div>
+    <button class="trade-send-btn" id="tradeSendBtn">Send Trade Offer</button>
+    <div class="trade-msg" id="tradeMsg"></div>
+  </div>
+</div>
+</body>
+</html>
