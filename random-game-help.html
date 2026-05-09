@@ -322,6 +322,48 @@
     }
     .lb-sort-btn:hover { background: #3a3f48; color: #fff; }
     .lb-sort-btn.lb-sort-active { background: #5865f2; border-color: #5865f2; color: #fff; }
+    .lb-pagination {
+      display: flex; align-items: center; justify-content: center;
+      gap: 10px; margin-top: 12px; padding-top: 10px;
+      border-top: 1px solid #2e3240;
+    }
+    .lb-page-btn {
+      background: #2c2f33; border: 1.5px solid #444; color: #bbb;
+      font-size: 1em; font-weight: 900; padding: 5px 14px;
+      border-radius: 20px; cursor: pointer; margin-top: 0;
+      transition: background 0.15s, color 0.15s; line-height: 1;
+    }
+    .lb-page-btn:hover:not(:disabled) { background: #5865f2; border-color: #5865f2; color: #fff; }
+    .lb-page-btn:disabled { opacity: 0.28; cursor: default; }
+    .lb-page-info {
+      font-size: 0.82em; color: #aaa; font-weight: 700; min-width: 60px; text-align: center;
+    }
+    #lbRankCard {
+      display: none;
+      background: linear-gradient(135deg, #1a1d2e, #212540);
+      border: 1.5px solid #5865f244;
+      border-radius: 14px; padding: 12px 18px;
+      margin: 12px auto 0 auto; max-width: 530px; width: 99vw;
+      box-sizing: border-box;
+      align-items: center; gap: 14px;
+      box-shadow: 0 2px 16px rgba(88,101,242,0.15);
+    }
+    #lbRankCard .rank-medal {
+      font-size: 1.7em; line-height: 1; flex-shrink: 0;
+    }
+    #lbRankCard .rank-info {
+      flex: 1; display: flex; flex-direction: column; gap: 2px;
+    }
+    #lbRankCard .rank-label {
+      font-size: 0.72em; font-weight: 800; color: #888; letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    #lbRankCard .rank-position {
+      font-size: 1.22em; font-weight: 900; color: #fff;
+    }
+    #lbRankCard .rank-position span { color: #5865f2; }
+    #lbRankCard .rank-stats {
+      font-size: 0.78em; color: #9ba3b8; font-weight: 600; margin-top: 1px;
+    }
     #titlesPanel {
       display: none;
       position: fixed;
@@ -1253,84 +1295,187 @@
       color: #0f172a !important;
     }
     body.clean-ui .quiz-box {
-      background: #fff !important; color: #0f172a !important;
-      border: 1px solid rgba(99,102,241,0.13) !important;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.04), 0 28px 70px rgba(99,102,241,0.09) !important;
-      border-radius: 28px !important;
+      background: rgba(255,255,255,0.84) !important; color: #0f172a !important;
+      border: 1px solid rgba(255,255,255,0.75) !important;
+      box-shadow: 0 18px 50px rgba(15,23,42,0.08) !important;
+      border-radius: 30px !important;
+      backdrop-filter: blur(16px) saturate(1.2);
     }
-    body.clean-ui .quiz-box h2 { color: #4f46e5 !important; text-shadow: none !important; }
+    body.clean-ui .quiz-box h2 { color: #111827 !important; text-shadow: none !important; letter-spacing: -0.03em !important; }
     body.clean-ui #timerBox {
-      background: rgba(79,70,229,0.06) !important; border: 1.5px solid rgba(79,70,229,0.14) !important;
-      border-radius: 24px !important; box-shadow: none !important; color: #4f46e5 !important;
+      background: rgba(255,255,255,0.55) !important; border: 1px solid rgba(148,163,184,0.18) !important;
+      border-radius: 22px !important; box-shadow: none !important; color: #111827 !important;
     }
-    body.clean-ui #timer { color: #4f46e5 !important; text-shadow: none !important; }
-    body.clean-ui #timerLabel { color: #6366f1 !important; }
-    body.clean-ui .timer-seconds { color: #a5b4fc !important; }
-    body.clean-ui #timerUnitLabels span { color: #6366f1 !important; }
+    body.clean-ui #timer { color: #111827 !important; text-shadow: none !important; }
+    body.clean-ui #timerLabel { color: #6b7280 !important; letter-spacing: 0.12em !important; }
+    body.clean-ui .timer-seconds { color: #94a3b8 !important; }
+    body.clean-ui #timerUnitLabels span { color: #94a3b8 !important; }
     body.clean-ui .big-count {
-      background: linear-gradient(135deg,#f0f4ff,#f8f9ff) !important; color: #4f46e5 !important;
-      border: 1px solid rgba(99,102,241,0.15) !important; border-radius: 20px !important;
-      text-shadow: none !important; box-shadow: 0 2px 16px rgba(99,102,241,0.08) !important;
+      background: rgba(255,255,255,0.62) !important; color: #111827 !important;
+      border: 1px solid rgba(148,163,184,0.16) !important; border-radius: 20px !important;
+      text-shadow: none !important; box-shadow: none !important;
     }
     body.clean-ui #clickBtn {
-      background: linear-gradient(135deg,#6366f1,#4f46e5) !important;
-      box-shadow: 0 4px 24px rgba(99,102,241,0.32) !important; border-radius: 18px !important;
+      background: #111827 !important;
+      box-shadow: none !important; border-radius: 18px !important;
     }
-    body.clean-ui #clickBtn:hover { background: linear-gradient(135deg,#7c7ff0,#6366f1) !important; transform: translateY(-2px) !important; }
+    body.clean-ui #clickBtn:hover { background: #000 !important; transform: translateY(-1px) !important; }
     body.clean-ui input {
-      background: #f8f9ff !important; border: 1.5px solid #e0e7ff !important;
-      border-radius: 12px !important; color: #0f172a !important;
+      background: rgba(255,255,255,0.7) !important; border: 1px solid rgba(148,163,184,0.18) !important;
+      border-radius: 14px !important; color: #0f172a !important;
     }
     body.clean-ui input:focus {
-      background: #fff !important; border-color: #6366f1 !important;
-      box-shadow: 0 0 0 3px rgba(99,102,241,0.12) !important;
+      background: #fff !important; border-color: rgba(17,24,39,0.18) !important;
+      box-shadow: 0 0 0 3px rgba(255,255,255,0.55) !important;
     }
     body.clean-ui #leaderboard {
-      background: #fff !important; border: 1px solid rgba(99,102,241,0.1) !important;
-      border-radius: 24px !important; box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 16px 48px rgba(99,102,241,0.07) !important;
+      background: rgba(255,255,255,0.78) !important; border: 1px solid rgba(255,255,255,0.75) !important;
+      border-radius: 26px !important; box-shadow: 0 18px 50px rgba(15,23,42,0.08) !important;
+      backdrop-filter: blur(16px) saturate(1.2);
     }
-    body.clean-ui #leaderboard h3 { color: #4f46e5 !important; }
+    body.clean-ui #leaderboard h3 { color: #111827 !important; letter-spacing: -0.02em !important; }
     body.clean-ui #leaderboard th {
-      background: #f8f9ff !important; color: #6366f1 !important;
-      text-transform: uppercase !important; letter-spacing: 0.06em !important; font-size: 0.82em !important;
+      background: rgba(255,255,255,0.7) !important; color: #6b7280 !important;
+      text-transform: uppercase !important; letter-spacing: 0.08em !important; font-size: 0.74em !important;
     }
-    body.clean-ui #leaderboard td, body.clean-ui #leaderboard th { border-color: #f0f0ff !important; }
+    body.clean-ui #leaderboard td, body.clean-ui #leaderboard th { border-color: rgba(148,163,184,0.12) !important; }
     body.clean-ui .lb-sort-btn {
-      background: #f8f9ff !important; border: 1.5px solid #e0e7ff !important;
-      color: #6366f1 !important; border-radius: 50px !important;
+      background: rgba(255,255,255,0.72) !important; border: 1px solid rgba(148,163,184,0.16) !important;
+      color: #374151 !important; border-radius: 999px !important;
     }
-    body.clean-ui .lb-sort-btn.lb-sort-active { background: #6366f1 !important; color: #fff !important; border-color: #6366f1 !important; }
+    body.clean-ui .lb-sort-btn.lb-sort-active { background: #111827 !important; color: #fff !important; border-color: #111827 !important; }
     body.clean-ui #globalTimeBox {
-      background: #fff !important; border: 1px solid rgba(99,102,241,0.1) !important;
-      border-radius: 20px !important;
+      background: rgba(255,255,255,0.72) !important; border: 1px solid rgba(148,163,184,0.14) !important;
+      border-radius: 18px !important; box-shadow: none !important;
+      padding: 8px 10px 7px 10px !important; font-size: 0.88em !important;
     }
-    body.clean-ui #globalTimeLabel { color: #6366f1 !important; font-weight: 700 !important; }
-    body.clean-ui #globalTimeValue { color: #4f46e5 !important; }
+    body.clean-ui #globalTimeLabel { color: #6b7280 !important; font-weight: 600 !important; }
+    body.clean-ui #globalTimeValue { color: #111827 !important; }
     body.clean-ui #lightModeToggle, body.clean-ui #settingsBtn {
-      background: #fff !important; border: 1.5px solid #e0e7ff !important;
-      color: #4f46e5 !important; box-shadow: 0 2px 8px rgba(99,102,241,0.1) !important;
+      background: rgba(255,255,255,0.72) !important; border: 1px solid rgba(148,163,184,0.16) !important;
+      color: #111827 !important; box-shadow: none !important;
+      font-size: 0.85em !important; padding: 5px 10px !important;
     }
     body.clean-ui #diamondCounter {
-      background: linear-gradient(135deg,#fff,#f5f0ff) !important; border: 1.5px solid #e0e7ff !important;
-      color: #7c3aed !important; box-shadow: 0 2px 10px rgba(124,58,237,0.1) !important;
+      background: rgba(255,255,255,0.72) !important; border: 1px solid rgba(148,163,184,0.16) !important;
+      color: #111827 !important; box-shadow: none !important;
+      font-size: 0.74em !important; padding: 3px 8px !important; top: 9px !important; right: 10px !important;
     }
     body.clean-ui #caveBtn {
-      background: linear-gradient(135deg,#fff8ee,#fff) !important; color: #d97706 !important;
-      border: 1.5px solid #fde68a !important; box-shadow: 0 -4px 16px rgba(217,119,6,0.12) !important;
+      background: rgba(255,255,255,0.72) !important; color: #111827 !important;
+      border: 1px solid rgba(148,163,184,0.16) !important; box-shadow: none !important;
     }
     body.clean-ui #clanTab {
-      background: linear-gradient(135deg,#f5f0ff,#ede9fe) !important; color: #7c3aed !important;
-      border: 1.5px solid #ddd6fe !important;
+      background: rgba(255,255,255,0.72) !important; color: #111827 !important;
+      border: 1px solid rgba(148,163,184,0.16) !important;
     }
     body.clean-ui #friendsBtn {
-      background: linear-gradient(135deg,#eff6ff,#f0f9ff) !important; color: #2563eb !important;
-      border: 1.5px solid #bfdbfe !important;
+      background: rgba(255,255,255,0.72) !important; color: #111827 !important;
+      border: 1px solid rgba(148,163,184,0.16) !important;
     }
     body.clean-ui #noGravityBtn {
       background: #f8f9ff !important; border: 1.5px solid #e0e7ff !important; color: #6366f1 !important;
     }
     body.clean-ui #titlesTab {
-      background: #fff !important; border: 1.5px solid #e0e7ff !important; color: #6366f1 !important;
+      background: rgba(255,255,255,0.72) !important; border: 1px solid rgba(148,163,184,0.16) !important; color: #111827 !important;
+      font-size: 0.82em !important; padding: 6px 10px !important;
+    }
+    #fullscreenBtn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.22);
+      background: rgba(255,255,255,0.16);
+      color: inherit;
+      font-size: 0.82em;
+      padding: 0;
+      margin: 0;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #fullscreenTimerOverlay {
+      position: fixed;
+      inset: 0;
+      z-index: 99998;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(248,250,252,0.82);
+      backdrop-filter: blur(22px) saturate(1.2);
+    }
+    #fullscreenTimerCard {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      color: #111827;
+      text-align: center;
+    }
+    #fullscreenTimerValue {
+      font-size: clamp(4rem, 16vw, 10rem);
+      font-weight: 800;
+      letter-spacing: -0.06em;
+      line-height: 0.9;
+    }
+    #fullscreenGlobalCount {
+      font-size: clamp(1.2rem, 3vw, 2rem);
+      font-weight: 600;
+      color: #6b7280;
+      letter-spacing: -0.02em;
+    }
+    #fullscreenCloseBtn {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.22);
+      background: rgba(255,255,255,0.7);
+      color: #111827;
+      font-size: 1.05em;
+      padding: 0;
+      margin: 0;
+    }
+    body.fullscreen-timer #clickSection > #timerBox {
+      display: none !important;
+    }
+    body.fullscreen-timer #clickSection > :not(#timerBox):not(.fullscreen-only),
+    body.fullscreen-timer #clanTab,
+    body.fullscreen-timer #caveBtn,
+    body.fullscreen-timer #onlineCountBox,
+    body.fullscreen-timer #leaderboard,
+    body.fullscreen-timer #lbRankCard,
+    body.fullscreen-timer #globalTimeBox,
+    body.fullscreen-timer #diamondCounter,
+    body.fullscreen-timer #lightModeToggle,
+    body.fullscreen-timer #settingsBtn,
+    body.fullscreen-timer #titlesTab,
+    body.fullscreen-timer #titlesPanel,
+    body.fullscreen-timer #profileOverlay,
+    body.fullscreen-timer #shopOverlay,
+    body.fullscreen-timer #clanOverlay,
+    body.fullscreen-timer #caveOverlay,
+    body.fullscreen-timer #rollResultOverlay,
+    body.fullscreen-timer #commandPanelOverlay,
+    body.fullscreen-timer #friendsOverlay,
+    body.fullscreen-timer #dmWindow,
+    body.fullscreen-timer #newTitleToast {
+      display: none !important;
+    }
+    body.fullscreen-timer #clickSection {
+      display: block !important;
+    }
+    body.fullscreen-timer #timerBox {
+      display: none !important;
+    }
+    body.fullscreen-timer #fullscreenTimerOverlay {
+      display: flex !important;
     }
     body.clean-ui #titlesPanel {
       background: #fff !important; border: 1px solid rgba(99,102,241,0.12) !important;
@@ -1407,21 +1552,33 @@
     /* ====== CLAN ANNOUNCEMENT BANNER ====== */
     #clanAnnounceBanner {
       display: none; position: fixed; top: 0; left: 0; right: 0; z-index: 9500;
-      background: linear-gradient(135deg, #5a1fa8, #7c3aed, #a855f7);
-      color: #fff; padding: 11px 60px 11px 20px; font-size: 0.93em; font-weight: 700;
-      text-align: center; box-shadow: 0 2px 24px rgba(124,58,237,0.55);
-      animation: bannerSlide 0.4s cubic-bezier(0.34,1.56,0.64,1);
+      background: linear-gradient(135deg, #3b0764, #6d28d9, #a855f7, #7c3aed);
+      color: #fff; padding: 18px 72px 18px 28px; font-size: 1.08em; font-weight: 700;
+      text-align: center; box-shadow: 0 4px 40px rgba(124,58,237,0.75), 0 0 80px rgba(168,85,247,0.25);
+      animation: bannerSlide 0.45s cubic-bezier(0.34,1.56,0.64,1);
+      border-bottom: 2.5px solid rgba(168,85,247,0.6);
+      flex-direction: column; align-items: center; gap: 6px;
     }
     @keyframes bannerSlide { from { transform: translateY(-100%); opacity:0; } to { transform: translateY(0); opacity:1; } }
-    #clanAnnounceText { font-size: 1em; }
-    #clanAnnounceFrom { font-size: 0.76em; opacity: 0.65; margin-top: 2px; }
+    #clanAnnounceText { font-size: 1.18em; font-weight: 900; letter-spacing: 0.01em; text-shadow: 0 2px 12px rgba(0,0,0,0.4); }
+    #clanAnnounceFrom { font-size: 0.82em; opacity: 0.72; margin-top: 1px; font-style: italic; }
+    #announceClaimArea { margin-top: 4px; }
     #clanAnnounceDismiss {
-      position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
-      background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.3);
-      color: #fff; font-size: 0.82em; font-weight: 900; cursor: pointer;
-      padding: 4px 12px; border-radius: 20px; margin-top: 0; transition: background 0.15s;
+      position: absolute; right: 14px; top: 14px; transform: none;
+      background: rgba(255,255,255,0.15); border: 1.5px solid rgba(255,255,255,0.35);
+      color: #fff; font-size: 0.9em; font-weight: 900; cursor: pointer;
+      padding: 5px 14px; border-radius: 20px; margin-top: 0; transition: background 0.15s;
+      line-height: 1;
     }
     #clanAnnounceDismiss:hover { background: rgba(255,255,255,0.3); }
+    #announceClaimBtn {
+      background: linear-gradient(135deg, #f59e0b, #fbbf24) !important;
+      border: none !important; border-radius: 20px !important; color: #1a0800 !important;
+      font-weight: 900 !important; font-size: 0.92em !important; padding: 7px 22px !important;
+      cursor: pointer !important; margin-top: 4px !important; box-shadow: 0 2px 12px rgba(251,191,36,0.45) !important;
+      transition: transform 0.12s, box-shadow 0.12s !important;
+    }
+    #announceClaimBtn:hover { transform: scale(1.06) !important; box-shadow: 0 4px 20px rgba(251,191,36,0.65) !important; }
     .clan-announce-section { display: flex; flex-direction: column; gap: 7px; margin-top: 4px; }
     .clan-announce-section textarea {
       background: #2a1a3a; border: 1.5px solid #4a3a5a; border-radius: 10px;
@@ -1525,6 +1682,30 @@
     #timer.tf-bebasnue   { font-family: 'Bebas Neue', sans-serif !important; font-size: 1.5em !important; letter-spacing: 0.1em !important; }
     #timer.tf-courier    { font-family: 'Courier Prime', monospace !important; }
 
+    /* ===== ONLINE COUNT PILL ===== */
+    #onlineCountBox {
+      display: none; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, #0d2013, #122b18);
+      border: 1.5px solid #22c55e55;
+      border-radius: 30px; padding: 8px 18px;
+      margin: 18px auto 0 auto; max-width: 530px; width: 99vw;
+      box-sizing: border-box;
+      font-size: 0.95em; font-weight: 700; color: #4ade80;
+      box-shadow: 0 2px 16px rgba(34,197,94,0.18);
+    }
+    .online-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 0 3px rgba(34,197,94,0.25);
+      animation: pulseDot 2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+    @keyframes pulseDot {
+      0%, 100% { box-shadow: 0 0 0 3px rgba(34,197,94,0.25); }
+      50% { box-shadow: 0 0 0 6px rgba(34,197,94,0.08); }
+    }
+    #onlineCountNum { color: #86efac; font-size: 1.18em; font-weight: 900; }
+
     /* ===== GLOBAL BROADCAST PANEL (owner) ===== */
     #globalBroadcastPanel {
       position: fixed; top: 60px; left: 50%; transform: translateX(-50%);
@@ -1625,16 +1806,6 @@
       0%   { opacity: 1; transform: translateY(0) scale(1); }
       100% { opacity: 0; transform: translateY(-60px) scale(1.5); }
     }
-    #emeraldCounter {
-      position: fixed; top: 52px; right: 18px;
-      background: linear-gradient(135deg, #0b1f0d, #091c12);
-      border: 1.5px solid #22c55e55; border-radius: 30px;
-      color: #4ade80; font-size: 0.88em; font-weight: 800;
-      padding: 5px 14px; z-index: 1200;
-      display: none; align-items: center; gap: 5px;
-      box-shadow: 0 2px 14px #0007; user-select: none;
-    }
-
     /* ===== EASTER EGG STYLES ===== */
     #easterEggPopup {
       position: fixed; top: 50%; left: 50%;
@@ -1773,7 +1944,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;700;800&family=Orbitron:wght@400;700;900&family=Press+Start+2P&family=VT323&family=Space+Mono:wght@400;700&family=Roboto+Mono:wght@400;700&family=Rajdhani:wght@500;700&family=Bebas+Neue&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js";
-    import { getDatabase, ref, get, set, update, onValue, increment, off } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-database.js";
+    import { getDatabase, ref, get, set, update, onValue, increment, off, remove, onDisconnect } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-database.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-analytics.js";
 
     const firebaseConfig = {
@@ -1986,7 +2157,7 @@
     let profileCardStyle = 'default';
     let profileNameFont = 'inter';
     let lastSeenAnnouncementTs = null;
-    const OWNER_USERNAMES = ['owner']; // ← replace with your actual username(s)
+    const OWNER_USERNAMES = ['Me', 'Hi', 'carter']; // ← replace with your actual username(s)
     let timerFont = 'jetbrains';
     let leaderboardName = '';
     let streak = 0;
@@ -2698,9 +2869,21 @@
     }
 
     // ===== GLOBAL ANNOUNCEMENT =====
-    async function sendGlobalAnnouncement(text) {
+    async function sendGlobalAnnouncement(text, gems) {
       if (!user) return;
-      await update(ref(db, 'global/announcement'), { text, from: user, ts: Date.now() });
+      const payload = { text, from: user, ts: Date.now() };
+      if (gems && gems > 0) {
+        payload.gems = gems;
+        // Snapshot exactly who is online right now — only they can claim
+        const onlineSnap = await get(ref(db, 'online'));
+        const eligibleClaimers = {};
+        if (onlineSnap.exists()) {
+          Object.keys(onlineSnap.val()).forEach(k => { eligibleClaimers[k] = true; });
+        }
+        payload.eligibleClaimers = eligibleClaimers;
+      }
+      // Use set() not update() so old eligibleClaimers/gems never bleed into new broadcasts
+      await set(ref(db, 'global/announcement'), payload);
     }
     function listenGlobalAnnouncement() {
       onValue(ref(db, 'global/announcement'), snap => {
@@ -2710,17 +2893,83 @@
     function handleAnnouncement(ann) {
       if (!ann || !ann.text) return;
       if (ann.ts === lastSeenAnnouncementTs) return;
+      // Skip if user already dismissed this specific announcement
+      try {
+        if (localStorage.getItem('dismissedAnnouncementTs') === String(ann.ts)) return;
+      } catch(e) {}
       lastSeenAnnouncementTs = ann.ts;
       const banner = document.getElementById('clanAnnounceBanner');
       if (!banner) return;
       document.getElementById('clanAnnounceText').textContent = '📢 ' + ann.text;
       document.getElementById('clanAnnounceFrom').textContent = '— ' + (ann.from || '');
+      // Handle gems claim button
+      const claimArea = document.getElementById('announceClaimArea');
+      if (claimArea) {
+        if (ann.gems && ann.gems > 0 && user) {
+          const safe = user.replace(/[.#$[\]]/g, '_');
+          // Only show claim if this player was online when broadcast was sent
+          const isEligible = ann.eligibleClaimers && ann.eligibleClaimers[safe];
+          if (!isEligible) {
+            claimArea.style.display = 'none';
+            claimArea.innerHTML = '';
+          } else {
+            // Capture ts NOW — if a newer announcement arrives before the async get() resolves,
+            // we bail out of the callback so we don't overwrite the new announcement's UI
+            const capturedTs = ann.ts;
+            const capturedGems = ann.gems;
+            get(ref(db, 'global/gemClaims/' + ann.ts + '/' + safe)).then(claimSnap => {
+              // A newer announcement replaced this one while we were fetching — abort
+              if (lastSeenAnnouncementTs !== capturedTs) return;
+              if (claimSnap.exists()) {
+                claimArea.innerHTML = '<span style="color:#86efac;font-size:0.88em;font-weight:800;">✓ Gems already claimed</span>';
+              } else {
+                claimArea.innerHTML = `<button id="announceClaimBtn">💎 Claim ${capturedGems} Gems</button>`;
+                const claimBtn = document.getElementById('announceClaimBtn');
+                if (claimBtn) claimBtn.onclick = function() {
+                  if (!user) return;
+                  this.disabled = true;
+                  set(ref(db, 'global/gemClaims/' + capturedTs + '/' + safe), true).then(() => {
+                    diamonds += capturedGems;
+                    updateDiamondDisplay();
+                    update(ref(db, 'users/' + safe), { diamonds });
+                    claimArea.innerHTML = '<span style="color:#86efac;font-size:0.88em;font-weight:800;">✓ ' + capturedGems + ' Gems claimed!</span>';
+                  });
+                };
+              }
+              claimArea.style.display = 'block';
+            });
+          }
+        } else {
+          claimArea.style.display = 'none';
+          claimArea.innerHTML = '';
+        }
+      }
       banner.style.display = 'flex';
       clearTimeout(banner._hideTimeout);
-      banner._hideTimeout = setTimeout(() => { banner.style.display = 'none'; }, 20000);
+      banner._hideTimeout = setTimeout(() => { banner.style.display = 'none'; }, 30000);
     }
     // keep alias for clan panel (now writes globally)
     async function sendClanAnnouncement(text) { return sendGlobalAnnouncement(text); }
+
+    // ===== ONLINE PRESENCE =====
+    function setupPresence() {
+      if (!user) return;
+      const safe = user.replace(/[.#$[\]]/g, '_');
+      const presRef = ref(db, 'online/' + safe);
+      set(presRef, { name: user, t: Date.now() });
+      onDisconnect(presRef).remove();
+    }
+    function listenOnlineCount() {
+      onValue(ref(db, 'online'), snap => {
+        const count = snap.exists() ? Object.keys(snap.val() || {}).length : 0;
+        const el = document.getElementById('onlineCountNum');
+        if (el) el.textContent = count;
+        const plural = document.getElementById('onlinePlural');
+        if (plural) plural.textContent = count === 1 ? '' : 's';
+        const box = document.getElementById('onlineCountBox');
+        if (box) box.style.display = 'flex';
+      });
+    }
 
     // ===== TIMER FONT =====
     function initTimerFont() {
@@ -2813,11 +3062,11 @@
     }
 
     function updateEmeraldDisplay() {
-      const el = document.getElementById('emeraldCounter');
       const ct = document.getElementById('emeraldCount');
-      if (!el || !ct) return;
+      const shop = document.getElementById('shopEmeraldBal');
+      if (!ct) return;
       ct.textContent = emeralds;
-      el.style.display = emeralds > 0 ? 'flex' : 'none';
+      if (shop) shop.style.display = 'block';
     }
 
     // ===== EASTER EGG SYSTEM =====
@@ -2883,7 +3132,7 @@
       const v1 = document.getElementById('gt1').value.trim().toLowerCase();
       const v2 = document.getElementById('gt2').value.trim().toLowerCase();
       const v3 = document.getElementById('gt3').value.trim().toLowerCase();
-      const c1 = v1 === 'father'; const c2 = v2 === 'lord'; const c3 = v3 === 'transcendent';
+      const c1 = v1 === 'time'; const c2 = v2 === 'click'; const c3 = v3 === 'collect';
       document.getElementById('gt1').classList.toggle('correct', c1);
       document.getElementById('gt2').classList.toggle('correct', c2);
       document.getElementById('gt3').classList.toggle('correct', c3);
@@ -2897,8 +3146,8 @@
     }
     function grungusCheckFinal() {
       const v4 = document.getElementById('gt4').value.trim().toLowerCase();
-      document.getElementById('gt4').classList.toggle('correct', v4 === 'grungy');
-      document.getElementById('grungusCompleteBtn').style.display = v4 === 'grungy' ? 'block' : 'none';
+      document.getElementById('gt4').classList.toggle('correct', v4 === 'purpose');
+      document.getElementById('grungusCompleteBtn').style.display = v4 === 'purpose' ? 'block' : 'none';
     }
     function grungusComplete() {
       emeralds += 1;
@@ -2908,7 +3157,7 @@
       msg.innerHTML = `<span style="color:#4ade80;font-size:1.3em;font-weight:900">✨ THE RITUAL IS COMPLETE ✨</span><br><span style="color:#9060c0;font-size:0.82em">The Grungus has acknowledged you.<br>You receive <strong style="color:#4ade80">1 Emerald 🟢</strong>.<br><em>It does nothing. It is sacred.</em></span>`;
       document.getElementById('grungusCompleteBtn').style.display = 'none';
       EGG_FOUND.add('grungus');
-      setTimeout(() => document.getElementById('grungusOverlay').classList.remove('show'), 5000);
+      setTimeout(() => document.getElementById('grungusOverlay').classList.remove('show'), 20000);
     }
     function triggerMatrix() {
       if (EGG_FOUND.has('matrix')) return; EGG_FOUND.add('matrix');
@@ -3872,6 +4121,7 @@ function startTimer() {
 
     function updateTimerDisplay() {
       const timerElem = document.getElementById("timer");
+      const fullTimerElem = document.getElementById("fullscreenTimerValue");
       let newThousand = Math.floor(timer / 1000);
       if (newThousand > lastThousand && !animatingGlitch) {
         triggerGlitchDrop();
@@ -3882,6 +4132,7 @@ function startTimer() {
       const decimals = timerUnitDecimals[unitIdx];
       const displayVal = (timer / divisor).toFixed(decimals);
       timerElem.textContent = displayVal;
+      if (fullTimerElem) fullTimerElem.textContent = displayVal;
       if (!animatingGlitch) {
         timerElem.style.color = `hsl(${Math.floor(Math.random()*360)},95%,60%)`;
         const offset = Math.floor(Math.random() * 101) - 50;
@@ -4234,6 +4485,8 @@ function startTimerWhenReady() {
   listenLeaderboard();
   startTimerWhenReady();
   listenGlobalTime();
+  setupPresence();
+  listenOnlineCount();
   titlesInitialized = false;
   myTitles = []; equippedTitleId = null; profileColor = '#5865f2'; profileBio = '';
   const safeUsernameT = user.replace(/[.#$[\]]/g, '_');
@@ -4242,7 +4495,6 @@ function startTimerWhenReady() {
   });
   document.getElementById('titlesTab').style.display = 'block';
   document.getElementById('diamondCounter').style.display = 'flex';
-  if (emeralds > 0) document.getElementById('emeraldCounter').style.display = 'flex';
   document.getElementById('caveBtn').style.display = 'block';
   document.getElementById('clanTab').style.display = 'block';
   document.getElementById('friendsBtn').style.display = 'block';
@@ -4261,6 +4513,8 @@ function startTimerWhenReady() {
         unsubGlobal = onValue(ref(db, 'meta/global'), snap => {
           const v = snap.exists() && snap.val() && typeof snap.val().count === "number" ? snap.val().count : 0;
           document.getElementById('globalCount').textContent = v;
+          const fullGlobal = document.getElementById('fullscreenGlobalCount');
+          if (fullGlobal) fullGlobal.textContent = 'Global Count: ' + v;
         });
       }
       function listenUser() {
@@ -4274,6 +4528,8 @@ function startTimerWhenReady() {
       }
       let lbEntries = [];
       let lbSort = 'clicks';
+      let lbPage = 0;
+      const LB_PAGE_SIZE = 15;
 
       function formatTime(seconds) {
         if (seconds < 60) return seconds + 's';
@@ -4572,19 +4828,29 @@ function startTimerWhenReady() {
         document.querySelectorAll('.lb-sort-btn').forEach(btn => {
           btn.classList.toggle('lb-sort-active', btn.dataset.sort === lbSort);
         });
+
+        const totalPages = Math.max(1, Math.ceil(sorted.length / LB_PAGE_SIZE));
+        if (lbPage >= totalPages) lbPage = totalPages - 1;
+        const start = lbPage * LB_PAGE_SIZE;
+        const pageEntries = sorted.slice(start, start + LB_PAGE_SIZE);
+
         const tbody = document.getElementById('leaderboardBody');
         tbody.innerHTML = "";
-        sorted.slice(0, 15).forEach((entry, i) => {
+        pageEntries.forEach((entry, i) => {
+          const globalRank = start + i + 1;
           const tr = document.createElement("tr");
           const hasOg = Array.isArray(entry.titles) && entry.titles.includes('og');
           const titleDisplay = entry.titleCount === 0 ? '—' : (hasOg ? '👑 ' : '') + entry.titleCount + (entry.titleCount === 1 ? ' title' : ' titles');
-          // Equipped title badge
           let eqTitle = entry.equippedTitleId ? ALL_TITLES.find(t => t.id === entry.equippedTitleId && entry.titles.includes(t.id)) : null;
           if (!eqTitle) eqTitle = getRarestOwnedTitle(entry.titles, entry.titleCounts);
           const eqBadge = eqTitle ? `<span class="lb-equipped" title="${eqTitle.label}">${eqTitle.icon}</span>` : '';
           const pColor = entry.profileColor || '#5865f2';
           const shownName = entry.displayName || entry.name;
-          tr.innerHTML = `<td>${i + 1}</td>
+          let rankDisplay = String(globalRank);
+          if (globalRank === 1) rankDisplay = '🥇';
+          else if (globalRank === 2) rankDisplay = '🥈';
+          else if (globalRank === 3) rankDisplay = '🥉';
+          tr.innerHTML = `<td>${rankDisplay}</td>
             <td><span class="lb-name-link" data-name="${entry.name}" style="color:${pColor === '#5865f2' ? '' : pColor}">${shownName}</span>${eqBadge}</td>
             <td>${entry.clicks}</td>
             <td>${entry.seconds}</td>
@@ -4599,6 +4865,37 @@ function startTimerWhenReady() {
         tbody.querySelectorAll('.lb-name-link').forEach(el => {
           el.onclick = () => openProfileModal(el.dataset.name);
         });
+
+        // Pagination controls
+        const prevBtn = document.getElementById('lbPrevBtn');
+        const nextBtn = document.getElementById('lbNextBtn');
+        const pageInfo = document.getElementById('lbPageInfo');
+        if (prevBtn) prevBtn.disabled = lbPage === 0;
+        if (nextBtn) nextBtn.disabled = lbPage >= totalPages - 1;
+        if (pageInfo) pageInfo.textContent = `Page ${lbPage + 1} / ${totalPages}`;
+
+        // Show/hide pagination bar
+        const paginationEl = document.getElementById('lbPagination');
+        if (paginationEl) paginationEl.style.display = totalPages > 1 ? 'flex' : 'none';
+
+        // Player rank card
+        if (user) {
+          const myRank = sorted.findIndex(e => e.name === user.replace(/[.#$[\]]/g, '_') || e.name === user);
+          const rankCard = document.getElementById('lbRankCard');
+          if (rankCard) {
+            if (myRank >= 0) {
+              const myEntry = sorted[myRank];
+              const pos = myRank + 1;
+              let medal = pos === 1 ? '🥇' : pos === 2 ? '🥈' : pos === 3 ? '🥉' : pos <= 10 ? '🏅' : '📊';
+              rankCard.style.display = 'flex';
+              rankCard.querySelector('.rank-medal').textContent = medal;
+              rankCard.querySelector('.rank-position').innerHTML = `You are ranked <span>#${pos}</span> of ${sorted.length}`;
+              rankCard.querySelector('.rank-stats').textContent = `${myEntry.clicks.toLocaleString()} clicks · ${myEntry.seconds.toLocaleString()}s · ${myEntry.titleCount} titles`;
+            } else {
+              rankCard.style.display = 'none';
+            }
+          }
+        }
       }
 
       function listenLeaderboard() {
@@ -4703,9 +5000,17 @@ function startTimerWhenReady() {
       document.querySelectorAll('.lb-sort-btn').forEach(btn => {
         btn.onclick = function() {
           lbSort = this.dataset.sort;
+          lbPage = 0;
           renderLeaderboard();
         };
       });
+      document.getElementById('lbPrevBtn').onclick = function() {
+        if (lbPage > 0) { lbPage--; renderLeaderboard(); }
+      };
+      document.getElementById('lbNextBtn').onclick = function() {
+        const totalPages = Math.max(1, Math.ceil(lbEntries.length / LB_PAGE_SIZE));
+        if (lbPage < totalPages - 1) { lbPage++; renderLeaderboard(); }
+      };
 
       document.getElementById('profileClose').onclick = () => {
         document.getElementById('profileOverlay').classList.remove('open');
@@ -4836,6 +5141,9 @@ function startTimerWhenReady() {
       // Announcement banner dismiss
       document.getElementById('clanAnnounceDismiss').onclick = () => {
         document.getElementById('clanAnnounceBanner').style.display = 'none';
+        try { if (lastSeenAnnouncementTs) localStorage.setItem('dismissedAnnouncementTs', String(lastSeenAnnouncementTs)); } catch(e) {}
+        const claimArea = document.getElementById('announceClaimArea');
+        if (claimArea) claimArea.innerHTML = '';
       };
 
       // Draggable + resizable DM window
@@ -4944,15 +5252,35 @@ function startTimerWhenReady() {
       if (gbSend) {
         gbSend.onclick = async function() {
           const text = document.getElementById('globalBroadcastInput').value.trim();
+          const gemsVal = parseInt(document.getElementById('globalBroadcastGems').value) || 0;
           const msg = document.getElementById('globalBroadcastMsg');
           if (!text) { msg.style.color='#ff4757'; msg.textContent='Enter a message.'; return; }
           this.disabled = true; msg.style.color='#aaa'; msg.textContent='Sending…';
-          await sendGlobalAnnouncement(text);
+          await sendGlobalAnnouncement(text, gemsVal);
           this.disabled = false; msg.style.color='#43b581'; msg.textContent='✓ Broadcast sent to all players!';
           document.getElementById('globalBroadcastInput').value = '';
+          document.getElementById('globalBroadcastGems').value = '';
           setTimeout(() => { msg.textContent=''; }, 3500);
         };
       }
+
+      const fullscreenBtn = document.getElementById('fullscreenBtn');
+      const fullscreenCloseBtn = document.getElementById('fullscreenCloseBtn');
+      const enterFullscreenTimer = () => {
+        document.body.classList.add('fullscreen-timer');
+        updateTimerDisplay();
+        const v = document.getElementById('globalCount')?.textContent || '0';
+        const fullGlobal = document.getElementById('fullscreenGlobalCount');
+        if (fullGlobal) fullGlobal.textContent = 'Global Count: ' + v;
+      };
+      const exitFullscreenTimer = () => {
+        document.body.classList.remove('fullscreen-timer');
+      };
+      if (fullscreenBtn) fullscreenBtn.onclick = enterFullscreenTimer;
+      if (fullscreenCloseBtn) fullscreenCloseBtn.onclick = exitFullscreenTimer;
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && document.body.classList.contains('fullscreen-timer')) exitFullscreenTimer();
+      });
 
       // Easter egg click-based listeners
       document.getElementById('timer')?.addEventListener('click', () => {
@@ -5049,6 +5377,7 @@ function startTimerWhenReady() {
     <div id="clickSection" style="display:none;">
       <div style="margin-bottom: 10px;">Welcome, <span id="currentUser"></span>! <span id="logoutBtn">Logout</span></div>
       <div id="timerBox">
+        <button id="fullscreenBtn" title="Fullscreen timer">⤢</button>
         <span id="timerLabel">Time on site</span>
         <span id="timer">0</span>
         <span class="timer-seconds" id="timerUnit">seconds</span>
@@ -5072,8 +5401,19 @@ function startTimerWhenReady() {
       </div>
     </div>
   </div>
+  <div id="fullscreenTimerOverlay">
+    <button id="fullscreenCloseBtn" title="Exit fullscreen">✕</button>
+    <div id="fullscreenTimerCard">
+      <div id="fullscreenTimerValue">0</div>
+      <div id="fullscreenGlobalCount">Global Count: 0</div>
+    </div>
+  </div>
   <button id="clanTab">⚔️ Clan</button>
   <button id="caveBtn">🕳️ The Cave</button>
+  <div id="onlineCountBox">
+    <span class="online-dot"></span>
+    <span><span id="onlineCountNum">0</span> player<span id="onlinePlural">s</span> online right now</span>
+  </div>
   <div id="leaderboard">
     <h3>Global Leaderboard</h3>
     <div class="lb-sort-bar">
@@ -5092,6 +5432,19 @@ function startTimerWhenReady() {
       </thead>
       <tbody id="leaderboardBody"></tbody>
     </table>
+    <div class="lb-pagination" id="lbPagination" style="display:none;">
+      <button class="lb-page-btn" id="lbPrevBtn" disabled>&#8592;</button>
+      <span class="lb-page-info" id="lbPageInfo">Page 1 / 1</span>
+      <button class="lb-page-btn" id="lbNextBtn" disabled>&#8594;</button>
+    </div>
+  </div>
+  <div id="lbRankCard">
+    <div class="rank-medal">📊</div>
+    <div class="rank-info">
+      <div class="rank-label">Your Position</div>
+      <div class="rank-position">—</div>
+      <div class="rank-stats">—</div>
+    </div>
   </div>
       
   <div id="globalTimeBox">
@@ -5100,7 +5453,6 @@ function startTimerWhenReady() {
     <span style="font-size:0.9em;color:#bbb;font-weight:600;opacity:0.69;">seconds</span>
   </div>
 <button id="diamondCounter" title="Open Diamond Shop">💎 <span id="diamondCount">0</span></button>
-<div id="emeraldCounter" title="Emerald — used for nothing">🟢 <span id="emeraldCount">0</span></div>
 <button id="lightModeToggle">☀️ Light</button>
 <button id="settingsBtn">⚙️ Settings</button>
 <button id="titlesTab">🏅 Titles</button>
@@ -5192,6 +5544,7 @@ function startTimerWhenReady() {
     <button id="shopClose">✕</button>
     <h2>💎 Diamond Shop</h2>
     <p id="shopDiamondBal">💎 0</p>
+    <div id="shopEmeraldBal" style="text-align:center;color:#4ade80;font-weight:800;font-size:0.95em;margin:-8px 0 14px 0;display:block;">🟢 <span id="emeraldCount">0</span> Emeralds</div>
     <div id="packContainer"></div>
   </div>
 </div>
@@ -5373,6 +5726,7 @@ function startTimerWhenReady() {
 <div id="clanAnnounceBanner">
   <div id="clanAnnounceText"></div>
   <div id="clanAnnounceFrom"></div>
+  <div id="announceClaimArea" style="display:none;"></div>
   <button id="clanAnnounceDismiss">✕</button>
 </div>
 
@@ -5395,6 +5749,8 @@ function startTimerWhenReady() {
     <div id="grungusSubtitle">
       Three names bind the Grungus.<br>
       Speak them into the triangle of awakening.
+      Hint : T1C2C3PF
+
     </div>
 
     <div id="grungusTriangle">
@@ -5436,6 +5792,11 @@ function startTimerWhenReady() {
 <div id="globalBroadcastPanel">
   <h4>📢 Global Broadcast</h4>
   <textarea id="globalBroadcastInput" placeholder="Send a message to ALL players currently in the game…" maxlength="160"></textarea>
+  <div style="display:flex;align-items:center;gap:8px;margin-top:8px;">
+    <span style="font-size:0.82em;color:#c084fc;font-weight:700;white-space:nowrap;">💎 Gems to give:</span>
+    <input id="globalBroadcastGems" type="number" min="0" step="1" placeholder="0 (optional)" style="flex:1;background:#0d0a1a;border:1.5px solid #6d28d9;border-radius:10px;color:#e0d0f0;padding:7px 10px;font-size:0.88em;font-family:inherit;outline:none;margin-top:0;">
+  </div>
+  <div style="font-size:0.74em;color:#9b72cf;margin-top:4px;text-align:center;">Players will see a Claim button if gems &gt; 0</div>
   <button id="globalBroadcastSend">📢 Send to Everyone</button>
   <div id="globalBroadcastMsg"></div>
 </div>
