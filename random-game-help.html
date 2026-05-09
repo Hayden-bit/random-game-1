@@ -29,7 +29,7 @@
       color: var(--text);
       font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
       margin: 0;
-      padding: 0;
+      padding: 0;w
     }
     body {
       display: flex;
@@ -874,7 +874,7 @@
       background: linear-gradient(135deg, #1a0e2a, #2d1050);
       color: #a855f7; font-weight: 900; font-size: 1em;
       padding: 10px 18px 8px 18px; border-radius: 14px 14px 0 0;
-      cursor: pointer; z-index: 1500; border: none;
+      cursor: pointer; z-index: 1600; border: none;
       box-shadow: 0 -2px 16px #0006; letter-spacing: 0.04em;
       transition: background 0.18s, transform 0.15s; user-select: none; margin-top: 0;
     }
@@ -1082,11 +1082,13 @@
     body.light-mode #rollResultCard { background: #fff; }
     body.light-mode #noGravityBtn { background: #fff; color: #1a1a2e; border: 1.5px solid #dde1eb; }
     /* CHAT */
-    .chat-messages{display:flex;flex-direction:column;gap:6px;max-height:250px;overflow-y:auto;padding:8px 4px;}
+    .chat-messages{display:flex;flex-direction:column;gap:6px;height:320px;max-height:600px;min-height:120px;overflow-y:auto;padding:8px 4px;resize:vertical;}
     .chat-bubble{max-width:84%;padding:7px 12px;border-radius:14px;font-size:0.86em;line-height:1.4;word-break:break-word;}
     .chat-bubble.mine{align-self:flex-end;background:linear-gradient(135deg,#a855f7,#7c3aed);color:#fff;border-bottom-right-radius:4px;}
     .chat-bubble.theirs{align-self:flex-start;background:#2a1a3a;color:#d8b8ff;border-bottom-left-radius:4px;}
     .chat-bubble-user{font-size:0.71em;font-weight:900;margin-bottom:2px;opacity:0.7;}
+    .chat-bubble-time{font-size:0.66em;opacity:0.55;margin-top:2px;}
+    .chat-bubble.mine .chat-bubble-time{text-align:right;}
     .chat-input-bar{display:flex;gap:6px;padding-top:8px;border-top:1px solid #3a2a4a;}
     .chat-input{flex:1;background:#2a1a3a;border:1.5px solid #4a3a5a;border-radius:9px;color:#fff;padding:7px 10px;font-size:0.87em;outline:none;margin-top:0;}
     .chat-input:focus{border-color:#a855f7;}
@@ -1127,18 +1129,21 @@
     .friends-section-title{font-size:0.74em;font-weight:900;letter-spacing:0.12em;text-transform:uppercase;color:#4a6080;padding-bottom:7px;border-bottom:1px solid #2a4060;margin-top:2px;}
     .friends-divider{border:none;border-top:1px solid #2a4060;margin:4px 0;}
     /* DM WINDOW */
-    #dmWindow{display:none;position:fixed;bottom:76px;right:20px;z-index:4000;width:310px;background:#0e1828;border:1.5px solid #4a9eff44;border-radius:16px;box-shadow:0 8px 40px #0008;flex-direction:column;overflow:hidden;}
-    #dmHeader{display:flex;align-items:center;gap:8px;padding:10px 14px;background:#1a2a3a;border-bottom:1px solid #2a4060;}
+    #dmWindow{display:none;position:fixed;bottom:76px;right:20px;z-index:4000;width:340px;min-width:260px;min-height:280px;background:#0e1828;border:1.5px solid #4a9eff44;border-radius:16px;box-shadow:0 8px 40px #0008;flex-direction:column;overflow:hidden;resize:both;}
+    #dmHeader{display:flex;align-items:center;gap:8px;padding:10px 14px;background:#1a2a3a;border-bottom:1px solid #2a4060;flex-shrink:0;}
     #dmTitle{flex:1;font-weight:900;font-size:0.92em;color:#4a9eff;}
     #dmTradeBtn{font-size:0.71em;font-weight:800;padding:4px 9px;border-radius:9px;border:1.5px solid #43b58155;color:#43b581;background:transparent;cursor:pointer;margin-top:0;transition:background 0.13s;}
     #dmTradeBtn:hover{background:#43b58120;}
     #dmCloseBtn{background:none;border:none;color:#666;font-size:1em;cursor:pointer;padding:0 2px;margin-top:0;transition:color 0.15s;}
     #dmCloseBtn:hover{color:#fff;}
-    #dmMessages{display:flex;flex-direction:column;gap:5px;max-height:200px;min-height:60px;overflow-y:auto;padding:10px 12px;}
+    #dmMessages{display:flex;flex-direction:column;gap:5px;flex:1;overflow-y:auto;padding:10px 12px;min-height:0;}
     .dm-bubble{max-width:86%;padding:6px 10px;border-radius:12px;font-size:0.85em;word-break:break-word;}
     .dm-bubble.mine{align-self:flex-end;background:#4a9eff;color:#fff;border-bottom-right-radius:3px;}
     .dm-bubble.theirs{align-self:flex-start;background:#1a3050;color:#a0d0ff;border-bottom-left-radius:3px;}
-    #dmInputBar{display:flex;gap:6px;padding:8px 12px;border-top:1px solid #2a4060;}
+    .dm-bubble-time{font-size:0.66em;opacity:0.55;margin-top:2px;}
+    .dm-bubble.mine .dm-bubble-time{text-align:right;}
+    .dm-sender-label{font-size:0.72em;font-weight:900;color:#4a7090;margin-top:4px;padding-left:2px;align-self:flex-start;}
+    #dmInputBar{display:flex;gap:6px;padding:8px 12px;border-top:1px solid #2a4060;flex-shrink:0;}
     #dmInput{flex:1;background:#1a2a3a;border:1.5px solid #2a4060;border-radius:8px;color:#fff;padding:6px 10px;font-size:0.84em;outline:none;margin-top:0;}
     #dmInput:focus{border-color:#4a9eff;}
     #dmSendBtn{background:#4a9eff;border:none;color:#fff;font-weight:900;padding:6px 12px;border-radius:8px;cursor:pointer;font-size:0.84em;margin-top:0;}
@@ -1172,8 +1177,600 @@
     body.light-mode #dmWindow{background:#e8f4ff;border-color:#4a9eff44;}
     body.light-mode .dm-bubble.theirs{background:#c8e4ff;color:#1a3050;}
     body.light-mode #dmHeader,body.light-mode #dmInputBar{background:#d8ecff;border-color:#90c0e0;}
+
+    /* ====== JETBRAINS MONO TIMER ====== */
+    #timer { font-family: 'JetBrains Mono', monospace !important; }
+    .timer-seconds { font-family: 'JetBrains Mono', monospace; }
+
+    /* ====== SETTINGS PANEL ====== */
+    #settingsBtn {
+      position: fixed; top: 14px; left: 110px; right: auto;
+      background: #23272a; border: 1.5px solid #3a3f48; color: #fff;
+      font-size: 1em; padding: 6px 13px; border-radius: 22px;
+      cursor: pointer; z-index: 1300; font-weight: 700;
+      box-shadow: 0 2px 10px #0005; transition: background 0.18s, transform 0.12s;
+      margin-top: 0; display: flex; align-items: center; gap: 5px;
+    }
+    #settingsBtn:hover { transform: scale(1.07); background: #3a3f48; }
+    #settingsOverlay {
+      display: none; position: fixed; inset: 0; z-index: 9000;
+      background: rgba(0,0,0,0.72); align-items: center; justify-content: center;
+      backdrop-filter: blur(6px);
+    }
+    #settingsPanel {
+      background: #15181d; border: 1.5px solid #2d3139; border-radius: 26px;
+      padding: 30px 28px 26px 28px; width: 400px; max-width: 96vw; max-height: 88vh;
+      overflow-y: auto; position: relative; display: flex; flex-direction: column;
+      gap: 22px; box-shadow: 0 20px 80px rgba(0,0,0,0.6);
+    }
+    #settingsPanel h2 {
+      margin: 0; font-size: 1.35em; font-weight: 900; color: #fff;
+      letter-spacing: 0.02em;
+    }
+    #settingsClose {
+      position: absolute; top: 18px; right: 20px;
+      background: none; border: none; color: #555; font-size: 1.2em;
+      cursor: pointer; padding: 3px 8px; border-radius: 8px; margin-top: 0;
+      transition: color 0.15s, background 0.15s;
+    }
+    #settingsClose:hover { color: #fff; background: #2a2d35; }
+    .settings-section { display: flex; flex-direction: column; gap: 12px; }
+    .settings-section-title {
+      font-size: 0.69em; font-weight: 900; letter-spacing: 0.15em;
+      text-transform: uppercase; color: #4a4f58; padding-bottom: 8px;
+      border-bottom: 1px solid #21242a;
+    }
+    .settings-row {
+      display: flex; align-items: center; justify-content: space-between; gap: 14px;
+    }
+    .settings-row-info { display: flex; flex-direction: column; gap: 2px; }
+    .settings-row-label { font-size: 0.93em; font-weight: 700; color: #d0d3d8; }
+    .settings-row-sub { font-size: 0.74em; color: #555; }
+    .settings-toggle {
+      position: relative; width: 48px; height: 27px; flex-shrink: 0;
+      background: #2d3139; border-radius: 50px; border: none;
+      cursor: pointer; transition: background 0.22s; margin-top: 0; padding: 0;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.3);
+    }
+    .settings-toggle::after {
+      content: ''; position: absolute; top: 3.5px; left: 3.5px;
+      width: 20px; height: 20px; background: #6b7280; border-radius: 50%;
+      transition: transform 0.22s, background 0.22s;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.35);
+    }
+    .settings-toggle.on { background: #5865f2; }
+    .settings-toggle.on::after { transform: translateX(21px); background: #fff; }
+    .settings-info-block {
+      background: #0e1014; border-radius: 14px; padding: 14px 16px;
+      font-size: 0.82em; color: #4a4f58; line-height: 1.65; border: 1px solid #21242a;
+    }
+    .settings-version { font-weight: 800; color: #3a3f48; }
+    .settings-sub { font-size: 0.78em; color: #8888aa; margin: -2px 0 4px 0; }
+
+    /* ====== CLEAN UI MODE ====== */
+    body.clean-ui {
+      background: linear-gradient(160deg, #eef2ff 0%, #f8faff 55%, #f0f4ff 100%) !important;
+      color: #0f172a !important;
+    }
+    body.clean-ui .quiz-box {
+      background: #fff !important; color: #0f172a !important;
+      border: 1px solid rgba(99,102,241,0.13) !important;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04), 0 28px 70px rgba(99,102,241,0.09) !important;
+      border-radius: 28px !important;
+    }
+    body.clean-ui .quiz-box h2 { color: #4f46e5 !important; text-shadow: none !important; }
+    body.clean-ui #timerBox {
+      background: rgba(79,70,229,0.06) !important; border: 1.5px solid rgba(79,70,229,0.14) !important;
+      border-radius: 24px !important; box-shadow: none !important; color: #4f46e5 !important;
+    }
+    body.clean-ui #timer { color: #4f46e5 !important; text-shadow: none !important; }
+    body.clean-ui #timerLabel { color: #6366f1 !important; }
+    body.clean-ui .timer-seconds { color: #a5b4fc !important; }
+    body.clean-ui #timerUnitLabels span { color: #6366f1 !important; }
+    body.clean-ui .big-count {
+      background: linear-gradient(135deg,#f0f4ff,#f8f9ff) !important; color: #4f46e5 !important;
+      border: 1px solid rgba(99,102,241,0.15) !important; border-radius: 20px !important;
+      text-shadow: none !important; box-shadow: 0 2px 16px rgba(99,102,241,0.08) !important;
+    }
+    body.clean-ui #clickBtn {
+      background: linear-gradient(135deg,#6366f1,#4f46e5) !important;
+      box-shadow: 0 4px 24px rgba(99,102,241,0.32) !important; border-radius: 18px !important;
+    }
+    body.clean-ui #clickBtn:hover { background: linear-gradient(135deg,#7c7ff0,#6366f1) !important; transform: translateY(-2px) !important; }
+    body.clean-ui input {
+      background: #f8f9ff !important; border: 1.5px solid #e0e7ff !important;
+      border-radius: 12px !important; color: #0f172a !important;
+    }
+    body.clean-ui input:focus {
+      background: #fff !important; border-color: #6366f1 !important;
+      box-shadow: 0 0 0 3px rgba(99,102,241,0.12) !important;
+    }
+    body.clean-ui #leaderboard {
+      background: #fff !important; border: 1px solid rgba(99,102,241,0.1) !important;
+      border-radius: 24px !important; box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 16px 48px rgba(99,102,241,0.07) !important;
+    }
+    body.clean-ui #leaderboard h3 { color: #4f46e5 !important; }
+    body.clean-ui #leaderboard th {
+      background: #f8f9ff !important; color: #6366f1 !important;
+      text-transform: uppercase !important; letter-spacing: 0.06em !important; font-size: 0.82em !important;
+    }
+    body.clean-ui #leaderboard td, body.clean-ui #leaderboard th { border-color: #f0f0ff !important; }
+    body.clean-ui .lb-sort-btn {
+      background: #f8f9ff !important; border: 1.5px solid #e0e7ff !important;
+      color: #6366f1 !important; border-radius: 50px !important;
+    }
+    body.clean-ui .lb-sort-btn.lb-sort-active { background: #6366f1 !important; color: #fff !important; border-color: #6366f1 !important; }
+    body.clean-ui #globalTimeBox {
+      background: #fff !important; border: 1px solid rgba(99,102,241,0.1) !important;
+      border-radius: 20px !important;
+    }
+    body.clean-ui #globalTimeLabel { color: #6366f1 !important; font-weight: 700 !important; }
+    body.clean-ui #globalTimeValue { color: #4f46e5 !important; }
+    body.clean-ui #lightModeToggle, body.clean-ui #settingsBtn {
+      background: #fff !important; border: 1.5px solid #e0e7ff !important;
+      color: #4f46e5 !important; box-shadow: 0 2px 8px rgba(99,102,241,0.1) !important;
+    }
+    body.clean-ui #diamondCounter {
+      background: linear-gradient(135deg,#fff,#f5f0ff) !important; border: 1.5px solid #e0e7ff !important;
+      color: #7c3aed !important; box-shadow: 0 2px 10px rgba(124,58,237,0.1) !important;
+    }
+    body.clean-ui #caveBtn {
+      background: linear-gradient(135deg,#fff8ee,#fff) !important; color: #d97706 !important;
+      border: 1.5px solid #fde68a !important; box-shadow: 0 -4px 16px rgba(217,119,6,0.12) !important;
+    }
+    body.clean-ui #clanTab {
+      background: linear-gradient(135deg,#f5f0ff,#ede9fe) !important; color: #7c3aed !important;
+      border: 1.5px solid #ddd6fe !important;
+    }
+    body.clean-ui #friendsBtn {
+      background: linear-gradient(135deg,#eff6ff,#f0f9ff) !important; color: #2563eb !important;
+      border: 1.5px solid #bfdbfe !important;
+    }
+    body.clean-ui #noGravityBtn {
+      background: #f8f9ff !important; border: 1.5px solid #e0e7ff !important; color: #6366f1 !important;
+    }
+    body.clean-ui #titlesTab {
+      background: #fff !important; border: 1.5px solid #e0e7ff !important; color: #6366f1 !important;
+    }
+    body.clean-ui #titlesPanel {
+      background: #fff !important; border: 1px solid rgba(99,102,241,0.12) !important;
+      box-shadow: 0 8px 48px rgba(99,102,241,0.13) !important; color: #0f172a !important;
+    }
+    body.clean-ui #titlesPanel h3 { color: #4f46e5 !important; }
+    body.clean-ui .title-card { background: #f8f9ff !important; border-color: #e0e7ff !important; }
+    body.clean-ui .title-card .title-desc { color: #64748b !important; }
+    body.clean-ui .title-group-header { color: #6366f1 !important; border-color: #e0e7ff !important; }
+    body.clean-ui #titlesFilterInput { background: #f8f9ff !important; border-color: #e0e7ff !important; color: #0f172a !important; }
+    body.clean-ui .tier-filter-btn { border-color: #e0e7ff !important; color: #6366f1 !important; }
+    body.clean-ui .tier-filter-btn.active { background: #6366f1 !important; border-color: #6366f1 !important; color: #fff !important; }
+    body.clean-ui #profileModal { background: #fff !important; }
+    body.clean-ui .profile-stat { background: #f8f9ff !important; border-color: #e0e7ff !important; }
+    body.clean-ui .profile-stat-val { color: #4f46e5 !important; }
+    body.clean-ui .profile-stat-lbl { color: #94a3b8 !important; }
+    body.clean-ui #profileBioText { color: #64748b !important; }
+    body.clean-ui #shopModal { background: #fff !important; color: #0f172a !important; }
+    body.clean-ui #shopModal h2 { color: #0f172a !important; }
+    body.clean-ui #shopDiamondBal { color: #6366f1 !important; }
+    body.clean-ui .pack-card { background: #f8f9ff !important; border-color: #e0e7ff !important; }
+    body.clean-ui .pack-name { color: #0f172a !important; }
+    body.clean-ui #shopClose, body.clean-ui #profileClose { color: #94a3b8 !important; }
+    body.clean-ui #shopClose:hover, body.clean-ui #profileClose:hover { background: #f0f4ff !important; color: #0f172a !important; }
+    body.clean-ui #dmWindow {
+      background: #fff !important; border-color: rgba(99,102,241,0.15) !important;
+      box-shadow: 0 8px 48px rgba(99,102,241,0.18) !important;
+    }
+    body.clean-ui #dmHeader, body.clean-ui #dmInputBar {
+      background: #f8f9ff !important; border-color: #e0e7ff !important;
+    }
+    body.clean-ui #dmTitle { color: #4f46e5 !important; }
+    body.clean-ui .dm-bubble.mine { background: #6366f1 !important; }
+    body.clean-ui .dm-bubble.theirs { background: #f0f4ff !important; color: #0f172a !important; }
+    body.clean-ui #dmInput { background: #fff !important; border-color: #e0e7ff !important; color: #0f172a !important; }
+    body.clean-ui #dmSendBtn { background: #6366f1 !important; }
+    body.clean-ui #clanPanel { background: #fff !important; border-color: rgba(99,102,241,0.12) !important; }
+    body.clean-ui #clanPanel h2 { color: #4f46e5 !important; }
+    body.clean-ui .clan-section-title { color: #a5b4fc !important; border-color: #e0e7ff !important; }
+    body.clean-ui .chat-messages { background: #f8f9ff !important; border-radius: 12px !important; }
+    body.clean-ui .chat-input { background: #fff !important; border-color: #e0e7ff !important; color: #0f172a !important; }
+    body.clean-ui .chat-bubble.theirs { background: #f0f4ff !important; color: #0f172a !important; }
+    body.clean-ui .clan-member-row { background: #f8f9ff !important; border-color: #e0e7ff !important; }
+    body.clean-ui .clan-member-name { color: #1e40af !important; }
+    body.clean-ui #commandPanel { background: #fff !important; }
+    body.clean-ui .cpanel-btn { background: #f8f9ff !important; border: 1.5px solid #e0e7ff !important; color: #4f46e5 !important; border-radius: 12px !important; }
+    body.clean-ui .cpanel-btn:hover { background: #ede9fe !important; }
+    body.clean-ui #friendsPanel { background: #fff !important; border-color: rgba(37,99,235,0.1) !important; box-shadow: 0 8px 48px rgba(37,99,235,0.12) !important; }
+    body.clean-ui #friendsPanel h2 { color: #2563eb !important; }
+    body.clean-ui .friend-row, body.clean-ui .friend-req-row { background: #f8f9ff !important; border-color: #e0e7ff !important; }
+    body.clean-ui .friend-name, body.clean-ui .friend-req-name { color: #1e40af !important; }
+    body.clean-ui .caveOverlay { background: #fff9f0 !important; }
+    body.clean-ui #settingsPanel { background: #fff !important; border-color: rgba(99,102,241,0.12) !important; box-shadow: 0 20px 80px rgba(99,102,241,0.15) !important; }
+    body.clean-ui #settingsPanel h2 { color: #0f172a !important; }
+    body.clean-ui #settingsClose { color: #94a3b8 !important; }
+    body.clean-ui #settingsClose:hover { background: #f8f9ff !important; color: #0f172a !important; }
+    body.clean-ui .settings-section-title { color: #a5b4fc !important; border-color: #e0e7ff !important; }
+    body.clean-ui .settings-row-label { color: #0f172a !important; }
+    body.clean-ui .settings-row-sub { color: #94a3b8 !important; }
+    body.clean-ui .settings-toggle { background: #e0e7ff !important; }
+    body.clean-ui .settings-toggle.on { background: #6366f1 !important; }
+    body.clean-ui .settings-info-block { background: #f8f9ff !important; color: #94a3b8 !important; border-color: #e0e7ff !important; }
+    body.clean-ui .settings-version { color: #c7d2fe !important; }
+    body.clean-ui #profileBioInput, body.clean-ui #profilePicInput,
+    body.clean-ui #profileStatusInput, body.clean-ui #profileBannerImgInput {
+      background: #f8f9ff !important; border-color: #e0e7ff !important; color: #0f172a !important;
+    }
+    body.clean-ui .profile-edit-label { color: #6366f1 !important; }
+    body.clean-ui .profile-card-style-btn { background: #f8f9ff !important; border-color: #e0e7ff !important; color: #0f172a !important; }
+    body.clean-ui .profile-card-style-btn.selected { background: #6366f1 !important; color: #fff !important; border-color: #6366f1 !important; }
+    body.clean-ui .profile-font-btn { background: #f8f9ff !important; border-color: #e0e7ff !important; color: #0f172a !important; }
+    body.clean-ui .profile-font-btn.selected { background: #6366f1 !important; color: #fff !important; border-color: #6366f1 !important; }
+
+    /* ====== CLAN ANNOUNCEMENT BANNER ====== */
+    #clanAnnounceBanner {
+      display: none; position: fixed; top: 0; left: 0; right: 0; z-index: 9500;
+      background: linear-gradient(135deg, #5a1fa8, #7c3aed, #a855f7);
+      color: #fff; padding: 11px 60px 11px 20px; font-size: 0.93em; font-weight: 700;
+      text-align: center; box-shadow: 0 2px 24px rgba(124,58,237,0.55);
+      animation: bannerSlide 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    @keyframes bannerSlide { from { transform: translateY(-100%); opacity:0; } to { transform: translateY(0); opacity:1; } }
+    #clanAnnounceText { font-size: 1em; }
+    #clanAnnounceFrom { font-size: 0.76em; opacity: 0.65; margin-top: 2px; }
+    #clanAnnounceDismiss {
+      position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+      background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.3);
+      color: #fff; font-size: 0.82em; font-weight: 900; cursor: pointer;
+      padding: 4px 12px; border-radius: 20px; margin-top: 0; transition: background 0.15s;
+    }
+    #clanAnnounceDismiss:hover { background: rgba(255,255,255,0.3); }
+    .clan-announce-section { display: flex; flex-direction: column; gap: 7px; margin-top: 4px; }
+    .clan-announce-section textarea {
+      background: #2a1a3a; border: 1.5px solid #4a3a5a; border-radius: 10px;
+      color: #e0d0f0; padding: 8px 10px; font-size: 0.86em; resize: vertical;
+      min-height: 60px; outline: none; margin-top: 0; font-family: inherit;
+      transition: border-color 0.15s;
+    }
+    .clan-announce-section textarea:focus { border-color: #a855f7; }
+    .clan-announce-btn {
+      background: linear-gradient(135deg, #7c3aed, #a855f7); border: none; color: #fff;
+      font-weight: 900; font-size: 0.88em; padding: 9px 0; border-radius: 10px;
+      cursor: pointer; transition: opacity 0.15s; margin-top: 0;
+    }
+    .clan-announce-btn:hover { opacity: 0.85; }
+
+    /* ====== PROFILE EDITOR ENHANCEMENTS ====== */
+    .profile-edit-header {
+      font-size: 0.82em; font-weight: 900; color: #5865f2; letter-spacing: 0.08em;
+      text-transform: uppercase; margin-bottom: 14px;
+      padding-bottom: 10px; border-bottom: 1px solid #2a2d35;
+    }
+    .profile-edit-label {
+      font-size: 0.71em; font-weight: 900; color: #555; letter-spacing: 0.1em;
+      text-transform: uppercase; margin-bottom: 4px; margin-top: 2px;
+    }
+    .profile-edit-field {
+      width: 100%; box-sizing: border-box; background: #1e2124; border: 1.5px solid #2d3139;
+      border-radius: 9px; color: #e8eaf0; font-size: 0.88em; padding: 8px 11px;
+      margin-bottom: 10px; outline: none; margin-top: 0;
+    }
+    .profile-edit-field:focus { border-color: #5865f2; background: #1a1d22; }
+    .profile-status-row { display: flex; flex-direction: column; gap: 6px; margin-bottom: 10px; }
+    .profile-status-emojis { display: flex; gap: 5px; flex-wrap: wrap; }
+    .profile-status-emoji {
+      width: 30px; height: 30px; font-size: 1.1em; display: flex; align-items: center;
+      justify-content: center; border-radius: 8px; cursor: pointer; background: #1e2124;
+      border: 1.5px solid #2d3139; transition: all 0.12s; margin-top: 0;
+    }
+    .profile-status-emoji:hover { background: #2a2d35; transform: scale(1.15); }
+    .profile-status-emoji.selected { background: #2a3060; border-color: #5865f2; }
+    .profile-card-style-picker { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+    .profile-card-style-btn {
+      flex: 1; min-width: 70px; font-size: 0.78em; font-weight: 800; padding: 7px 6px;
+      border-radius: 10px; border: 1.5px solid #2d3139; background: #1e2124;
+      color: #888; cursor: pointer; text-align: center; transition: all 0.14s; margin-top: 0;
+    }
+    .profile-card-style-btn:hover { background: #2a2d35; color: #ccc; }
+    .profile-card-style-btn.selected { background: #2a3060; border-color: #5865f2; color: #a0b0ff; }
+    .profile-font-picker { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+    .profile-font-btn {
+      flex: 1; min-width: 80px; font-size: 0.8em; font-weight: 700; padding: 7px 6px;
+      border-radius: 10px; border: 1.5px solid #2d3139; background: #1e2124;
+      color: #888; cursor: pointer; text-align: center; transition: all 0.14s; margin-top: 0;
+    }
+    .profile-font-btn:hover { background: #2a2d35; color: #ccc; }
+    .profile-font-btn.selected { background: #2a3060; border-color: #5865f2; color: #a0b0ff; }
+    .profile-color-section { display: flex; flex-direction: column; gap: 4px; margin-bottom: 10px; }
+    #profileColorPicker, #profileAvatarBorderPicker { display: flex; flex-wrap: wrap; gap: 5px; }
+    .profile-status-display {
+      text-align: center; font-size: 0.84em; color: #888; margin: -6px 26px 8px 26px;
+      font-style: normal; font-weight: 600;
+    }
+    /* Profile card styles */
+    #profileModal.card-glass {
+      background: rgba(14,20,34,0.7) !important;
+      backdrop-filter: blur(24px) saturate(1.5) !important;
+      border: 1.5px solid rgba(88,101,242,0.25) !important;
+    }
+    #profileModal.card-gradient {
+      background: linear-gradient(160deg, #1a1d28, #0e1428) !important;
+    }
+    #profileModal.card-dark {
+      background: #080a0e !important;
+      border-color: #1a1d24 !important;
+    }
+    #profileModal.card-cosmic {
+      background: radial-gradient(ellipse at 50% 0%, #1a0a3a, #080a12) !important;
+      border-color: rgba(168,85,247,0.3) !important;
+    }
+    /* DM drag cursor */
+    #dmHeader { cursor: grab; user-select: none; }
+    #dmHeader:active { cursor: grabbing; }
+    #dmHeader button { cursor: pointer; }
+
+    /* ===== CLEAN UI LEADERBOARD FIX ===== */
+    body.clean-ui #leaderboard td { color: #1a1a2e !important; }
+    body.clean-ui .lb-name-link { color: #4f46e5 !important; }
+    body.clean-ui .lb-equipped { color: #7c3aed !important; }
+    body.clean-ui #leaderboard tr:hover td { background: #f0f4ff !important; }
+    body.clean-ui #leaderboard td:first-child { color: #94a3b8 !important; }
+
+    /* ===== TIMER FONT CLASSES ===== */
+    #timer.tf-inter      { font-family: 'Inter', sans-serif !important; }
+    #timer.tf-jetbrains  { font-family: 'JetBrains Mono', monospace !important; }
+    #timer.tf-orbitron   { font-family: 'Orbitron', sans-serif !important; letter-spacing: 0.08em !important; }
+    #timer.tf-pressstart { font-family: 'Press Start 2P', monospace !important; font-size: 0.62em !important; }
+    #timer.tf-vt323      { font-family: 'VT323', monospace !important; font-size: 1.9em !important; letter-spacing: 0.04em !important; }
+    #timer.tf-spacemono  { font-family: 'Space Mono', monospace !important; }
+    #timer.tf-robotomono { font-family: 'Roboto Mono', monospace !important; }
+    #timer.tf-rajdhani   { font-family: 'Rajdhani', sans-serif !important; font-weight: 700 !important; font-size: 1.35em !important; }
+    #timer.tf-bebasnue   { font-family: 'Bebas Neue', sans-serif !important; font-size: 1.5em !important; letter-spacing: 0.1em !important; }
+    #timer.tf-courier    { font-family: 'Courier Prime', monospace !important; }
+
+    /* ===== GLOBAL BROADCAST PANEL (owner) ===== */
+    #globalBroadcastPanel {
+      position: fixed; top: 60px; left: 50%; transform: translateX(-50%);
+      background: linear-gradient(135deg, #1a0a2e, #0d1117);
+      border: 2px solid #a855f7; border-radius: 18px;
+      padding: 18px 22px 14px; z-index: 9200; min-width: 330px; max-width: 420px;
+      box-shadow: 0 8px 40px rgba(168,85,247,0.35);
+      display: none;
+    }
+    #globalBroadcastPanel h4 {
+      color: #c084fc; font-size: 0.92em; margin: 0 0 10px 0;
+      text-transform: uppercase; letter-spacing: 0.1em; font-weight: 800;
+    }
+    #globalBroadcastInput {
+      width: 100%; box-sizing: border-box;
+      background: #0d0a1a; border: 1.5px solid #6d28d9;
+      border-radius: 10px; color: #e0d0f0; padding: 9px 12px;
+      font-size: 0.9em; font-family: inherit; resize: none; min-height: 62px; outline: none;
+    }
+    #globalBroadcastInput:focus { border-color: #a855f7; }
+    #globalBroadcastSend {
+      margin-top: 8px; width: 100%;
+      background: linear-gradient(135deg, #7c3aed, #a855f7);
+      border: none; border-radius: 10px; color: #fff;
+      font-weight: 800; font-size: 0.9em; padding: 9px 0; cursor: pointer;
+      letter-spacing: 0.04em;
+    }
+    #globalBroadcastSend:hover { opacity: 0.88; }
+    #globalBroadcastMsg { font-size: 0.78em; min-height: 14px; margin-top: 5px; text-align: center; font-weight: 700; }
+    #globalBroadcastToggle {
+      position: fixed; top: 14px; left: 50%; transform: translateX(-50%);
+      background: linear-gradient(135deg, #7c3aed, #a855f7);
+      border: none; border-radius: 50px; color: #fff;
+      font-weight: 800; font-size: 0.82em; padding: 7px 18px;
+      cursor: pointer; z-index: 9201; display: none; letter-spacing: 0.04em;
+      box-shadow: 0 2px 14px rgba(168,85,247,0.4);
+    }
+    #globalBroadcastToggle:hover { opacity: 0.88; }
+
+    /* ===== MUSIC PLAYER (settings) ===== */
+    .settings-music-tracks {
+      display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 0;
+    }
+    .settings-track-btn {
+      flex: 1; min-width: 80px; padding: 8px 6px;
+      background: #2a1a3a; border: 1.5px solid #4a3a5a;
+      border-radius: 10px; color: #c0b0d0; font-size: 0.78em;
+      font-weight: 700; cursor: pointer; text-align: center; transition: all 0.15s;
+    }
+    .settings-track-btn.active { background: linear-gradient(135deg,#5865f2,#7c3aed); border-color: #5865f2; color: #fff; }
+    .settings-track-btn:hover { border-color: #7c3aed; color: #fff; }
+    .settings-vol-row { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+    .settings-vol-row label { font-size: 0.8em; color: #888; min-width: 52px; }
+    #musicVolSlider { flex: 1; accent-color: #5865f2; cursor: pointer; }
+    #musicPlayBtn {
+      width: 100%; padding: 10px 0; margin-top: 8px;
+      background: linear-gradient(135deg,#5865f2,#7c3aed);
+      border: none; border-radius: 12px; color: #fff;
+      font-weight: 800; font-size: 0.92em; cursor: pointer; letter-spacing: 0.04em;
+    }
+    #musicPlayBtn:hover { opacity: 0.88; }
+    .music-now-playing {
+      font-size: 0.76em; color: #a78bfa; text-align: center;
+      min-height: 14px; margin-top: 5px; font-weight: 600;
+    }
+
+    /* ===== TIMER FONT PICKER (settings) ===== */
+    .settings-font-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+      gap: 6px; margin-top: 8px;
+    }
+    .settings-font-btn {
+      padding: 8px 4px; background: #2a1a3a; border: 1.5px solid #4a3a5a;
+      border-radius: 10px; color: #c0b0d0; font-size: 0.9em;
+      cursor: pointer; text-align: center; transition: all 0.15s;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .settings-font-btn.active { background: #5865f2; border-color: #5865f2; color: #fff; }
+    .settings-font-btn:hover { border-color: #7c3aed; }
+
+    /* ===== STREAK BADGE ===== */
+    .streak-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: linear-gradient(135deg, #f59e0b, #ef4444);
+      border-radius: 50px; padding: 3px 10px 3px 7px;
+      font-size: 0.78em; font-weight: 800; color: #fff;
+      box-shadow: 0 2px 8px rgba(245,158,11,0.3);
+    }
+
+    /* ===== COMBO CLICK BURST ===== */
+    .combo-burst {
+      position: fixed; pointer-events: none;
+      font-weight: 900; font-size: 1.5em; z-index: 9999;
+      animation: combo-pop 0.7s ease-out forwards;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    }
+    @keyframes combo-pop {
+      0%   { opacity: 1; transform: translateY(0) scale(1); }
+      100% { opacity: 0; transform: translateY(-60px) scale(1.5); }
+    }
+    #emeraldCounter {
+      position: fixed; top: 52px; right: 18px;
+      background: linear-gradient(135deg, #0b1f0d, #091c12);
+      border: 1.5px solid #22c55e55; border-radius: 30px;
+      color: #4ade80; font-size: 0.88em; font-weight: 800;
+      padding: 5px 14px; z-index: 1200;
+      display: none; align-items: center; gap: 5px;
+      box-shadow: 0 2px 14px #0007; user-select: none;
+    }
+
+    /* ===== EASTER EGG STYLES ===== */
+    #easterEggPopup {
+      position: fixed; top: 50%; left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      background: linear-gradient(135deg, #1a0a3a, #0d1117);
+      border: 2px solid #a855f7; border-radius: 24px;
+      padding: 32px 36px 24px; z-index: 99999;
+      text-align: center; max-width: 400px; min-width: 280px;
+      box-shadow: 0 0 60px rgba(168,85,247,0.5), 0 0 120px rgba(168,85,247,0.15);
+      transition: transform 0.32s cubic-bezier(0.34,1.56,0.64,1);
+      pointer-events: none;
+    }
+    #easterEggPopup.open { transform: translate(-50%, -50%) scale(1); pointer-events: auto; }
+    #eggPopupIcon  { font-size: 3.2em; margin-bottom: 10px; }
+    #eggPopupTitle { font-size: 1.22em; font-weight: 900; color: #c084fc; margin-bottom: 8px; letter-spacing: 0.05em; text-transform: uppercase; }
+    #eggPopupMsg   { font-size: 0.86em; color: #d0c0e8; margin-bottom: 10px; line-height: 1.6; white-space: pre-line; }
+    #eggPopupReward{ font-size: 1.05em; font-weight: 800; color: #fcd34d; margin-bottom: 16px; }
+    #eggPopupDismiss {
+      background: linear-gradient(135deg,#7c3aed,#a855f7);
+      border: none; border-radius: 50px; color: #fff;
+      font-weight: 800; font-size: 0.92em; padding: 10px 30px; cursor: pointer;
+    }
+    #eggPopupDismiss:hover { opacity: 0.85; }
+    #matrixCanvas { position: fixed; inset: 0; z-index: 9500; pointer-events: none; display: none; }
+    .banana-fall {
+      position: fixed; top: -80px; font-size: 2.4em; z-index: 9600;
+      pointer-events: none; user-select: none;
+      animation: banana-drop linear forwards;
+    }
+    @keyframes banana-drop {
+      0%   { top: -80px; opacity: 1; transform: rotate(0deg); }
+      100% { top: 110vh; opacity: 0.5; transform: rotate(720deg); }
+    }
+    body.disco-mode { animation: disco-bg 0.45s linear infinite !important; }
+    @keyframes disco-bg {
+      0%  { background: linear-gradient(135deg,#ff0066,#7700ff) !important; }
+      16% { background: linear-gradient(135deg,#ff8800,#ff0066) !important; }
+      33% { background: linear-gradient(135deg,#ffff00,#ff8800) !important; }
+      50% { background: linear-gradient(135deg,#00ff88,#ffff00) !important; }
+      66% { background: linear-gradient(135deg,#00aaff,#00ff88) !important; }
+      83% { background: linear-gradient(135deg,#7700ff,#00aaff) !important; }
+     100% { background: linear-gradient(135deg,#ff0066,#7700ff) !important; }
+    }
+    #grungusOverlay {
+      position: fixed; inset: 0; z-index: 9700; background: rgba(4,0,16,0.98);
+      display: none; align-items: center; justify-content: center;
+      flex-direction: column; text-align: center;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    #grungusOverlay.show { display: flex; animation: grungus-in 0.5s ease-out; }
+    @keyframes grungus-in { 0%{opacity:0;transform:scale(0.93);} 100%{opacity:1;transform:scale(1);} }
+    #grungusRitualBox { display:flex; flex-direction:column; align-items:center; gap:18px; max-width:440px; width:100%; padding: 0 16px; }
+    #grungusTitle { font-size:2.3em; font-weight:900; color:#a855f7; text-shadow:0 0 50px #a855f7,0 0 100px #a855f750; letter-spacing:0.08em; }
+    #grungusSubtitle { font-size:0.82em; color:#7c4dbb; max-width:340px; line-height:1.8; }
+    #grungusTriangle { position:relative; width:300px; height:160px; margin:6px auto; flex-shrink:0; }
+    #grungusTriangle input {
+      width:110px; position:absolute;
+      background:#1a0a3a; border:1.5px solid #5b21b6; border-radius:10px;
+      color:#e0c0ff; padding:8px 10px; font-family:'JetBrains Mono',monospace;
+      font-size:0.82em; outline:none; text-align:center; transition:border-color 0.2s,color 0.2s;
+    }
+    #grungusTriangle input.correct { border-color:#4ade80; color:#4ade80; box-shadow:0 0 10px #4ade8044; }
+    #grungusTriangle input::placeholder { color:#4a2a7a; }
+    #gt1 { top:0; left:50%; transform:translateX(-50%); }
+    #gt2 { bottom:0; left:0; }
+    #gt3 { bottom:0; right:0; }
+    #gt4wrap { display:none; flex-direction:column; align-items:center; gap:8px; }
+    #gt4label { font-size:0.78em; color:#9060c0; font-style:italic; }
+    #gt4 {
+      background:#0d0520; border:1.5px solid #7c3aed; border-radius:10px;
+      color:#e0c0ff; padding:10px 14px; font-family:'JetBrains Mono',monospace;
+      font-size:0.9em; outline:none; text-align:center; width:200px; transition:border-color 0.2s,color 0.2s;
+    }
+    #gt4.correct { border-color:#4ade80; color:#4ade80; }
+    #grungusCompleteBtn {
+      display:none; background:linear-gradient(135deg,#5b21b6,#a855f7);
+      border:none; border-radius:50px; color:#fff; font-weight:900;
+      font-size:1em; padding:14px 34px; cursor:pointer; letter-spacing:0.05em;
+      box-shadow:0 0 30px #a855f755; animation:grungus-pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes grungus-pulse { 0%,100%{box-shadow:0 0 20px #a855f755;} 50%{box-shadow:0 0 55px #a855f7cc;} }
+    #grungusCompleteBtn:hover { opacity:0.9; transform:scale(1.04); }
+    #grungusMsg { font-size:0.88em; color:#c084fc; min-height:50px; line-height:1.7; }
+    #grungusClose {
+      background:transparent; border:1px solid #3a1f5a; color:#5b21b6;
+      border-radius:50px; padding:6px 20px; font-size:0.78em; cursor:pointer; font-family:'JetBrains Mono',monospace;
+    }
+    #grungusClose:hover { color:#c084fc; border-color:#7c3aed; }
+    #susOverlay {
+      position: fixed; inset: 0; z-index: 9700; background: rgba(0,0,0,0.92);
+      display: none; align-items: center; justify-content: center;
+      flex-direction: column; text-align: center;
+    }
+    #susOverlay.show { display: flex; animation: sus-in 0.3s ease-out; }
+    @keyframes sus-in { 0% { opacity:0; } 100% { opacity:1; } }
+    #susText    { font-size: 2.8em; font-weight: 900; color: #ef4444; text-shadow: 0 0 40px #ef4444; letter-spacing: 0.05em; }
+    #susSubText { font-size: 1.1em; color: #f87171; margin-top: 12px; font-weight: 700; }
+    #susAmong   { font-size: 5em; margin-top: 16px; }
+    @keyframes timer-haywire {
+      0%   { transform: rotate(0deg)   scale(1);   color: #43b581; }
+      12%  { transform: rotate(8deg)   scale(1.3); color: #f59e0b; }
+      25%  { transform: rotate(-8deg)  scale(0.8); color: #ef4444; }
+      37%  { transform: rotate(12deg)  scale(1.4); color: #a855f7; }
+      50%  { transform: rotate(-12deg) scale(0.7); color: #5865f2; }
+      62%  { transform: rotate(0deg)   scale(1.6); color: #ec4899; }
+      75%  { transform: rotate(-15deg) scale(0.85); color: #f59e0b; }
+      87%  { transform: rotate(15deg)  scale(1.2); color: #43b581; }
+      100% { transform: rotate(0deg)   scale(1);   color: inherit; }
+    }
+    #timer.haywire { animation: timer-haywire 0.12s ease-in-out infinite; }
+    #nyanPopup {
+      position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%);
+      background: #000; border: 3px solid #ff69b4; border-radius: 18px;
+      padding: 22px 30px; z-index: 99999; font-family: 'JetBrains Mono', monospace;
+      color: #ff69b4; text-align: center; display: none; white-space: pre;
+      font-size: 0.7em; line-height: 1.5; box-shadow: 0 0 50px rgba(255,105,180,0.6);
+    }
+    .egg-found-badge {
+      position: fixed; bottom: 80px; right: 18px;
+      background: linear-gradient(135deg,#a855f7,#5865f2);
+      border-radius: 50px; padding: 9px 20px;
+      font-size: 0.84em; font-weight: 800; color: #fff;
+      z-index: 8500; box-shadow: 0 4px 24px rgba(168,85,247,0.45);
+      animation: badge-slide 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    @keyframes badge-slide {
+      0%   { transform: translateX(220px); opacity: 0; }
+      100% { transform: translateX(0);     opacity: 1; }
+    }
+    /* ===== SETTINGS LIGHT MODE FIX ===== */
+    body.light-mode #settingsPanel .settings-track-btn { background: #f0f2f5; border-color: #dde1eb; color: #333; }
+    body.light-mode #settingsPanel .settings-font-btn { background: #f0f2f5; border-color: #dde1eb; color: #333; }
+    body.light-mode #settingsPanel .settings-font-btn.active { background: #5865f2; color: #fff; }
+    body.light-mode #settingsPanel .settings-track-btn.active { background: #5865f2; color: #fff; }
   </style>
-  <link href="https://fonts.googleapis.com/css?family=Inter:400,600,700,800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;700;800&family=Orbitron:wght@400;700;900&family=Press+Start+2P&family=VT323&family=Space+Mono:wght@400;700&family=Roboto+Mono:wght@400;700&family=Rajdhani:wght@500;700&family=Bebas+Neue&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js";
     import { getDatabase, ref, get, set, update, onValue, increment, off } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-database.js";
@@ -1348,12 +1945,16 @@
     BUYABLE_TITLES.forEach(bt => { if (!ALL_TITLES.find(t => t.id === bt.id)) ALL_TITLES.push(bt); });
 
     const MINE_UPGRADES = [
-      { level: 1, name: 'Wooden Pickaxe', icon: '🪓', perClick: 0.3,  cost: 50,    color: '#c8860a', desc: 'Better than bare hands.'      },
-      { level: 2, name: 'Stone Pickaxe',  icon: '⛏️', perClick: 0.8,  cost: 200,   color: '#aaaaaa', desc: 'Chips away at harder rock.'   },
-      { level: 3, name: 'Iron Pickaxe',   icon: '🔩', perClick: 2.0,  cost: 700,   color: '#c5c5c5', desc: 'A serious mining tool.'         },
-      { level: 4, name: 'Diamond Drill',  icon: '💠', perClick: 6.0,  cost: 2500,  color: '#5af0ff', desc: 'Cuts through anything.'         },
-      { level: 5, name: 'Laser Cutter',   icon: '🔦', perClick: 20.0, cost: 10000, color: '#ff44ff', desc: 'Technology beyond reality.'     },
-      { level: 6, name: 'Quantum Miner',  icon: '⚛️', perClick: 75.0, cost: 40000, color: '#00ffcc', desc: 'Mine across dimensions.'        },
+      { level: 1, name: 'Wooden Pickaxe',   icon: '🪓', perClick: 0.3,    cost: 150,      color: '#c8860a', desc: 'Better than bare hands.'         },
+      { level: 2, name: 'Stone Pickaxe',    icon: '⛏️', perClick: 0.8,    cost: 600,      color: '#aaaaaa', desc: 'Chips away at harder rock.'      },
+      { level: 3, name: 'Iron Pickaxe',     icon: '🔩', perClick: 2.0,    cost: 2500,     color: '#c5c5c5', desc: 'A serious mining tool.'            },
+      { level: 4, name: 'Gold Pickaxe',     icon: '✨', perClick: 4.5,    cost: 8000,     color: '#ffd700', desc: 'Gleams with potential.'            },
+      { level: 5, name: 'Diamond Drill',    icon: '💠', perClick: 10.0,   cost: 25000,    color: '#5af0ff', desc: 'Cuts through anything.'            },
+      { level: 6, name: 'Laser Cutter',     icon: '🔦', perClick: 28.0,   cost: 90000,    color: '#ff44ff', desc: 'Technology beyond reality.'        },
+      { level: 7, name: 'Plasma Drill',     icon: '🌀', perClick: 75.0,   cost: 350000,   color: '#ff8800', desc: 'Melts through solid bedrock.'      },
+      { level: 8, name: 'Quantum Miner',    icon: '⚛️', perClick: 220.0,  cost: 1200000,  color: '#00ffcc', desc: 'Mine across dimensions.'           },
+      { level: 9, name: 'Dark Matter Core', icon: '🌑', perClick: 700.0,  cost: 5000000,  color: '#cc44ff', desc: 'Harnesses antimatter itself.'      },
+      { level:10, name: 'Singularity Bore', icon: '💀', perClick: 2500.0, cost: 20000000, color: '#ff0080', desc: 'Bends spacetime to mine for you.'  },
     ];
     const TITLE_GROUPS = [
       { label: '✨ Special',        ids: ['og', 'dih'] },
@@ -1377,6 +1978,27 @@
     let equippedTitleId = null;
     let profileColor = '#5865f2';
     let profileBio = '';
+    let profilePic = '';
+    let cleanUI = false;
+    let profileStatus = '';
+    let profileBannerImg = '';
+    let profileAvatarBorderColor = '';
+    let profileCardStyle = 'default';
+    let profileNameFont = 'inter';
+    let lastSeenAnnouncementTs = null;
+    const OWNER_USERNAMES = ['owner']; // ← replace with your actual username(s)
+    let timerFont = 'jetbrains';
+    let leaderboardName = '';
+    let streak = 0;
+    let emeralds = 0;
+    let musicPlaying = false;
+    let currentTrack = 0;
+    let musicVolume = 0.35;
+    let audioCtx = null;
+    let musicGain = null;
+    let musicScheduleId = null;
+    let musicSeqPos = 0;
+    let musicBeatTime = 0;
     let globalTitleCounts = {};
     let titleFilter = '';
     let tierFilter = 'all';
@@ -1478,9 +2100,16 @@
         } else {
           myClan = snap.val();
         }
+        // Announcements are now global-only (see listenGlobalAnnouncement)
         updateClanTab();
         const overlay = document.getElementById('clanOverlay');
-        if (overlay && overlay.style.display === 'flex') renderClanPanel();
+        // Don't re-render while in chat tab (would clear the chat input on every second tick)
+        if (overlay && overlay.style.display === 'flex' && clanPanelTab !== 'chat') renderClanPanel();
+        // Update total seconds display if it's visible
+        if (overlay && overlay.style.display === 'flex' && clanPanelTab === 'mine') {
+          const totalEl = document.getElementById('clanTotalSeconds');
+          if (totalEl && myClan) totalEl.textContent = formatClanTime(myClan.totalSeconds);
+        }
       });
     }
 
@@ -1623,6 +2252,7 @@
           infoDiv.style.cssText = 'display:flex;flex-direction:column;gap:10px;';
           infoDiv.innerHTML = `<div id="clanInfoName">⚔️ ${myClan.name}</div>
             <div id="clanOwnerNote">👑 Owner: <strong>${myClan.owner}</strong>${isOwner?' (you)':''}</div>
+            <div style="text-align:center;font-size:0.84em;color:#7a5a9a;font-weight:700;">⏱️ Total Clan Time: <span id="clanTotalSeconds" style="color:#d8b8ff;font-weight:900;">${formatClanTime(myClan.totalSeconds)}</span></div>
             <div class="clan-section-title">👥 Members (${count})</div>
             <div id="clanMemberList"></div>`;
           body.appendChild(infoDiv);
@@ -1644,6 +2274,24 @@
             leaveBtn.onclick = async () => { leaveBtn.disabled=true; await leaveClan(); };
             body.appendChild(leaveBtn);
           } else {
+            // Broadcast announcement section (owner only)
+            const annSec = document.createElement('div');
+            annSec.className = 'clan-announce-section';
+            annSec.innerHTML = `<div class="clan-section-title">📢 Broadcast to Clan</div>
+              <textarea id="clanAnnounceTextarea" class="clan-form-input" placeholder="Broadcast a message to all clan members…" maxlength="120" style="background:#2a1a3a;border:1.5px solid #4a3a5a;border-radius:10px;color:#e0d0f0;padding:8px 10px;font-size:0.86em;resize:vertical;min-height:58px;outline:none;margin-top:0;font-family:inherit;width:100%;box-sizing:border-box;"></textarea>
+              <button class="clan-announce-btn" id="clanAnnounceSubmit">📢 Send to All Members</button>
+              <div id="clanAnnounceFormMsg" class="clan-form-msg"></div>`;
+            body.appendChild(annSec);
+            document.getElementById('clanAnnounceSubmit').onclick = async function() {
+              const text = document.getElementById('clanAnnounceTextarea').value.trim();
+              const msg = document.getElementById('clanAnnounceFormMsg');
+              if (!text) { msg.style.color='#ff4757'; msg.textContent='Enter a message.'; return; }
+              this.disabled=true; msg.style.color='#aaa'; msg.textContent='Sending…';
+              await sendClanAnnouncement(text);
+              this.disabled=false; msg.style.color='#43b581'; msg.textContent='✓ Broadcast sent!';
+              document.getElementById('clanAnnounceTextarea').value='';
+              setTimeout(() => { msg.textContent=''; }, 3000);
+            };
             // Collapsible settings with disband inside
             const toggle = document.createElement('button'); toggle.className='clan-settings-toggle'; toggle.textContent='⚙️ Clan Settings';
             const settingsBody = document.createElement('div'); settingsBody.className='clan-settings-body'; settingsBody.style.display='none';
@@ -1879,12 +2527,28 @@
       container.innerHTML = '';
       const entries = Object.entries(messages).sort((a,b) => (a[1].ts||0)-(b[1].ts||0));
       if (!entries.length) { container.innerHTML='<div style="text-align:center;color:#4a6080;font-size:0.82em;padding:10px 0;">No messages yet</div>'; return; }
+      let lastSender = null;
       entries.forEach(([,msg]) => {
-        if (msg.type === 'trade') { renderTradeMsg(container, msg); return; }
+        if (msg.type === 'trade') { renderTradeMsg(container, msg); lastSender = msg.from; return; }
         const isMe = msg.from === user;
+        // Show sender name when it's the first message after the other person's block
+        if (!isMe && msg.from !== lastSender) {
+          const nameLabel = document.createElement('div');
+          nameLabel.className = 'dm-sender-label';
+          nameLabel.textContent = msg.from;
+          container.appendChild(nameLabel);
+        }
+        lastSender = msg.from;
         const b = document.createElement('div');
         b.className = 'dm-bubble ' + (isMe ? 'mine' : 'theirs');
-        b.textContent = msg.text;
+        const textNode = document.createTextNode(msg.text);
+        b.appendChild(textNode);
+        if (msg.ts) {
+          const timeEl = document.createElement('div');
+          timeEl.className = 'dm-bubble-time';
+          timeEl.textContent = new Date(msg.ts).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+          b.appendChild(timeEl);
+        }
         container.appendChild(b);
       });
       container.scrollTop = container.scrollHeight;
@@ -1990,13 +2654,516 @@
       } catch(e) {}
     }
 
+    // ===== CLEAN UI =====
+    function toggleCleanUI() {
+      cleanUI = !cleanUI;
+      document.body.classList.toggle('clean-ui', cleanUI);
+      const btn = document.getElementById('settingsCleanBtn');
+      if (btn) btn.classList.toggle('on', cleanUI);
+      try { localStorage.setItem('cleanUI', cleanUI ? '1' : '0'); } catch(e) {}
+    }
+    function initCleanUI() {
+      try {
+        const saved = localStorage.getItem('cleanUI');
+        if (saved === '1') {
+          cleanUI = true;
+          document.body.classList.add('clean-ui');
+          const btn = document.getElementById('settingsCleanBtn');
+          if (btn) btn.classList.add('on');
+        }
+      } catch(e) {}
+    }
+
+    // ===== SETTINGS =====
+    function openSettings() {
+      const overlay = document.getElementById('settingsOverlay');
+      overlay.style.display = 'flex';
+      const lBtn = document.getElementById('settingsLightBtn');
+      const cBtn = document.getElementById('settingsCleanBtn');
+      const ngBtn = document.getElementById('settingsNoGravityBtn');
+      if (lBtn) lBtn.classList.toggle('on', lightMode);
+      if (cBtn) cBtn.classList.toggle('on', cleanUI);
+      if (ngBtn) ngBtn.classList.toggle('on', noGravity);
+      // Sync font picker
+      document.querySelectorAll('.settings-font-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.fontId === timerFont);
+      });
+      // Show streak
+      const ssd = document.getElementById('settingsStreakDisplay');
+      if (ssd) ssd.textContent = streak > 0 ? `🔥 ${streak} day${streak !== 1 ? 's' : ''}` : '—';
+      updateMusicUI();
+    }
+    function closeSettings() {
+      document.getElementById('settingsOverlay').style.display = 'none';
+    }
+
+    // ===== GLOBAL ANNOUNCEMENT =====
+    async function sendGlobalAnnouncement(text) {
+      if (!user) return;
+      await update(ref(db, 'global/announcement'), { text, from: user, ts: Date.now() });
+    }
+    function listenGlobalAnnouncement() {
+      onValue(ref(db, 'global/announcement'), snap => {
+        if (snap.exists()) handleAnnouncement(snap.val());
+      });
+    }
+    function handleAnnouncement(ann) {
+      if (!ann || !ann.text) return;
+      if (ann.ts === lastSeenAnnouncementTs) return;
+      lastSeenAnnouncementTs = ann.ts;
+      const banner = document.getElementById('clanAnnounceBanner');
+      if (!banner) return;
+      document.getElementById('clanAnnounceText').textContent = '📢 ' + ann.text;
+      document.getElementById('clanAnnounceFrom').textContent = '— ' + (ann.from || '');
+      banner.style.display = 'flex';
+      clearTimeout(banner._hideTimeout);
+      banner._hideTimeout = setTimeout(() => { banner.style.display = 'none'; }, 20000);
+    }
+    // keep alias for clan panel (now writes globally)
+    async function sendClanAnnouncement(text) { return sendGlobalAnnouncement(text); }
+
+    // ===== TIMER FONT =====
+    function initTimerFont() {
+      try {
+        const saved = localStorage.getItem('timerFont') || 'jetbrains';
+        applyTimerFont(saved);
+      } catch(e) { applyTimerFont('jetbrains'); }
+    }
+    function applyTimerFont(id) {
+      timerFont = id;
+      const el = document.getElementById('timer');
+      if (el) {
+        TIMER_FONTS.forEach(f => el.classList.remove('tf-' + f.id));
+        el.classList.add('tf-' + id);
+      }
+      document.querySelectorAll('.settings-font-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.fontId === id);
+      });
+      try { localStorage.setItem('timerFont', id); } catch(e) {}
+    }
+
+    // ===== MUSIC =====
+    function startMusic() {
+      if (musicPlaying) return;
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        musicGain = audioCtx.createGain();
+        musicGain.gain.value = musicVolume;
+        musicGain.connect(audioCtx.destination);
+        musicPlaying = true;
+        musicSeqPos = 0;
+        musicBeatTime = audioCtx.currentTime + 0.05;
+        scheduleMusicNotes();
+        updateMusicUI();
+      } catch(e) { console.warn('Audio init error:', e); }
+    }
+    function stopMusic() {
+      musicPlaying = false;
+      if (musicScheduleId) { clearTimeout(musicScheduleId); musicScheduleId = null; }
+      if (musicGain && audioCtx) {
+        try { musicGain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.4); } catch(e) {}
+      }
+      updateMusicUI();
+    }
+    function scheduleMusicNotes() {
+      if (!musicPlaying || !audioCtx || !musicGain) return;
+      const track = MUSIC_TRACKS[currentTrack];
+      const secPerBeat = 60 / track.bpm;
+      while (musicBeatTime < audioCtx.currentTime + 0.3) {
+        const freq = track.notes[musicSeqPos % track.notes.length];
+        if (freq > 0) {
+          try {
+            const osc = audioCtx.createOscillator();
+            const g = audioCtx.createGain();
+            osc.type = track.wave;
+            osc.frequency.value = freq;
+            osc.connect(g); g.connect(musicGain);
+            const dur = track.noteDur;
+            g.gain.setValueAtTime(0.001, musicBeatTime);
+            g.gain.exponentialRampToValueAtTime(0.9, musicBeatTime + 0.015);
+            g.gain.setValueAtTime(0.9, musicBeatTime + dur * 0.7);
+            g.gain.exponentialRampToValueAtTime(0.001, musicBeatTime + dur);
+            osc.start(musicBeatTime);
+            osc.stop(musicBeatTime + dur + 0.06);
+          } catch(e) {}
+        }
+        musicSeqPos++;
+        musicBeatTime += secPerBeat;
+      }
+      musicScheduleId = setTimeout(scheduleMusicNotes, 100);
+    }
+    function setMusicTrack(idx) {
+      currentTrack = idx;
+      document.querySelectorAll('.settings-track-btn').forEach((btn, i) => btn.classList.toggle('active', i === idx));
+      const np = document.getElementById('musicNowPlaying');
+      if (np) np.textContent = musicPlaying ? '▶ ' + MUSIC_TRACKS[idx].name : MUSIC_TRACKS[idx].name;
+      if (musicPlaying) { stopMusic(); setTimeout(startMusic, 500); }
+    }
+    function setMusicVolume(v) {
+      musicVolume = parseFloat(v);
+      if (musicGain && audioCtx) musicGain.gain.value = musicVolume;
+      try { localStorage.setItem('musicVolume', musicVolume); } catch(e) {}
+    }
+    function updateMusicUI() {
+      const btn = document.getElementById('musicPlayBtn');
+      if (btn) btn.textContent = musicPlaying ? '⏸ Pause Music' : '▶ Play Music';
+      const np = document.getElementById('musicNowPlaying');
+      if (np) np.textContent = musicPlaying ? '▶ ' + MUSIC_TRACKS[currentTrack].name : MUSIC_TRACKS[currentTrack].name;
+    }
+
+    function updateEmeraldDisplay() {
+      const el = document.getElementById('emeraldCounter');
+      const ct = document.getElementById('emeraldCount');
+      if (!el || !ct) return;
+      ct.textContent = emeralds;
+      el.style.display = emeralds > 0 ? 'flex' : 'none';
+    }
+
+    // ===== EASTER EGG SYSTEM =====
+    let eggBuffer = '';
+    let konamiIdx = 0;
+    let timerClickEgg = 0;
+    let lbHeadClickEgg = 0;
+    let settingsTriple = 0;
+    let settingsTripleTimeout = null;
+    const KONAMI_SEQ = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+    const EGG_FOUND = new Set();
+
+    function showEggPopup(icon, title, msg, reward, gems) {
+      const pop = document.getElementById('easterEggPopup');
+      if (!pop) return;
+      document.getElementById('eggPopupIcon').textContent = icon;
+      document.getElementById('eggPopupTitle').textContent = title;
+      document.getElementById('eggPopupMsg').textContent = msg;
+      document.getElementById('eggPopupReward').textContent = reward || '';
+      pop.classList.add('open');
+      document.getElementById('eggPopupDismiss').onclick = () => pop.classList.remove('open');
+      if (gems > 0 && user) {
+        diamonds += gems;
+        updateDiamondDisplay();
+        update(ref(db, 'users/' + user.replace(/[.#$[\]]/g, '_')), { diamonds });
+      }
+    }
+    function showEggBadge(text) {
+      const b = document.createElement('div');
+      b.className = 'egg-found-badge';
+      b.textContent = '🥚 ' + text;
+      document.body.appendChild(b);
+      setTimeout(() => b.remove(), 4200);
+    }
+
+    // ─── KEYWORD EASTER EGGS ────────────────────────────────────────────
+    function triggerDisco() {
+      if (!EGG_FOUND.has('disco')) showEggBadge('🕺 Disco Mode! 15 seconds');
+      EGG_FOUND.add('disco');
+      document.body.classList.add('disco-mode');
+      setTimeout(() => document.body.classList.remove('disco-mode'), 15000);
+    }
+    function triggerRainbow() {
+      if (!EGG_FOUND.has('rainbow')) showEggBadge('🌈 Rainbow Mode! 30 seconds');
+      EGG_FOUND.add('rainbow');
+      document.body.classList.add('disco-mode');
+      setTimeout(() => document.body.classList.remove('disco-mode'), 30000);
+    }
+    function triggerGrungusRitual() {
+      const ov = document.getElementById('grungusOverlay');
+      if (!ov) return;
+      ['gt1','gt2','gt3','gt4'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) { el.value = ''; el.classList.remove('correct'); }
+      });
+      document.getElementById('gt4wrap').style.display = 'none';
+      document.getElementById('grungusCompleteBtn').style.display = 'none';
+      document.getElementById('grungusMsg').textContent = '';
+      ov.classList.add('show');
+      showEggBadge('🔮 The Grungus stirs...');
+    }
+    function grungusCheck() {
+      const v1 = document.getElementById('gt1').value.trim().toLowerCase();
+      const v2 = document.getElementById('gt2').value.trim().toLowerCase();
+      const v3 = document.getElementById('gt3').value.trim().toLowerCase();
+      const c1 = v1 === 'father'; const c2 = v2 === 'lord'; const c3 = v3 === 'transcendent';
+      document.getElementById('gt1').classList.toggle('correct', c1);
+      document.getElementById('gt2').classList.toggle('correct', c2);
+      document.getElementById('gt3').classList.toggle('correct', c3);
+      const wrap = document.getElementById('gt4wrap');
+      if (c1 && c2 && c3) {
+        wrap.style.display = 'flex';
+      } else {
+        wrap.style.display = 'none';
+        document.getElementById('grungusCompleteBtn').style.display = 'none';
+      }
+    }
+    function grungusCheckFinal() {
+      const v4 = document.getElementById('gt4').value.trim().toLowerCase();
+      document.getElementById('gt4').classList.toggle('correct', v4 === 'grungy');
+      document.getElementById('grungusCompleteBtn').style.display = v4 === 'grungy' ? 'block' : 'none';
+    }
+    function grungusComplete() {
+      emeralds += 1;
+      updateEmeraldDisplay();
+      if (user) update(ref(db, 'users/' + user.replace(/[.#$[\]]/g, '_')), { emeralds });
+      const msg = document.getElementById('grungusMsg');
+      msg.innerHTML = `<span style="color:#4ade80;font-size:1.3em;font-weight:900">✨ THE RITUAL IS COMPLETE ✨</span><br><span style="color:#9060c0;font-size:0.82em">The Grungus has acknowledged you.<br>You receive <strong style="color:#4ade80">1 Emerald 🟢</strong>.<br><em>It does nothing. It is sacred.</em></span>`;
+      document.getElementById('grungusCompleteBtn').style.display = 'none';
+      EGG_FOUND.add('grungus');
+      setTimeout(() => document.getElementById('grungusOverlay').classList.remove('show'), 5000);
+    }
+    function triggerMatrix() {
+      if (EGG_FOUND.has('matrix')) return; EGG_FOUND.add('matrix');
+      showEggBadge('🟩 Wake up, Neo...');
+      const canvas = document.getElementById('matrixCanvas');
+      canvas.style.display = 'block';
+      canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+      const ctx = canvas.getContext('2d');
+      const cols = Math.floor(canvas.width / 14);
+      const drops = Array(cols).fill(1);
+      const chars = 'アイウエオカキクケコ0123456789ABCDEF<>{}[]|/\\';
+      const loop = setInterval(() => {
+        ctx.fillStyle='rgba(0,0,0,0.05)'; ctx.fillRect(0,0,canvas.width,canvas.height);
+        ctx.fillStyle='#00ff41'; ctx.font='13px monospace';
+        drops.forEach((y,i) => {
+          ctx.fillText(chars[Math.floor(Math.random()*chars.length)], i*14, y*14);
+          if (y*14>canvas.height && Math.random()>0.975) drops[i]=0;
+          drops[i]++;
+        });
+      }, 38);
+      setTimeout(() => {
+        clearInterval(loop);
+        canvas.style.display='none';
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+      }, 10000);
+    }
+    function triggerBananaRain() {
+      if (EGG_FOUND.has('banana')) return; EGG_FOUND.add('banana');
+      showEggBadge('🍌 It\'s raining bananas');
+      for (let i=0; i<28; i++) {
+        setTimeout(() => {
+          const b = document.createElement('div');
+          b.className = 'banana-fall';
+          b.textContent = '🍌';
+          b.style.left = Math.random()*95 + 'vw';
+          const dur = 2+Math.random()*3;
+          b.style.animationDuration = dur+'s';
+          b.style.animationDelay = Math.random()*2+'s';
+          document.body.appendChild(b);
+          setTimeout(() => b.remove(), (dur+2.5)*1000);
+        }, i*90);
+      }
+    }
+    function triggerPolite() {
+      if (EGG_FOUND.has('please')) return; EGG_FOUND.add('please');
+      showEggPopup('🤝','Good Manners!',
+        'You said "please".\nWe appreciate civility around here.\nHave a reward for being so polite.',
+        '+15 💎', 15);
+    }
+    function triggerIdkfa() {
+      if (EGG_FOUND.has('idkfa')) return; EGG_FOUND.add('idkfa');
+      showEggPopup('💀','IDDQD? No — IDKFA!',
+        'Full ammo, all keys, full armor.\nBut this is a clicking game.\nHave some gems instead.',
+        '+50 💎', 50);
+    }
+    function triggerSus() {
+      const ov = document.getElementById('susOverlay');
+      if (!ov) return;
+      ov.classList.add('show');
+      showEggBadge('🔴 EMERGENCY MEETING');
+      setTimeout(() => ov.classList.remove('show'), 4500);
+    }
+    function triggerYeet() {
+      showEggBadge('💨 YEETED');
+      const els = Array.from(document.querySelectorAll('button:not(#eggPopupDismiss), h3, h2'));
+      const el = els[Math.floor(Math.random()*els.length)];
+      if (!el) return;
+      const orig = el.style.cssText;
+      el.style.transition = 'all 0.75s cubic-bezier(0.55,0,1,0.45)';
+      el.style.transform = `translate(${(Math.random()>0.5?1:-1)*200}px,${-350}px) rotate(${Math.random()*360-180}deg)`;
+      el.style.opacity = '0';
+      setTimeout(() => {
+        el.style.cssText = orig;
+        el.style.transition = 'all 0.45s ease-in';
+      }, 850);
+    }
+    function triggerNyan() {
+      if (EGG_FOUND.has('nyan')) return; EGG_FOUND.add('nyan');
+      showEggBadge('🌈 NYAN NYAN NYAN');
+      const p = document.getElementById('nyanPopup');
+      if (!p) return;
+      p.style.display = 'block';
+      setTimeout(() => { p.style.display='none'; }, 5500);
+    }
+    function triggerShrek() {
+      if (EGG_FOUND.has('shrek')) return; EGG_FOUND.add('shrek');
+      showEggPopup('🟢','SHREK',
+        '"Somebody once told me the leaderboard\nwas gonna scroll me.\nI ain\'t the sharpest click in the shed."\n\nYou found the Shrek egg. We\'re proud of you.',
+        '(no gems, this isn\'t Duloc)', 0);
+    }
+    function triggerDebug() {
+      if (EGG_FOUND.has('debug')) return; EGG_FOUND.add('debug');
+      showEggBadge('🐛 Debug mode');
+      showEggPopup('🐛','DEBUG OUTPUT',
+        `[USER]     ${user||'guest'}\n[CLICKS]   ${typeof clicks!=='undefined'?clicks:'?'}\n[GEMS]     ${diamonds}\n[EMERALDS] ${emeralds}\n[STREAK]   ${streak} days\n[MUSIC]    ${musicPlaying?'ON':'OFF'}\n[GRAVITY]  ${noGravity?'OFF':'ON'}\n[EGGS]     ${EGG_FOUND.size} found`,
+        '', 0);
+    }
+    function triggerHelp() {
+      if (EGG_FOUND.has('help')) return; EGG_FOUND.add('help');
+      showEggPopup('❓','SECRET COMMANDS',
+        'Type any of these anywhere:\ndisco • rainbow • matrix • banana\ngrungus • please • idkfa\nsus • yeet • nyan • shrek • debug\n\nKonami: ↑↑↓↓←→←→BA\n\nThere are also hidden click combos...',
+        '', 0);
+    }
+    function triggerKonami() {
+      showEggPopup('🎮','CHEAT CODE ACTIVATED',
+        '↑ ↑ ↓ ↓ ← → ← → B A\n\nYou know your roots.\nClassic. Legendary. Loaded.',
+        '+100 💎 💎 💎', 100);
+      for (let i=0; i<12; i++) {
+        setTimeout(() => {
+          const stars=['✨','🎉','🎊','💥','⭐','🌟','💎','🔥','👑','⚡'];
+          const b = document.createElement('div');
+          b.className = 'combo-burst';
+          b.style.color=['#f59e0b','#a855f7','#5865f2','#43b581','#ef4444','#ec4899'][i%6];
+          b.style.left=(8+Math.random()*84)+'vw';
+          b.style.top=(10+Math.random()*70)+'vh';
+          b.textContent=stars[Math.floor(Math.random()*stars.length)];
+          b.style.fontSize='2em';
+          document.body.appendChild(b);
+          setTimeout(() => b.remove(), 900);
+        }, i*80);
+      }
+    }
+
+    // ─── CLICK-BASED EASTER EGGS ────────────────────────────────────────
+    function triggerTimerHaywire() {
+      showEggBadge('⏱️ TIMER PANIC');
+      const t = document.getElementById('timer');
+      if (!t) return;
+      t.classList.add('haywire');
+      setTimeout(() => t.classList.remove('haywire'), 4000);
+    }
+    function triggerLbVoid() {
+      showEggPopup('🕳️','You Found the Void',
+        'Behind the leaderboard lies nothing.\nOr maybe everything.\nThe philosophers are still debating.',
+        '+25 💎 for philosophical inquiry', 25);
+    }
+    function triggerSettingsSecret() {
+      if (EGG_FOUND.has('settings3')) return; EGG_FOUND.add('settings3');
+      showEggPopup('⚙️','TRIPWIRE',
+        'Triple-clicking the settings button?\nYou are either very bored or deeply curious.\nBoth are equally respectable traits.',
+        '+8 💎', 8);
+    }
+
+    // ─── KEY LISTENER (module-level, runs after DOM is loaded) ──────────
+    document.addEventListener('keydown', function eggKeyListener(e) {
+      // Konami sequence tracker
+      if (e.key === KONAMI_SEQ[konamiIdx]) {
+        konamiIdx++;
+        if (konamiIdx === KONAMI_SEQ.length) { konamiIdx=0; triggerKonami(); }
+      } else {
+        konamiIdx = (e.key === KONAMI_SEQ[0]) ? 1 : 0;
+      }
+      // Rolling text buffer
+      if (e.key.length === 1) {
+        eggBuffer = (eggBuffer + e.key.toLowerCase()).slice(-30);
+        const checks = [
+          ['disco',   triggerDisco],   ['rainbow',  triggerRainbow],
+          ['grungus', triggerGrungusRitual],
+          ['matrix',  triggerMatrix],  ['banana',   triggerBananaRain],
+          ['please',  triggerPolite],  ['idkfa',    triggerIdkfa],
+          ['sus',     triggerSus],     ['yeet',     triggerYeet],
+          ['nyan',    triggerNyan],    ['shrek',    triggerShrek],
+          ['debug',   triggerDebug],   ['help',     triggerHelp],
+        ];
+        for (const [code, fn] of checks) {
+          if (eggBuffer.endsWith(code)) { eggBuffer=''; fn(); break; }
+        }
+      }
+    });
+
+    // ===== STREAK =====
+    function checkAndUpdateStreak(userData) {
+      const today = new Date().toISOString().slice(0, 10);
+      const last = userData.lastLoginDate || '';
+      const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+      let newStreak = typeof userData.streak === 'number' ? userData.streak : 0;
+      if (last === today) {
+        streak = newStreak;
+      } else if (last === yesterday) {
+        newStreak++;
+        streak = newStreak;
+        const safeU = user.replace(/[.#$[\]]/g, '_');
+        update(ref(db, 'users/' + safeU), { streak: newStreak, lastLoginDate: today });
+      } else {
+        newStreak = 1;
+        streak = 1;
+        const safeU = user.replace(/[.#$[\]]/g, '_');
+        update(ref(db, 'users/' + safeU), { streak: 1, lastLoginDate: today });
+      }
+    }
+
     const MAX_TITLE_COUNT = 50;
 
     const PROFILE_COLORS = [
-      { name: 'Indigo',  value: '#5865f2' }, { name: 'Green',  value: '#43b581' },
-      { name: 'Red',     value: '#ff4757' }, { name: 'Gold',   value: '#f0c040' },
-      { name: 'Cyan',    value: '#00e5ff' }, { name: 'Pink',   value: '#ff6b81' },
-      { name: 'Orange',  value: '#ff7f50' }, { name: 'Purple', value: '#9b59b6' },
+      { name: 'Indigo',    value: '#5865f2' }, { name: 'Violet',   value: '#7c3aed' },
+      { name: 'Purple',    value: '#9b59b6' }, { name: 'Lavender', value: '#a78bfa' },
+      { name: 'Sky',       value: '#0ea5e9' }, { name: 'Cyan',     value: '#00e5ff' },
+      { name: 'Teal',      value: '#14b8a6' }, { name: 'Green',    value: '#43b581' },
+      { name: 'Lime',      value: '#84cc16' }, { name: 'Yellow',   value: '#eab308' },
+      { name: 'Gold',      value: '#f0c040' }, { name: 'Orange',   value: '#f97316' },
+      { name: 'Coral',     value: '#ff7f50' }, { name: 'Red',      value: '#ff4757' },
+      { name: 'Rose',      value: '#f43f5e' }, { name: 'Pink',     value: '#ec4899' },
+      { name: 'Fuchsia',   value: '#d946ef' }, { name: 'Magenta',  value: '#ff6b81' },
+      { name: 'Slate',     value: '#64748b' }, { name: 'White',    value: '#f8fafc' },
+      { name: 'Mint',      value: '#4ade80' }, { name: 'Peach',    value: '#fb923c' },
+      { name: 'Crimson',   value: '#dc2626' }, { name: 'Electric', value: '#00ffcc' },
+    ];
+    const AVATAR_BORDER_COLORS = [
+      '#23272a','#ffffff','#5865f2','#7c3aed','#ec4899','#f43f5e',
+      '#f97316','#eab308','#43b581','#0ea5e9','#14b8a6','#ff6b81',
+    ];
+    const PROFILE_CARD_STYLES = [
+      { id: 'default', label: 'Default' },
+      { id: 'glass',   label: '🌫 Glass'  },
+      { id: 'gradient',label: '🌈 Gradient'},
+      { id: 'dark',    label: '🌑 Dark'   },
+      { id: 'cosmic',  label: '✨ Cosmic' },
+    ];
+    const PROFILE_FONTS = [
+      { id: 'inter',   label: 'Inter',         css: "'Inter', sans-serif"            },
+      { id: 'mono',    label: 'JetBrains Mono', css: "'JetBrains Mono', monospace"   },
+      { id: 'serif',   label: 'Serif',          css: "Georgia, serif"                },
+      { id: 'rounded', label: 'Rounded',        css: "'Nunito', 'Varela Round', sans-serif" },
+    ];
+    const STATUS_EMOJIS = ['🎮','🎵','📚','😴','💪','🍕','✨','🔥','💎','👑','🌙','⚔️','🎯','🌟','🦄'];
+
+    const TIMER_FONTS = [
+      { id: 'jetbrains',  label: 'JetBrains' },
+      { id: 'orbitron',   label: 'Orbitron'  },
+      { id: 'pressstart', label: '8-Bit'     },
+      { id: 'vt323',      label: 'VT323'     },
+      { id: 'spacemono',  label: 'Space Mono'},
+      { id: 'robotomono', label: 'Roboto Mono'},
+      { id: 'rajdhani',   label: 'Rajdhani'  },
+      { id: 'bebasnue',   label: 'Bebas Neue'},
+      { id: 'courier',    label: 'Courier'   },
+      { id: 'inter',      label: 'Inter'     },
+    ];
+
+    const MUSIC_TRACKS = [
+      {
+        name: '🎵 Chill Lofi', bpm: 72, wave: 'sine', noteDur: 0.65,
+        notes: [261.63,293.66,329.63,0,392.00,329.63,293.66,261.63,
+                0,261.63,329.63,392.00,440.00,392.00,329.63,0],
+      },
+      {
+        name: '⚡ Chiptune Rush', bpm: 158, wave: 'square', noteDur: 0.28,
+        notes: [523.25,587.33,659.25,783.99,880.00,783.99,659.25,587.33,
+                523.25,0,659.25,783.99,880.00,783.99,659.25,523.25],
+      },
+      {
+        name: '⚔️ Clan Epic', bpm: 96, wave: 'sawtooth', noteDur: 0.52,
+        notes: [164.81,220.00,246.94,261.63,293.66,329.63,246.94,220.00,
+                164.81,0,196.00,220.00,246.94,261.63,220.00,164.81],
+      },
     ];
 
     const TIER_PRIORITY = ['rng_ultra','mythical','rng_m','legendary','rng_l','epic','rng_e','rare','rng_r','uncommon','rng_u','common','rng_c','lowgrungus','grungus','highgrungus','lordgrungus','doopgrungus','teador'];
@@ -2238,7 +3405,7 @@
     }
 
     function getDiamondTickAmount() {
-      return 10 + myTitles.length;
+      return 1 + Math.floor(myTitles.length * 0.1);
     }
 
     function clickGemMine() {
@@ -2283,7 +3450,7 @@
       const tickAmt = getDiamondTickAmount();
       document.getElementById('cavePerTick').textContent = tickAmt;
       document.getElementById('caveTitleBonusNote').textContent = myTitles.length > 0
-        ? `(base 10 + ${myTitles.length} titles)`
+        ? `(base 1 + ${Math.floor(myTitles.length * 0.1)} from titles)`
         : '(earn titles for a bonus)';
       // Mine button label
       const cur = MINE_UPGRADES.find(u => u.level === mineLevel);
@@ -2358,14 +3525,24 @@
       if (typeof userData.diamonds === 'number') {
         diamonds = userData.diamonds;
       } else {
-        diamonds = Math.floor((userData.seconds || 0) / 100) * 10;
+        diamonds = Math.floor((userData.seconds || 0) / 100);
         const safe = user.replace(/[.#$[\]]/g, '_');
         update(ref(db, 'users/' + safe), { diamonds });
       }
+      emeralds = typeof userData.emeralds === 'number' ? userData.emeralds : 0;
+      updateEmeraldDisplay();
       lastDiamondTick = Math.floor((userData.seconds || 0) / 100);
       lastFreeSpin = userData.lastFreeSpin || null;
       mythicalSpins = typeof userData.mythicalSpins === 'number' ? userData.mythicalSpins : 0;
       mineLevel = typeof userData.mineLevel === 'number' ? userData.mineLevel : 0;
+      profilePic = userData.profilePic || '';
+      profileStatus = userData.profileStatus || '';
+      profileBannerImg = userData.profileBannerImg || '';
+      profileAvatarBorderColor = userData.profileAvatarBorderColor || '';
+      profileCardStyle = userData.profileCardStyle || 'default';
+      profileNameFont = userData.profileNameFont || 'inter';
+      leaderboardName = userData.leaderboardName || '';
+      checkAndUpdateStreak(userData);
       updateDiamondDisplay();
     }
 
@@ -2822,7 +3999,9 @@ let floatingElems = [];
 
 function setNoGravityMode(on) {
   noGravity = on;
-  document.getElementById('noGravityBtn').textContent = `No Gravity: ${noGravity ? "On" : "Off"}`;
+  document.querySelectorAll('#noGravityBtn').forEach(btn => { btn.textContent = `No Gravity: ${noGravity ? "On" : "Off"}`; });
+  const stBtn = document.getElementById('settingsNoGravityBtn');
+  if (stBtn) stBtn.classList.toggle('on', noGravity);
   if (noGravity) {
     floatingElems = Array.from(document.querySelectorAll('body > *:not(#commandPanelOverlay):not(script):not(style)'));
     floatingElems.forEach(el => {
@@ -3045,6 +4224,11 @@ function startTimerWhenReady() {
   document.getElementById('accountBox').style.display = "none";
   document.getElementById('clickSection').style.display = "block";
   document.getElementById('currentUser').innerText = user;
+  // Show global broadcast button for owner accounts
+  if (OWNER_USERNAMES.map(n => n.toLowerCase()).includes(user.toLowerCase())) {
+    const gbToggle = document.getElementById('globalBroadcastToggle');
+    if (gbToggle) gbToggle.style.display = 'block';
+  }
   listenGlobal();
   listenUser();
   listenLeaderboard();
@@ -3058,6 +4242,7 @@ function startTimerWhenReady() {
   });
   document.getElementById('titlesTab').style.display = 'block';
   document.getElementById('diamondCounter').style.display = 'flex';
+  if (emeralds > 0) document.getElementById('emeraldCounter').style.display = 'flex';
   document.getElementById('caveBtn').style.display = 'block';
   document.getElementById('clanTab').style.display = 'block';
   document.getElementById('friendsBtn').style.display = 'block';
@@ -3131,12 +4316,36 @@ function startTimerWhenReady() {
           });
 
           // Banner
-          document.getElementById('profileBanner').style.background = `linear-gradient(135deg, ${pColor}, ${pColor}99)`;
+          const pBannerImg = v.profileBannerImg || '';
+          const bannerEl = document.getElementById('profileBanner');
+          if (pBannerImg) {
+            bannerEl.style.backgroundImage = `url(${pBannerImg})`;
+            bannerEl.style.backgroundSize = 'cover';
+            bannerEl.style.backgroundPosition = 'center';
+            bannerEl.style.background = '';
+          } else {
+            bannerEl.style.backgroundImage = '';
+            bannerEl.style.background = `linear-gradient(135deg, ${pColor}, ${pColor}99)`;
+          }
+
+          // Card style
+          const pCardStyleVal = v.profileCardStyle || 'default';
+          const pModal = document.getElementById('profileModal');
+          pModal.className = '';
+          if (pCardStyleVal !== 'default') pModal.classList.add('card-' + pCardStyleVal);
 
           // Avatar
+          const pPic = v.profilePic || '';
+          const pAvatarBorder = v.profileAvatarBorderColor || '#23272a';
           const avatarEl = document.getElementById('profileAvatar');
-          avatarEl.textContent = username.charAt(0).toUpperCase();
-          avatarEl.style.background = `linear-gradient(135deg, ${pColor}, ${pColor}88)`;
+          avatarEl.style.borderColor = pAvatarBorder;
+          if (pPic) {
+            avatarEl.innerHTML = `<img src="${pPic}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.textContent='${username.charAt(0).toUpperCase()}';this.parentElement.style.background='linear-gradient(135deg,${pColor},${pColor}88)';">`;
+            avatarEl.style.background = 'transparent';
+          } else {
+            avatarEl.textContent = username.charAt(0).toUpperCase();
+            avatarEl.style.background = `linear-gradient(135deg, ${pColor}, ${pColor}88)`;
+          }
 
           // Equipped / rarest title
           const eqId = v.equippedTitleId || null;
@@ -3151,9 +4360,17 @@ function startTimerWhenReady() {
             eqEl.innerHTML = `<span style="color:${evo ? evo.color : tc.color}">${eqTitle.icon} ${dispName}</span>`;
           } else { eqEl.innerHTML = ''; }
 
+          // Name font
+          const pNameFont = v.profileNameFont || 'inter';
+          const nameFont = PROFILE_FONTS.find(f => f.id === pNameFont);
           document.getElementById('profileUsername').textContent = username;
+          document.getElementById('profileUsername').style.fontFamily = nameFont ? nameFont.css : '';
           document.getElementById('profileOgBadge').textContent = isOg ? '👑 OG Member' : '';
           document.getElementById('profileBioText').textContent = pBio;
+          // Status
+          const pStatusVal = v.profileStatus || '';
+          const statusEl = document.getElementById('profileStatusText');
+          if (statusEl) statusEl.textContent = pStatusVal;
 
           // Like area
           const likeBtn = document.getElementById('profileLikeBtn');
@@ -3221,6 +4438,10 @@ function startTimerWhenReady() {
           if (isOwn) {
             editSection.style.display = 'block';
             document.getElementById('profileBioInput').value = pBio;
+            document.getElementById('profilePicInput').value = v.profilePic || '';
+            document.getElementById('profileStatusInput').value = v.profileStatus || '';
+            document.getElementById('profileBannerImgInput').value = v.profileBannerImg || '';
+            document.getElementById('profileLbNameInput').value = v.leaderboardName || '';
             const picker = document.getElementById('profileColorPicker');
             picker.innerHTML = '';
             PROFILE_COLORS.forEach(c => {
@@ -3234,15 +4455,103 @@ function startTimerWhenReady() {
               };
               picker.appendChild(sw);
             });
+            // Status emoji quick-picks
+            const emojiContainer = document.getElementById('profileStatusEmojis');
+            if (emojiContainer) {
+              emojiContainer.innerHTML = '';
+              STATUS_EMOJIS.forEach(em => {
+                const btn = document.createElement('button');
+                btn.className = 'profile-status-emoji';
+                btn.textContent = em;
+                btn.onclick = () => {
+                  const inp = document.getElementById('profileStatusInput');
+                  if (!inp) return;
+                  const cur = inp.value;
+                  const withoutEmoji = cur.replace(/^\p{Emoji}\s*/u, '');
+                  inp.value = em + ' ' + withoutEmoji;
+                  emojiContainer.querySelectorAll('.profile-status-emoji').forEach(b => b.classList.remove('selected'));
+                  btn.classList.add('selected');
+                };
+                emojiContainer.appendChild(btn);
+              });
+            }
+            // Card style picker
+            const cardPicker = document.getElementById('profileCardStylePicker');
+            if (cardPicker) {
+              cardPicker.innerHTML = '';
+              PROFILE_CARD_STYLES.forEach(cs => {
+                const btn = document.createElement('button');
+                btn.className = 'profile-card-style-btn' + (pCardStyleVal === cs.id ? ' selected' : '');
+                btn.textContent = cs.label;
+                btn.onclick = () => {
+                  cardPicker.querySelectorAll('.profile-card-style-btn').forEach(b => b.classList.remove('selected'));
+                  btn.classList.add('selected');
+                };
+                cardPicker.appendChild(btn);
+              });
+            }
+            // Font picker
+            const fontPicker = document.getElementById('profileFontPicker');
+            if (fontPicker) {
+              fontPicker.innerHTML = '';
+              PROFILE_FONTS.forEach(f => {
+                const btn = document.createElement('button');
+                btn.className = 'profile-font-btn' + (pNameFont === f.id ? ' selected' : '');
+                btn.textContent = f.label;
+                btn.style.fontFamily = f.css;
+                btn.onclick = () => {
+                  fontPicker.querySelectorAll('.profile-font-btn').forEach(b => b.classList.remove('selected'));
+                  btn.classList.add('selected');
+                };
+                fontPicker.appendChild(btn);
+              });
+            }
+            // Avatar border color picker
+            const avatarBorderPicker = document.getElementById('profileAvatarBorderPicker');
+            if (avatarBorderPicker) {
+              avatarBorderPicker.innerHTML = '';
+              AVATAR_BORDER_COLORS.forEach(c => {
+                const sw = document.createElement('span');
+                sw.className = 'profile-color-swatch' + (pAvatarBorder === c ? ' selected' : '');
+                sw.style.background = c;
+                sw.style.border = c === '#23272a' ? '2.5px solid #555' : '2.5px solid transparent';
+                sw.title = c;
+                sw.onclick = () => {
+                  avatarBorderPicker.querySelectorAll('.profile-color-swatch').forEach(s => s.classList.remove('selected'));
+                  sw.classList.add('selected');
+                };
+                avatarBorderPicker.appendChild(sw);
+              });
+            }
             document.getElementById('profileSaveBtn').onclick = () => {
               const newBio = document.getElementById('profileBioInput').value.trim().slice(0, 80);
+              const newPic = document.getElementById('profilePicInput').value.trim().slice(0, 300);
+              const newBannerImg = document.getElementById('profileBannerImgInput').value.trim().slice(0, 300);
+              const newStatus = document.getElementById('profileStatusInput').value.trim().slice(0, 40);
               const sel = picker.querySelector('.profile-color-swatch.selected');
               const newColor = sel ? sel.style.background : pColor;
+              const asel = avatarBorderPicker ? avatarBorderPicker.querySelector('.profile-color-swatch.selected') : null;
+              const newAvatarBorder = asel ? asel.style.background : pAvatarBorder;
+              const csel = cardPicker ? cardPicker.querySelector('.profile-card-style-btn.selected') : null;
+              const newCardStyle = csel ? PROFILE_CARD_STYLES.find(s => s.label === csel.textContent)?.id || 'default' : 'default';
+              const fsel = fontPicker ? fontPicker.querySelector('.profile-font-btn.selected') : null;
+              const newFont = fsel ? PROFILE_FONTS.find(f => f.label === fsel.textContent)?.id || 'inter' : 'inter';
               const safeU = user.replace(/[.#$[\]]/g, '_');
-              update(ref(db, 'users/' + safeU), { profileBio: newBio, profileColor: newColor }).then(() => {
-                profileBio = newBio; profileColor = newColor;
+              const newLbName = document.getElementById('profileLbNameInput').value.trim().slice(0, 24);
+              update(ref(db, 'users/' + safeU), {
+                profileBio: newBio, profileColor: newColor, profilePic: newPic,
+                profileBannerImg: newBannerImg, profileStatus: newStatus,
+                profileAvatarBorderColor: newAvatarBorder,
+                profileCardStyle: newCardStyle, profileNameFont: newFont,
+                leaderboardName: newLbName,
+              }).then(() => {
+                profileBio = newBio; profileColor = newColor; profilePic = newPic;
+                profileBannerImg = newBannerImg; profileStatus = newStatus;
+                profileAvatarBorderColor = newAvatarBorder;
+                profileCardStyle = newCardStyle; profileNameFont = newFont;
+                leaderboardName = newLbName;
                 const msg = document.getElementById('profileSaveMsg');
-                msg.style.color = '#43b581'; msg.textContent = '✓ Saved!';
+                msg.style.color = '#43b581'; msg.textContent = '✓ Profile saved!';
                 setTimeout(() => { msg.textContent = ''; }, 2000);
                 openProfileModal(username);
               });
@@ -3274,8 +4583,9 @@ function startTimerWhenReady() {
           if (!eqTitle) eqTitle = getRarestOwnedTitle(entry.titles, entry.titleCounts);
           const eqBadge = eqTitle ? `<span class="lb-equipped" title="${eqTitle.label}">${eqTitle.icon}</span>` : '';
           const pColor = entry.profileColor || '#5865f2';
+          const shownName = entry.displayName || entry.name;
           tr.innerHTML = `<td>${i + 1}</td>
-            <td><span class="lb-name-link" data-name="${entry.name}" style="color:${pColor === '#5865f2' ? '' : pColor}">${entry.name}</span>${eqBadge}</td>
+            <td><span class="lb-name-link" data-name="${entry.name}" style="color:${pColor === '#5865f2' ? '' : pColor}">${shownName}</span>${eqBadge}</td>
             <td>${entry.clicks}</td>
             <td>${entry.seconds}</td>
             <td>${titleDisplay}</td>`;
@@ -3302,6 +4612,7 @@ function startTimerWhenReady() {
             titles.forEach(id => { globalTitleCounts[id] = (globalTitleCounts[id] || 0) + 1; });
             lbEntries.push({
               name: child.key,
+              displayName: v.leaderboardName ? v.leaderboardName.trim() : '',
               clicks: v.clicks || 0,
               seconds: typeof v.seconds === "number" ? v.seconds : 0,
               titles,
@@ -3505,6 +4816,68 @@ function startTimerWhenReady() {
       document.getElementById('lightModeToggle').onclick = toggleLightMode;
       initLightMode();
 
+      // Clean UI init
+      initCleanUI();
+
+      // Settings panel
+      document.getElementById('settingsBtn').onclick = openSettings;
+      document.getElementById('settingsClose').onclick = closeSettings;
+      document.getElementById('settingsOverlay').addEventListener('click', function(e) {
+        if (e.target === this) closeSettings();
+      });
+      document.getElementById('settingsLightBtn').onclick = function() {
+        toggleLightMode();
+        this.classList.toggle('on', lightMode);
+      };
+      document.getElementById('settingsCleanBtn').onclick = function() {
+        toggleCleanUI();
+      };
+
+      // Announcement banner dismiss
+      document.getElementById('clanAnnounceDismiss').onclick = () => {
+        document.getElementById('clanAnnounceBanner').style.display = 'none';
+      };
+
+      // Draggable + resizable DM window
+      (function() {
+        const dmWin = document.getElementById('dmWindow');
+        const dmHdr = document.getElementById('dmHeader');
+        let dragging = false, offX = 0, offY = 0;
+        dmHdr.addEventListener('mousedown', function(e) {
+          if (e.target.tagName === 'BUTTON') return;
+          dragging = true;
+          const r = dmWin.getBoundingClientRect();
+          offX = e.clientX - r.left; offY = e.clientY - r.top;
+          dmWin.style.right = 'auto'; dmWin.style.bottom = 'auto';
+          dmWin.style.left = r.left + 'px'; dmWin.style.top = r.top + 'px';
+          e.preventDefault();
+        });
+        document.addEventListener('mousemove', function(e) {
+          if (!dragging) return;
+          const x = Math.max(0, Math.min(e.clientX - offX, window.innerWidth - dmWin.offsetWidth));
+          const y = Math.max(0, Math.min(e.clientY - offY, window.innerHeight - dmWin.offsetHeight));
+          dmWin.style.left = x + 'px'; dmWin.style.top = y + 'px';
+        });
+        document.addEventListener('mouseup', () => { dragging = false; });
+        dmHdr.addEventListener('touchstart', function(e) {
+          if (e.target.tagName === 'BUTTON') return;
+          const t = e.touches[0];
+          dragging = true;
+          const r = dmWin.getBoundingClientRect();
+          offX = t.clientX - r.left; offY = t.clientY - r.top;
+          dmWin.style.right = 'auto'; dmWin.style.bottom = 'auto';
+          dmWin.style.left = r.left + 'px'; dmWin.style.top = r.top + 'px';
+        }, { passive: true });
+        document.addEventListener('touchmove', function(e) {
+          if (!dragging) return;
+          const t = e.touches[0];
+          const x = Math.max(0, Math.min(t.clientX - offX, window.innerWidth - dmWin.offsetWidth));
+          const y = Math.max(0, Math.min(t.clientY - offY, window.innerHeight - dmWin.offsetHeight));
+          dmWin.style.left = x + 'px'; dmWin.style.top = y + 'px';
+        }, { passive: true });
+        document.addEventListener('touchend', () => { dragging = false; });
+      })();
+
       // Title filter: search input
       document.getElementById('titlesFilterInput').addEventListener('input', function() {
         titleFilter = this.value;
@@ -3521,6 +4894,92 @@ function startTimerWhenReady() {
       });
 
       startBounceTimer();
+
+      // Global announcement listener (all users)
+      listenGlobalAnnouncement();
+
+      // Timer font init
+      initTimerFont();
+
+      // Music volume from storage
+      try { const sv = localStorage.getItem('musicVolume'); if (sv) musicVolume = parseFloat(sv); } catch(e) {}
+      const volSlider = document.getElementById('musicVolSlider');
+      if (volSlider) { volSlider.value = musicVolume; volSlider.oninput = function() { setMusicVolume(this.value); }; }
+      document.getElementById('musicPlayBtn').onclick = function() {
+        if (musicPlaying) stopMusic(); else startMusic();
+      };
+      MUSIC_TRACKS.forEach((t, i) => {
+        const btn = document.getElementById('musicTrack' + i);
+        if (btn) btn.onclick = () => setMusicTrack(i);
+      });
+      updateMusicUI();
+
+      // Build timer font picker in settings
+      const fontGrid = document.getElementById('settingsFontGrid');
+      if (fontGrid) {
+        TIMER_FONTS.forEach(f => {
+          const btn = document.createElement('button');
+          btn.className = 'settings-font-btn' + (timerFont === f.id ? ' active' : '');
+          btn.dataset.fontId = f.id;
+          btn.textContent = f.label;
+          btn.onclick = () => applyTimerFont(f.id);
+          fontGrid.appendChild(btn);
+        });
+      }
+
+      // No gravity in settings
+      document.getElementById('settingsNoGravityBtn').onclick = function() {
+        setNoGravityMode(!noGravity);
+      };
+
+      // Global broadcast panel (owner only — shown after login check)
+      const gbToggle = document.getElementById('globalBroadcastToggle');
+      const gbPanel  = document.getElementById('globalBroadcastPanel');
+      if (gbToggle) {
+        gbToggle.onclick = () => {
+          gbPanel.style.display = gbPanel.style.display === 'block' ? 'none' : 'block';
+        };
+      }
+      const gbSend = document.getElementById('globalBroadcastSend');
+      if (gbSend) {
+        gbSend.onclick = async function() {
+          const text = document.getElementById('globalBroadcastInput').value.trim();
+          const msg = document.getElementById('globalBroadcastMsg');
+          if (!text) { msg.style.color='#ff4757'; msg.textContent='Enter a message.'; return; }
+          this.disabled = true; msg.style.color='#aaa'; msg.textContent='Sending…';
+          await sendGlobalAnnouncement(text);
+          this.disabled = false; msg.style.color='#43b581'; msg.textContent='✓ Broadcast sent to all players!';
+          document.getElementById('globalBroadcastInput').value = '';
+          setTimeout(() => { msg.textContent=''; }, 3500);
+        };
+      }
+
+      // Easter egg click-based listeners
+      document.getElementById('timer')?.addEventListener('click', () => {
+        timerClickEgg++;
+        if (timerClickEgg >= 10) { timerClickEgg=0; triggerTimerHaywire(); }
+      });
+      document.querySelector('#leaderboard h3')?.addEventListener('click', () => {
+        lbHeadClickEgg++;
+        if (lbHeadClickEgg >= 7) { lbHeadClickEgg=0; triggerLbVoid(); }
+      });
+      const origSettingsClick = document.getElementById('settingsBtn').onclick;
+      document.getElementById('settingsBtn').addEventListener('click', () => {
+        settingsTriple++;
+        clearTimeout(settingsTripleTimeout);
+        settingsTripleTimeout = setTimeout(() => { settingsTriple=0; }, 550);
+        if (settingsTriple >= 3) { settingsTriple=0; triggerSettingsSecret(); }
+      });
+
+      // Grungus ritual event listeners
+      document.getElementById('gt1')?.addEventListener('input', grungusCheck);
+      document.getElementById('gt2')?.addEventListener('input', grungusCheck);
+      document.getElementById('gt3')?.addEventListener('input', grungusCheck);
+      document.getElementById('gt4')?.addEventListener('input', grungusCheckFinal);
+      document.getElementById('grungusCompleteBtn')?.addEventListener('click', grungusComplete);
+      document.getElementById('grungusClose')?.addEventListener('click', () => {
+        document.getElementById('grungusOverlay').classList.remove('show');
+      });
     });
     document.getElementById('confettiBtn').onclick = function() {
   const panel = document.getElementById('commandPanel');
@@ -3615,7 +5074,6 @@ function startTimerWhenReady() {
   </div>
   <button id="clanTab">⚔️ Clan</button>
   <button id="caveBtn">🕳️ The Cave</button>
-  <button id="noGravityBtn" class="cpanel-btn">No Gravity: Off</button>
   <div id="leaderboard">
     <h3>Global Leaderboard</h3>
     <div class="lb-sort-bar">
@@ -3642,7 +5100,9 @@ function startTimerWhenReady() {
     <span style="font-size:0.9em;color:#bbb;font-weight:600;opacity:0.69;">seconds</span>
   </div>
 <button id="diamondCounter" title="Open Diamond Shop">💎 <span id="diamondCount">0</span></button>
+<div id="emeraldCounter" title="Emerald — used for nothing">🟢 <span id="emeraldCount">0</span></div>
 <button id="lightModeToggle">☀️ Light</button>
+<button id="settingsBtn">⚙️ Settings</button>
 <button id="titlesTab">🏅 Titles</button>
 <div id="titlesPanel">
   <h3>🏅 Your Titles</h3>
@@ -3670,6 +5130,7 @@ function startTimerWhenReady() {
     <div id="profileEquippedTitle"></div>
     <div id="profileUsername"></div>
     <div id="profileOgBadge"></div>
+    <div id="profileStatusText" class="profile-status-display"></div>
     <div id="profileBioText"></div>
     <div id="profileLikeArea">
       <button id="profileLikeBtn">❤️ Like</button>
@@ -3687,12 +5148,42 @@ function startTimerWhenReady() {
     <div id="profileTitlesHeading">🏅 Titles</div>
     <div id="profileTitlesList"></div>
     <div id="profileEditSection" style="display:none">
-      <div style="font-size:0.82em;font-weight:800;color:#5865f2;letter-spacing:0.07em;text-transform:uppercase;margin-bottom:8px;">✏️ Customize Profile</div>
-      <input id="profileBioInput" type="text" placeholder="Bio (max 80 chars)" maxlength="80">
-      <div style="margin-bottom:6px;font-size:0.76em;color:#888;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;">Accent Color</div>
-      <div id="profileColorPicker" style="margin-bottom:10px;"></div>
-      <button id="profileSaveBtn" class="pack-roll-btn">Save Profile</button>
-      <div id="profileSaveMsg" style="font-size:0.8em;min-height:16px;margin-top:6px;font-weight:700;text-align:center;"></div>
+      <div class="profile-edit-header">✏️ Customize Profile</div>
+
+      <div class="profile-edit-label">Mood / Status</div>
+      <div class="profile-status-row">
+        <div class="profile-status-emojis" id="profileStatusEmojis"></div>
+        <input id="profileStatusInput" class="profile-edit-field" type="text" placeholder="e.g. 🎮 Playing something…" maxlength="40">
+      </div>
+
+      <div class="profile-edit-label">Leaderboard Display Name <span style="font-size:0.77em;color:#888;font-weight:500;">(shown instead of username, max 24 chars)</span></div>
+      <input id="profileLbNameInput" class="profile-edit-field" type="text" placeholder="Custom name shown on the leaderboard…" maxlength="24">
+
+      <div class="profile-edit-label">Bio</div>
+      <input id="profileBioInput" class="profile-edit-field" type="text" placeholder="Tell the world about yourself (max 80 chars)" maxlength="80">
+
+      <div class="profile-edit-label">Avatar Picture URL</div>
+      <input id="profilePicInput" class="profile-edit-field" type="url" placeholder="https://… (image URL for your avatar)" maxlength="300">
+
+      <div class="profile-edit-label">Banner Image URL</div>
+      <input id="profileBannerImgInput" class="profile-edit-field" type="url" placeholder="https://… (wide image for your profile banner)" maxlength="300">
+
+      <div class="profile-edit-label">Accent Color</div>
+      <div class="profile-color-section">
+        <div id="profileColorPicker"></div>
+      </div>
+
+      <div class="profile-edit-label">Avatar Border Color</div>
+      <div id="profileAvatarBorderPicker" style="margin-bottom:10px;"></div>
+
+      <div class="profile-edit-label">Card Style</div>
+      <div class="profile-card-style-picker" id="profileCardStylePicker"></div>
+
+      <div class="profile-edit-label">Name Font</div>
+      <div class="profile-font-picker" id="profileFontPicker"></div>
+
+      <button id="profileSaveBtn" class="pack-roll-btn" style="margin-top:6px;">💾 Save Profile</button>
+      <div id="profileSaveMsg" style="font-size:0.82em;min-height:18px;margin-top:7px;font-weight:700;text-align:center;"></div>
     </div>
   </div>
 </div>
@@ -3720,7 +5211,7 @@ function startTimerWhenReady() {
     <div id="caveGemBal">💎 <span id="caveGemCount">0</span></div>
     <div id="caveStats">
       <div class="cave-stat"><span id="cavePerClick">0.1</span> 💎 per click</div>
-      <div class="cave-stat"><span id="cavePerTick">10</span> 💎 per 100s<br><span id="caveTitleBonusNote" style="font-size:0.8em;color:#7a6040;"></span></div>
+      <div class="cave-stat"><span id="cavePerTick">1</span> 💎 per 100s<br><span id="caveTitleBonusNote" style="font-size:0.8em;color:#7a6040;"></span></div>
     </div>
     <button id="caveMineBtn">⛏️ Mine!</button>
     <div class="cave-section-title">🔧 Pickaxe Upgrades</div>
@@ -3796,6 +5287,157 @@ function startTimerWhenReady() {
     <button class="trade-send-btn" id="tradeSendBtn">Send Trade Offer</button>
     <div class="trade-msg" id="tradeMsg"></div>
   </div>
+</div>
+<!-- Settings Modal -->
+<div id="settingsOverlay">
+  <div id="settingsPanel">
+    <button id="settingsClose">✕</button>
+    <h2>⚙️ Settings</h2>
+
+    <div class="settings-section">
+      <div class="settings-section-title">🎨 Display</div>
+      <div class="settings-row">
+        <div class="settings-row-info">
+          <div class="settings-row-label">Light Mode</div>
+          <div class="settings-row-sub">Switch to a lighter colour scheme</div>
+        </div>
+        <button class="settings-toggle" id="settingsLightBtn"></button>
+      </div>
+      <div class="settings-row">
+        <div class="settings-row-info">
+          <div class="settings-row-label">Cleaner UI</div>
+          <div class="settings-row-sub">Minimal, modern layout with soft shadows</div>
+        </div>
+        <button class="settings-toggle" id="settingsCleanBtn"></button>
+      </div>
+      <div class="settings-row">
+        <div class="settings-row-info">
+          <div class="settings-row-label">No Gravity Mode</div>
+          <div class="settings-row-sub">Everything floats around the screen</div>
+        </div>
+        <button class="settings-toggle" id="settingsNoGravityBtn"></button>
+      </div>
+    </div>
+
+    <div class="settings-section">
+      <div class="settings-section-title">⏱️ Timer Font</div>
+      <div class="settings-sub">Choose how the timer looks — pick from 10 styles</div>
+      <div class="settings-font-grid" id="settingsFontGrid"></div>
+    </div>
+
+    <div class="settings-section">
+      <div class="settings-section-title">🎵 Background Music</div>
+      <div class="settings-sub">Procedural music generated live in your browser</div>
+      <div class="settings-music-tracks">
+        <button class="settings-track-btn active" id="musicTrack0">🎵 Chill Lofi</button>
+        <button class="settings-track-btn" id="musicTrack1">⚡ Chiptune</button>
+        <button class="settings-track-btn" id="musicTrack2">⚔️ Clan Epic</button>
+      </div>
+      <div class="settings-vol-row">
+        <label>🔊 Volume</label>
+        <input type="range" id="musicVolSlider" min="0" max="1" step="0.05" value="0.35">
+      </div>
+      <button id="musicPlayBtn">▶ Play Music</button>
+      <div class="music-now-playing" id="musicNowPlaying"></div>
+    </div>
+
+    <div class="settings-section">
+      <div class="settings-section-title">🎮 Gameplay</div>
+      <div class="settings-row">
+        <div class="settings-row-info">
+          <div class="settings-row-label">Click Combos</div>
+          <div class="settings-row-sub">Click fast to rack up combo multipliers — always active</div>
+        </div>
+        <span style="font-size:0.82em;font-weight:700;color:#43b581;">✓ On</span>
+      </div>
+      <div class="settings-row">
+        <div class="settings-row-info">
+          <div class="settings-row-label">Daily Streak</div>
+          <div class="settings-row-sub">Log in each day to build your streak</div>
+        </div>
+        <span style="font-size:0.82em;font-weight:700;color:#43b581;" id="settingsStreakDisplay">—</span>
+      </div>
+    </div>
+
+    <div class="settings-section">
+      <div class="settings-section-title">ℹ️ About</div>
+      <div class="settings-info-block">
+        <span class="settings-version">Random Game</span> · Settings save automatically in your browser.<br>
+        Profile, clans &amp; streaks sync live via Firebase.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Clan Announcement Banner -->
+<div id="clanAnnounceBanner">
+  <div id="clanAnnounceText"></div>
+  <div id="clanAnnounceFrom"></div>
+  <button id="clanAnnounceDismiss">✕</button>
+</div>
+
+<!-- Easter Egg Popup -->
+<div id="easterEggPopup">
+  <div id="eggPopupIcon">🥚</div>
+  <div id="eggPopupTitle">EASTER EGG</div>
+  <div id="eggPopupMsg"></div>
+  <div id="eggPopupReward"></div>
+  <button id="eggPopupDismiss">Nice one 👍</button>
+</div>
+
+<!-- Matrix Rain Canvas -->
+<canvas id="matrixCanvas"></canvas>
+
+<!-- Grungus Ritual Overlay -->
+<div id="grungusOverlay">
+  <div id="grungusRitualBox">
+    <div id="grungusTitle">🔮 THE GRUNGUS RITUAL 🔮</div>
+    <div id="grungusSubtitle">
+      Three names bind the Grungus.<br>
+      Speak them into the triangle of awakening.
+    </div>
+
+    <div id="grungusTriangle">
+      <input id="gt1" placeholder="First name..." autocomplete="off" spellcheck="false">
+      <input id="gt2" placeholder="Second..." autocomplete="off" spellcheck="false">
+      <input id="gt3" placeholder="Third..." autocomplete="off" spellcheck="false">
+    </div>
+
+    <div id="gt4wrap">
+      <div id="gt4label">✦ The three forms are named. Speak the final offering. ✦</div>
+      <input id="gt4" placeholder="The offering..." autocomplete="off" spellcheck="false">
+    </div>
+
+    <button id="grungusCompleteBtn">🔮 COMPLETE THE RITUAL 🔮</button>
+    <div id="grungusMsg"></div>
+    <button id="grungusClose">✕ Leave this place</button>
+  </div>
+</div>
+
+<!-- Sus / Emergency Meeting Overlay -->
+<div id="susOverlay" onclick="this.classList.remove('show')">
+  <div id="susText">⚠️ EMERGENCY MEETING ⚠️</div>
+  <div id="susSubText">Someone typed "sus"<br>You are the impostor.</div>
+  <div id="susAmong">🔴</div>
+</div>
+
+<!-- Nyan Cat Popup -->
+<div id="nyanPopup">+( ° ʖ °)+  NYAN CAT  +( ° ʖ °)+
+
+ ░░░░░░░░░░░░░░░░░░░░░░░░░░
+ ░ NYAN  NYAN  NYAN  NYAN ░
+  =^..^=∼∼∼∼∼∼∼∼∼(ﾟ◇ﾟ;)∼∼∼
+ ░░░░░░░░░░░░░░░░░░░░░░░░░░
+🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈
+</div>
+
+<!-- Global Broadcast (owner only) -->
+<button id="globalBroadcastToggle">📢 Broadcast</button>
+<div id="globalBroadcastPanel">
+  <h4>📢 Global Broadcast</h4>
+  <textarea id="globalBroadcastInput" placeholder="Send a message to ALL players currently in the game…" maxlength="160"></textarea>
+  <button id="globalBroadcastSend">📢 Send to Everyone</button>
+  <div id="globalBroadcastMsg"></div>
 </div>
 </body>
 </html>
