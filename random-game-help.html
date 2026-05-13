@@ -796,6 +796,422 @@
     .pack-card-rng { background: linear-gradient(135deg,#0d0005,#001010) !important; border: 1.5px solid #ff008066 !important; }
     .rng-ultra-text { font-weight: 900; background: linear-gradient(90deg,#ff0080,#00ffff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: maxGlitch 1.2s infinite; display: inline-block; }
     /* Cave entrance button */
+    /* ====== EMERALD MINE BUTTON + OVERLAY ====== */
+    #emMineBtn {
+      display: none; position: fixed; bottom: 0; left: 160px;
+      background: linear-gradient(135deg, #0d2b1a, #1b4d33);
+      color: #4ade80; font-weight: 900; font-size: 1em;
+      padding: 10px 20px 8px 20px; border-radius: 14px 14px 0 0;
+      cursor: pointer; z-index: 1500; border: 1.5px solid #2a6b4a44;
+      box-shadow: 0 -2px 16px #0006; letter-spacing: 0.04em;
+      transition: background 0.18s, transform 0.15s; user-select: none; margin-top: 0;
+    }
+    #emMineBtn:hover { background: linear-gradient(135deg, #1b4d33, #2a7a4e); transform: translateY(-2px); }
+    #emMineOverlay {
+      display: none; position: fixed; inset: 0; z-index: 3000;
+      background: radial-gradient(ellipse at 50% 110%, #0a2b18 0%, #050e08 40%, #030503 100%);
+      overflow-y: auto; flex-direction: column; align-items: center; padding-bottom: 40px;
+    }
+    #emMineContent {
+      width: 100%; max-width: 480px; padding: 0 18px;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    #emMineHeader {
+      width: 100%; display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 0 10px 0;
+    }
+    #emMineHeader h2 { margin: 0; font-size: 1.5em; font-weight: 900; color: #4ade80; letter-spacing: 0.08em; }
+    #emMineClose {
+      background: #0d2b1a; border: 1.5px solid #2a6b4a; color: #4ade80;
+      border-radius: 20px; font-size: 0.85em; font-weight: 800; padding: 6px 16px;
+      cursor: pointer; transition: background 0.15s; margin-top: 0;
+    }
+    #emMineClose:hover { background: #1b4d33; }
+    #emMineGemBalRow {
+      font-size: 1.6em; font-weight: 900; color: #4ade80; margin: 8px 0 6px 0;
+      text-shadow: 0 0 20px #4ade8055;
+    }
+    #emMineDrillBtn {
+      width: 100%; font-size: 2em; font-weight: 900; padding: 22px 0;
+      background: radial-gradient(ellipse at 50% 80%, #0d3d20, #051a0d);
+      border: 2px solid #4ade8066; border-radius: 20px; color: #4ade80;
+      cursor: pointer; margin: 8px 0 10px 0; letter-spacing: 0.06em;
+      transition: transform 0.1s, border-color 0.15s, background 0.15s;
+      user-select: none; text-shadow: 0 0 14px #4ade8088; box-shadow: 0 0 30px #4ade8022;
+    }
+    #emMineDrillBtn:hover:not(:disabled) { border-color: #4ade80; background: radial-gradient(ellipse at 50% 80%, #1b5c35, #0d2b1a); }
+    #emMineDrillBtn:active:not(:disabled) { transform: scale(0.95); }
+    #emMineDrillBtn:disabled { opacity: 0.4; cursor: not-allowed; }
+    #emCooldownBar {
+      width: 100%; height: 6px; background: #0a1a0f; border-radius: 6px;
+      margin-bottom: 8px; overflow: hidden;
+    }
+    #emCooldownFill {
+      height: 100%; width: 100%;
+      background: linear-gradient(90deg, #2fb8d4, #4ade80);
+      border-radius: 6px; transition: width 0.1s linear;
+    }
+    #emMineOutput {
+      text-align: center; color: #4ade80; font-weight: 900;
+      font-size: 1.2em; min-height: 28px; margin-bottom: 14px; letter-spacing: 0.04em;
+    }
+    .em-section-title {
+      width: 100%; font-size: 0.78em; font-weight: 900; letter-spacing: 0.14em;
+      text-transform: uppercase; color: #2a6b4a; margin: 0 0 12px 0;
+      text-align: center; border-bottom: 1px solid #1b3a25; padding-bottom: 8px;
+    }
+    .em-tools-grid {
+      width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px;
+    }
+    .em-tool-card {
+      background: #0a1a0f99; border: 1.5px solid #1b3a25; border-radius: 14px;
+      padding: 14px 14px 12px 14px; text-align: center;
+    }
+    .em-tool-card.em-active-tool { border-color: #4ade8088; background: #0d2b1aaa; box-shadow: 0 0 12px #4ade8022; }
+    .em-tool-name { font-weight: 900; font-size: 0.95em; color: #fff; }
+    .em-tool-desc { font-size: 0.76em; color: #5a8a6a; margin: 4px 0 8px 0; }
+    .em-buy-btn {
+      font-size: 0.8em; font-weight: 900; padding: 7px 14px; border-radius: 20px;
+      border: none; cursor: pointer; white-space: nowrap; margin-top: 0;
+      transition: background 0.15s, transform 0.1s; width: 100%;
+      background: linear-gradient(135deg, #1b5c35, #2a7a4e); color: #fff;
+    }
+    .em-buy-btn:hover:not(:disabled) { transform: scale(1.05); background: linear-gradient(135deg, #2a7a4e, #35a863); }
+    .em-buy-btn:disabled { background: #1a2a22; color: #3a5a45; cursor: not-allowed; }
+    .em-enchant-list { width: 100%; display: flex; flex-direction: column; gap: 9px; }
+    .em-enchant-item {
+      background: #0a1a0f99; border: 1.5px solid #1b3a25; border-radius: 12px;
+      padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    }
+    .em-enchant-item.em-enchant-owned { border-color: #4ade8055; background: #0d2b1aaa; }
+    .em-enchant-name { font-weight: 800; color: #c8f0d8; font-size: 0.93em; }
+    .em-enchant-desc { font-size: 0.76em; color: #5a8a6a; margin-top: 2px; }
+    .em-portal-btn {
+      width: 100%; font-size: 1em; font-weight: 900; padding: 14px 0; border-radius: 16px;
+      border: 2px solid #4ade8088; cursor: pointer; margin: 6px 0;
+      background: linear-gradient(135deg, #0d3d20, #1b5c35);
+      color: #4ade80; letter-spacing: 0.04em;
+      transition: background 0.16s, transform 0.1s, border-color 0.15s;
+    }
+    .em-portal-btn:hover:not(:disabled) { background: linear-gradient(135deg, #1b5c35, #2a7a4e); transform: scale(1.02); border-color: #4ade80; }
+    .em-portal-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .em-portal-btn.em-portal-locked { background: #0a1a0f; border-color: #2a6b4a55; color: #5a8a6a; }
+    .em-portal-btn.em-portal-deep {
+      background: linear-gradient(135deg, #1a0d2e, #2e1550);
+      border-color: #a78bfa88; color: #a78bfa;
+    }
+    .em-portal-btn.em-portal-deep:hover { background: linear-gradient(135deg, #2e1550, #4a2280); border-color: #a78bfa; }
+    /* ====== VERSION BADGE ====== */
+    #versionBadge {
+      position: fixed; top: 10px; left: 50%; transform: translateX(-50%);
+      background: #1a1c2e; border: 1px solid #3a3f48; border-radius: 20px;
+      color: #555; font-size: 0.7em; font-weight: 800; padding: 3px 12px;
+      z-index: 100; pointer-events: none; letter-spacing: 0.08em;
+    }
+    /* ====== SHOP TABS ====== */
+    #shopTabBar {
+      display: flex; gap: 6px; margin: 0 0 14px 0; justify-content: center;
+    }
+    .shop-tab-btn {
+      flex: 1; font-size: 0.82em; font-weight: 800; padding: 7px 10px;
+      border-radius: 20px; border: 1.5px solid #3a3f48; cursor: pointer;
+      background: #2c2f33; color: #888; transition: all 0.15s;
+    }
+    .shop-tab-btn.active { background: #5865f2; color: #fff; border-color: #5865f2; }
+    .shop-tab-btn:hover:not(.active) { background: #3a3f48; color: #ccc; }
+    /* peep tab btn active color */
+    .shop-tab-btn[data-tab="peeps"].active { background: linear-gradient(135deg,#7c3aed,#a78bfa); border-color: #a78bfa; }
+    #peepContainer { display: none; flex-direction: column; gap: 14px; }
+    /* ====== PEEP WIDGET ====== */
+    #peepWidget {
+      position: fixed; right: 18px; bottom: 60px; z-index: 2000;
+      display: none; flex-direction: column; gap: 6px;
+      cursor: default; user-select: none; overflow: visible;
+    }
+    .peep-widget-item {
+      display: flex; align-items: center; gap: 8px;
+      background: #12141f; border: 1.5px solid #5865f233;
+      border-radius: 20px; padding: 8px 12px 8px 10px;
+      box-shadow: 0 4px 24px #0008;
+    }
+    .peep-widget-inner { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+    .peep-widget-icon {
+      font-size: 2em; display: block; line-height: 1;
+      transform-origin: bottom center;
+    }
+    @keyframes peepBeak {
+      0%   { transform: rotate(0deg) scale(1); }
+      30%  { transform: rotate(-18deg) scale(1.05) translateY(-3px); }
+      60%  { transform: rotate(8deg) scale(1); }
+      100% { transform: rotate(0deg) scale(1); }
+    }
+    @keyframes peepTap {
+      0%,100% { transform: scale(1) rotate(0); filter: brightness(1); }
+      20%     { transform: scale(1.5) rotate(-20deg); filter: brightness(1.8) drop-shadow(0 0 6px #fbbf24); }
+      60%     { transform: scale(0.9) rotate(10deg); filter: brightness(1.2); }
+    }
+    @keyframes floatDiamond {
+      0%   { opacity: 1; transform: translateY(0) scale(1); }
+      80%  { opacity: 1; }
+      100% { opacity: 0; transform: translateY(-38px) scale(1.2); }
+    }
+    .peep-widget-icon.peep-beak-anim { animation: peepBeak 0.28s ease; }
+    .peep-widget-icon.peep-tap-anim  { animation: peepTap  0.45s cubic-bezier(0.34,1.56,0.64,1); }
+    .peep-widget-badges { display: flex; gap: 4px; }
+    .peep-badge {
+      font-size: 0.72em; border-radius: 20px; padding: 2px 6px;
+      background: #1e2030; color: #444; border: 1px solid #2a2d3a;
+      transition: all 0.2s; white-space: nowrap;
+    }
+    .peep-badge.tap-badge { color: #43b581; background: #0d2b1a66; border-color: #43b58133; animation: tapPulse 2s ease-in-out infinite; }
+    @keyframes tapPulse { 0%,100%{box-shadow:0 0 0 0 #43b58133;} 50%{box-shadow:0 0 0 4px #43b58100;} }
+    .peep-badge.follow-badge { cursor: pointer; }
+    .peep-badge.follow-badge.on { color: #38bdf8; background: #052a3a66; border-color: #38bdf833; animation: followPulse 1s ease-in-out infinite; }
+    .peep-badge.follow-badge:not(.on) { color: #444; }
+    @keyframes followPulse { 0%,100%{box-shadow:0 0 0 0 #38bdf833;} 50%{box-shadow:0 0 0 5px #38bdf800;} }
+    .peep-badge.follow-badge:hover { border-color: #38bdf855; color: #38bdf8; }
+    .peep-widget-label { font-size: 0.68em; font-weight: 900; color: #666; letter-spacing: 0.06em; text-align: center; }
+    .peep-widget-close {
+      background: none; border: none; color: #444; font-size: 0.85em; cursor: pointer;
+      padding: 2px 4px; border-radius: 6px; transition: color 0.15s, background 0.15s;
+      align-self: flex-start; margin-top: -2px;
+    }
+    .peep-widget-close:hover { color: #fff; background: #3a3f48; }
+    .peep-float-diamond {
+      position: fixed; pointer-events: none;
+      font-size: 1em; font-weight: 900; color: #7dd3fc;
+      animation: floatDiamond 0.9s ease forwards; z-index: 9999;
+      transform: translateX(-50%);
+    }
+    #peepSpriteWrap {
+      position: fixed; z-index: 3500; pointer-events: none;
+      width: 512px; height: 512px;
+    }
+    #peepSpriteInner {
+      width: 512px; height: 512px;
+      position: relative;
+      transform-origin: center center;
+    }
+    #peepSprite {
+      width: 512px; height: 512px;
+      image-rendering: pixelated; image-rendering: crisp-edges;
+      display: block; object-fit: contain;
+      position: relative; z-index: 1;
+    }
+    /* ====== PEEP SHOP CARDS ====== */
+    .peep-shard-row {
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+      background: #1a1500; border: 1.5px solid #fbbf2433; border-radius: 14px;
+      padding: 10px 14px;
+    }
+    .peep-card {
+      background: #2c2f33; border: 1.5px solid #3a3f48; border-radius: 16px; padding: 14px 16px;
+    }
+    .peep-card.peep-equipped { border-color: #fbbf2466; background: #2a2a1a; }
+    .peep-card-top { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
+    .peep-card-icon { font-size: 2.4em; flex-shrink: 0; }
+    .peep-card-meta { flex: 1; }
+    .peep-card-name { font-weight: 900; font-size: 1em; color: #fff; }
+    .peep-card-desc { font-size: 0.78em; color: #888; margin-top: 3px; }
+    .peep-ability-list { display: flex; flex-direction: column; gap: 6px; margin: 8px 0; }
+    .peep-ability-list-item {
+      display: flex; align-items: center; justify-content: space-between; gap: 8px;
+      padding: 6px 10px; border-radius: 10px; background: #1a1c2e;
+      font-size: 0.82em; color: #888;
+    }
+    .peep-ability-list-item.owned { color: #c8f0d8; background: #0d2b1a66; }
+    /* ====== DEEPEST CAVE OVERLAY ====== */
+    #deepestCaveOverlay {
+      display: none; position: fixed; inset: 0; z-index: 4000;
+      background: radial-gradient(ellipse at 50% 120%, #06030f 0%, #020108 60%, #010104 100%);
+      overflow-y: auto; flex-direction: column; align-items: center; padding-bottom: 40px;
+    }
+    #deepestCaveContent {
+      width: 100%; max-width: 480px; padding: 0 18px;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    #deepestCaveHeader {
+      width: 100%; display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 0 10px 0;
+    }
+    #deepestCaveHeader h2 { margin: 0; font-size: 1.5em; font-weight: 900; color: #67e8f9; letter-spacing: 0.08em; text-shadow: 0 0 24px #22d3ee66; }
+    #deepestCaveClose {
+      background: #021015; border: 1.5px solid #22d3ee44; color: #67e8f9;
+      border-radius: 20px; font-size: 0.85em; font-weight: 800; padding: 6px 16px;
+      cursor: pointer; transition: background 0.15s; margin-top: 0;
+    }
+    #deepestCaveClose:hover { background: #052028; }
+    #deepestDemeralBalRow {
+      font-size: 1.5em; font-weight: 900; color: #67e8f9; margin: 8px 0 6px 0;
+      text-shadow: 0 0 18px #22d3ee55;
+    }
+    #deepestMineDrillBtn {
+      width: 100%; font-size: 2em; font-weight: 900; padding: 22px 0;
+      background: radial-gradient(ellipse at 50% 80%, #052028, #01080e);
+      border: 2px solid #22d3ee55; border-radius: 20px; color: #67e8f9;
+      cursor: pointer; margin: 8px 0 10px 0; letter-spacing: 0.06em;
+      transition: transform 0.1s, border-color 0.15s; user-select: none;
+      text-shadow: 0 0 16px #22d3ee88; box-shadow: 0 0 30px #22d3ee11;
+    }
+    #deepestMineDrillBtn:hover:not(:disabled) { border-color: #22d3ee; background: radial-gradient(ellipse at 50% 80%, #0a3040, #021520); }
+    #deepestMineDrillBtn:active:not(:disabled) { transform: scale(0.95); }
+    #deepestMineDrillBtn:disabled { opacity: 0.4; cursor: not-allowed; }
+    #deepestCooldownBar {
+      width: 100%; height: 6px; background: #010810; border-radius: 6px; margin-bottom: 8px; overflow: hidden;
+    }
+    #deepestCooldownFill {
+      height: 100%; width: 100%;
+      background: linear-gradient(90deg, #0ea5e9, #22d3ee);
+      border-radius: 6px; transition: width 0.1s linear;
+    }
+    #deepestMineOutput {
+      text-align: center; color: #67e8f9; font-weight: 900; font-size: 1.2em; min-height: 28px; margin-bottom: 14px;
+    }
+    #deepestPeepUnlockBtn {
+      width: 100%; font-size: 1em; font-weight: 900; padding: 16px 0;
+      background: linear-gradient(135deg, #052028, #0a3050); color: #67e8f9;
+      border: 2px solid #22d3ee55; border-radius: 16px; cursor: pointer; margin: 8px 0;
+      transition: background 0.15s, transform 0.1s;
+    }
+    #deepestPeepUnlockBtn:hover:not(:disabled) { background: linear-gradient(135deg, #0a3050, #124080); transform: scale(1.02); }
+    #deepestPeepUnlockBtn:disabled { opacity: 0.4; cursor: not-allowed; }
+    /* Demerald forge in fusing table */
+    .fusing-divider {
+      width: 100%; border: none; border-top: 1px solid #2e1550; margin: 14px 0;
+    }
+    .fusing-section-title {
+      font-size: 0.75em; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase;
+      color: #5a3a8a; margin: 0 0 10px 0; text-align: center;
+    }
+    #demeraldForgeBtn {
+      width: 100%; font-size: 1.05em; font-weight: 900; padding: 16px 0;
+      background: linear-gradient(135deg, #021520, #042030); color: #67e8f9;
+      border: 2px solid #22d3ee44; border-radius: 18px; cursor: pointer; margin: 6px 0;
+      transition: background 0.15s, transform 0.1s;
+    }
+    #demeraldForgeBtn:hover:not(:disabled) { background: linear-gradient(135deg, #052028, #0a3040); transform: scale(1.01); border-color: #22d3ee88; }
+    #demeraldForgeBtn:disabled { opacity: 0.4; cursor: not-allowed; }
+    #demeraldForgeCoolBar {
+      width: 100%; height: 6px; background: #010810; border-radius: 6px; margin-bottom: 10px; overflow: hidden;
+    }
+    #demeraldForgeFill {
+      height: 100%; width: 100%;
+      background: linear-gradient(90deg, #0ea5e9, #67e8f9);
+      border-radius: 6px; transition: width 0.5s linear;
+    }
+    #deepestUnlockBtn {
+      width: 100%; font-size: 1em; font-weight: 900; padding: 14px 0;
+      background: linear-gradient(135deg, #021520, #042030); color: #67e8f9;
+      border: 2px solid #22d3ee44; border-radius: 16px; cursor: pointer; margin: 4px 0;
+      transition: background 0.15s, transform 0.1s;
+    }
+    #deepestUnlockBtn:hover:not(:disabled) { background: linear-gradient(135deg, #052028, #0a3040); transform: scale(1.01); }
+    #deepestUnlockBtn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    /* ====== FUSING TABLE OVERLAY ====== */
+    #fusingOverlay {
+      display: none; position: fixed; inset: 0; z-index: 4000;
+      background: radial-gradient(ellipse at 50% 110%, #150a25 0%, #080511 50%, #030205 100%);
+      overflow-y: auto; flex-direction: column; align-items: center; padding-bottom: 40px;
+    }
+    #fusingContent {
+      width: 100%; max-width: 440px; padding: 0 18px;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    #fusingHeader {
+      width: 100%; display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 0 10px 0;
+    }
+    #fusingHeader h2 { margin: 0; font-size: 1.4em; font-weight: 900; color: #a78bfa; letter-spacing: 0.08em; }
+    #fusingClose {
+      background: #1a0d2e; border: 1.5px solid #5a3a8a; color: #a78bfa;
+      border-radius: 20px; font-size: 0.85em; font-weight: 800; padding: 6px 16px;
+      cursor: pointer; transition: background 0.15s; margin-top: 0;
+    }
+    #fusingClose:hover { background: #2e1550; }
+    .fusing-bal-row {
+      width: 100%; display: flex; gap: 18px; justify-content: center;
+      font-size: 1.1em; font-weight: 900; margin: 8px 0 18px 0;
+    }
+    .fusing-bal-row .fb-em { color: #4ade80; }
+    .fusing-bal-row .fb-su { color: #a78bfa; }
+    #fuseVisual {
+      font-size: 3em; margin: 10px 0 6px 0;
+      display: flex; align-items: center; gap: 14px; justify-content: center;
+    }
+    #fuseBtn {
+      width: 100%; font-size: 1.15em; font-weight: 900; padding: 18px 0;
+      background: linear-gradient(135deg, #4a1a7a, #7c3aed); color: #e9d5ff;
+      border: 2px solid #7c3aed88; border-radius: 18px; cursor: pointer; margin: 10px 0 6px 0;
+      transition: background 0.15s, transform 0.1s;
+    }
+    #fuseBtn:hover:not(:disabled) { background: linear-gradient(135deg, #6b21a8, #9c3aed); transform: scale(1.02); }
+    #fuseBtn:disabled { opacity: 0.4; cursor: not-allowed; }
+    #fuseCooldownBar {
+      width: 100%; height: 6px; background: #1a0d2e; border-radius: 6px; margin-bottom: 16px; overflow: hidden;
+    }
+    #fuseCooldownFill {
+      height: 100%; width: 100%;
+      background: linear-gradient(90deg, #7c3aed, #a78bfa);
+      border-radius: 6px; transition: width 0.3s linear;
+    }
+    #fuseDeepUnlock {
+      width: 100%; font-size: 1em; font-weight: 900; padding: 14px 0;
+      background: linear-gradient(135deg, #1a0d2e, #2e1550); color: #a78bfa;
+      border: 2px solid #a78bfa55; border-radius: 16px; cursor: pointer; margin: 8px 0;
+      transition: background 0.15s, transform 0.1s;
+    }
+    #fuseDeepUnlock:hover:not(:disabled) { background: linear-gradient(135deg, #2e1550, #4a2280); transform: scale(1.02); }
+    #fuseDeepUnlock:disabled { opacity: 0.4; cursor: not-allowed; }
+    /* ====== DEEPER CAVE OVERLAY ====== */
+    #deepCaveOverlay {
+      display: none; position: fixed; inset: 0; z-index: 4000;
+      background: radial-gradient(ellipse at 50% 120%, #0d0520 0%, #050210 50%, #020106 100%);
+      overflow-y: auto; flex-direction: column; align-items: center; padding-bottom: 40px;
+    }
+    #deepCaveContent {
+      width: 100%; max-width: 480px; padding: 0 18px;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    #deepCaveHeader {
+      width: 100%; display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 0 10px 0;
+    }
+    #deepCaveHeader h2 { margin: 0; font-size: 1.5em; font-weight: 900; color: #a78bfa; letter-spacing: 0.08em; text-shadow: 0 0 20px #7c3aed88; }
+    #deepCaveClose {
+      background: #1a0d2e; border: 1.5px solid #5a3a8a; color: #a78bfa;
+      border-radius: 20px; font-size: 0.85em; font-weight: 800; padding: 6px 16px;
+      cursor: pointer; transition: background 0.15s; margin-top: 0;
+    }
+    #deepCaveClose:hover { background: #2e1550; }
+    #deepSuperBalRow {
+      font-size: 1.5em; font-weight: 900; color: #a78bfa; margin: 8px 0 6px 0;
+      text-shadow: 0 0 18px #7c3aed66;
+    }
+    #deepMineDrillBtn {
+      width: 100%; font-size: 2em; font-weight: 900; padding: 22px 0;
+      background: radial-gradient(ellipse at 50% 80%, #2e1550, #0d0520);
+      border: 2px solid #a78bfa66; border-radius: 20px; color: #a78bfa;
+      cursor: pointer; margin: 8px 0 10px 0; letter-spacing: 0.06em;
+      transition: transform 0.1s, border-color 0.15s; user-select: none;
+      text-shadow: 0 0 14px #a78bfa88; box-shadow: 0 0 30px #7c3aed22;
+    }
+    #deepMineDrillBtn:hover:not(:disabled) { border-color: #a78bfa; background: radial-gradient(ellipse at 50% 80%, #4a2280, #1a0d2e); }
+    #deepMineDrillBtn:active:not(:disabled) { transform: scale(0.95); }
+    #deepMineDrillBtn:disabled { opacity: 0.4; cursor: not-allowed; }
+    #deepCooldownBar {
+      width: 100%; height: 6px; background: #0d0520; border-radius: 6px; margin-bottom: 8px; overflow: hidden;
+    }
+    #deepCooldownFill {
+      height: 100%; width: 100%;
+      background: linear-gradient(90deg, #7c3aed, #a78bfa);
+      border-radius: 6px; transition: width 0.1s linear;
+    }
+    #deepMineOutput {
+      text-align: center; color: #a78bfa; font-weight: 900;
+      font-size: 1.2em; min-height: 28px; margin-bottom: 14px;
+    }
+
     #caveBtn {
       display: none; position: fixed; bottom: 0; left: 18px;
       background: linear-gradient(135deg, #1a0e00, #2d1a00);
@@ -1682,6 +2098,59 @@
     #timer.tf-bebasnue   { font-family: 'Bebas Neue', sans-serif !important; font-size: 1.5em !important; letter-spacing: 0.1em !important; }
     #timer.tf-courier    { font-family: 'Courier Prime', monospace !important; }
 
+    /* ===== PLAYER STATUS SYSTEM ===== */
+    #statusSelectorBtn {
+      display: none;
+      background: #1e2330;
+      border: 1.5px solid #444;
+      border-radius: 30px;
+      padding: 6px 16px 6px 12px;
+      font-size: 0.88em;
+      font-weight: 800;
+      cursor: pointer;
+      margin: 10px auto 0 auto;
+      gap: 7px;
+      align-items: center;
+      transition: border-color 0.15s, background 0.15s;
+      letter-spacing: 0.03em;
+    }
+    #statusSelectorBtn:hover { border-color: #5865f2; background: #23274a; }
+    .status-dot {
+      width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0;
+      display: inline-block; margin-right: 5px;
+      box-shadow: 0 0 0 2px rgba(255,255,255,0.08);
+    }
+    .status-dot-online  { background: #22c55e; box-shadow: 0 0 0 3px rgba(34,197,94,0.25); }
+    .status-dot-offline { background: #6b7280; }
+    .status-dot-dnd     { background: #ef4444; box-shadow: 0 0 0 3px rgba(239,68,68,0.22); }
+    .status-dot-afk     { background: #eab308; box-shadow: 0 0 0 3px rgba(234,179,8,0.22); }
+    #statusPicker {
+      display: none; position: fixed; z-index: 9999;
+      background: #1e2330; border: 1.5px solid #444;
+      border-radius: 14px; padding: 8px 0;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.45);
+      min-width: 180px;
+    }
+    #statusPicker.open { display: block; }
+    .status-picker-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 9px 18px; cursor: pointer;
+      font-size: 0.89em; font-weight: 700;
+      transition: background 0.1s;
+    }
+    .status-picker-item:hover { background: #2a2f47; }
+    .status-picker-item.active { background: #2a3060; }
+    .lb-status-dot {
+      width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0;
+      display: inline-block; margin-left: 5px; vertical-align: middle;
+    }
+    .profile-status-indicator {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 0.78em; font-weight: 800;
+      margin: 3px 0 2px 0; justify-content: center;
+      opacity: 0.9;
+    }
+
     /* ===== ONLINE COUNT PILL ===== */
     #onlineCountBox {
       display: none; align-items: center; gap: 8px;
@@ -2036,7 +2505,17 @@
       { id: 'rng_cipher',  label: 'Cipher',     icon: '🔐',  desc: 'Encrypted existence.',           tier: 'rng_l',     pack: 7 },
       { id: 'rng_nexus',   label: 'Nexus',      icon: '🔗',  desc: 'The point of connection.',       tier: 'rng_m',     pack: 7 },
       { id: 'rng_vortex',  label: 'Vortex',     icon: '🌀',  desc: 'Everything spirals inward.',     tier: 'rng_m',     pack: 7 },
-      { id: 'rng_one',     label: 'The One',    icon: '☯️',  desc: '0.01%. You are chosen.',         tier: 'rng_ultra', pack: 7 },
+      { id: 'rng_one',       label: 'The One',         icon: '☯️',  desc: '0.01%. You are chosen.',         tier: 'rng_ultra',     pack: 7 },
+      // Emerald Shop Exclusives
+      { id: 'em_gem_seeker',   label: 'Gem Seeker',      icon: '🔮', desc: 'Seeks the glowing emerald.',      tier: 'emerald_title' },
+      { id: 'em_spelunker',    label: 'Spelunker',       icon: '🕯️', desc: 'Master of the dark caves.',      tier: 'emerald_title' },
+      { id: 'em_cave_heart',   label: 'Cave Heart',      icon: '💚', desc: 'Heart beats green with emerald.', tier: 'emerald_title' },
+      { id: 'em_deep_dweller', label: 'Deep Dweller',    icon: '🌿', desc: 'Practically lives underground.',  tier: 'emerald_title' },
+      // Deep Cave Exclusives (super emerald)
+      { id: 'deep_super_miner',  label: 'Super Miner',      icon: '💠', desc: 'Cracked the deepest rocks.',    tier: 'super_emerald' },
+      { id: 'deep_crystal_sage', label: 'Crystal Sage',     icon: '🌀', desc: 'Wisdom found only in the deep.', tier: 'super_emerald' },
+      { id: 'deep_em_titan',     label: 'Emerald Titan',    icon: '⚡', desc: 'Forged by super emeralds.',     tier: 'super_emerald' },
+      { id: 'deep_lord',         label: 'Lord of the Deep', icon: '🔱', desc: 'Rules the deeper cave.',         tier: 'super_emerald' },
     ];
     const TIME_TITLES = [
       { id: 'observer',    seconds: 600 },
@@ -2063,7 +2542,9 @@
       rng_e:     { label: 'Epic',      color: '#9b59b6', bg: '#160d22' },
       rng_l:     { label: 'Legendary', color: '#ffeb3b', bg: '#1a1500' },
       rng_m:     { label: 'Mythical',  color: '#ff4757', bg: '#1a050a' },
-      rng_ultra: { label: 'Ultra Rare',color: '#ff0080', bg: '#0d0005' },
+      rng_ultra:     { label: 'Ultra Rare',   color: '#ff0080', bg: '#0d0005' },
+      emerald_title: { label: 'Emerald',      color: '#4ade80', bg: '#0d2b1a' },
+      super_emerald: { label: 'Super Emerald',color: '#a78bfa', bg: '#1a0d2e' },
     };
     const PACKS = [
       { id: 'bronze',  name: 'Bronze Crate',  icon: '📦', cost: 1,
@@ -2115,6 +2596,36 @@
     ];
     BUYABLE_TITLES.forEach(bt => { if (!ALL_TITLES.find(t => t.id === bt.id)) ALL_TITLES.push(bt); });
 
+    const EM_SHOP_TITLES = [
+      { id: 'em_gem_seeker',   cost: 15  },
+      { id: 'em_spelunker',    cost: 30  },
+      { id: 'em_cave_heart',   cost: 50  },
+      { id: 'em_deep_dweller', cost: 75  },
+    ];
+    const DEEP_SHOP_TITLES = [
+      { id: 'deep_super_miner',  cost: 3  },
+      { id: 'deep_crystal_sage', cost: 7  },
+      { id: 'deep_em_titan',     cost: 15 },
+      { id: 'deep_lord',         cost: 25 },
+    ];
+    const PEEPS = [
+      { id: 'peep_birdo',   name: 'Birdo',   icon: '🐦', desc: 'A peppy little bird. Always ready to help.', cost: 3 },
+      { id: 'peep_quacky',  name: 'Quacky',  icon: '🦆', desc: 'Quick and always in a hurry.',               cost: 5 },
+      { id: 'peep_hooter',  name: 'Hooter',  icon: '🦉', desc: 'Wise and silent. Deadly accurate beak.',     cost: 8 },
+      { id: 'peep_chirpy',  name: 'Chirpy',  icon: '🐤', desc: 'The youngest peep. Full of energy.',         cost: 12 },
+    ];
+    const PEEP_ABILITY_DEFS = [
+      { id: 'tap', name: 'Beak Tap', icon: '👆', desc: 'Auto-taps Click Me — 10% chance of +1 💎 per tap. Always active.', default: true },
+    ];
+    const PEEP_TAP_RATE = { peep_birdo: 5000, peep_quacky: 4000, peep_hooter: 3000, peep_chirpy: 3500 };
+    const CHIRPY_ID = 'peep_chirpy';
+    const CHIRPY_SPRITE_IDLE  = 'https://i.imgur.com/nEyqe85.png';
+    const CHIRPY_SPRITE_PECK  = 'https://i.imgur.com/fXdqlA0.png';
+    const CHIRPY_SPRITE_LEG_L = 'https://i.imgur.com/J36kSeJ.png';
+    const CHIRPY_SPRITE_LEG_R = 'https://i.imgur.com/2o0N5bA.png';
+    const SPRITE_DISPLAY = 512;
+    const SPRITE_HALF = SPRITE_DISPLAY / 2;
+
     const MINE_UPGRADES = [
       { level: 1, name: 'Wooden Pickaxe',   icon: '🪓', perClick: 0.3,    cost: 150,      color: '#c8860a', desc: 'Better than bare hands.'         },
       { level: 2, name: 'Stone Pickaxe',    icon: '⛏️', perClick: 0.8,    cost: 600,      color: '#aaaaaa', desc: 'Chips away at harder rock.'      },
@@ -2153,6 +2664,9 @@
     let cleanUI = false;
     let profileStatus = '';
     let profileBannerImg = '';
+    let playerStatus = 'online';
+    let afkTimeout = null;
+    let preAfkStatus = 'online';
     let profileAvatarBorderColor = '';
     let profileCardStyle = 'default';
     let profileNameFont = 'inter';
@@ -2162,6 +2676,33 @@
     let leaderboardName = '';
     let streak = 0;
     let emeralds = 0;
+    let hasEmblem = false;
+    let emMineUnlocked = false;
+    let emPickaxe = 'none';
+    let emEnchants = { fortune: 0, efficiency: false };
+    let emEmblemInterval = null;
+    let emMiningCooldown = false;
+    let superEmeralds = 0;
+    let hasFusingTable = false;
+    let deepCaveUnlocked = false;
+    let fusingCooldown = false;
+    let deepMiningCooldown = false;
+    let demeralds = 0;
+    let deepestCaveUnlocked = false;
+    let peepShopUnlocked = false;
+    let ownedPeeps = [];
+    let equippedPeeps = [];
+    let peepAbilities = {};
+    let abilityShards = 0;
+    let demeraldFuseCooldown = false;
+    let deepestMineCooldown = false;
+    let peepTapIntervals = {};
+    let activeShopTab = 'shop';
+    let peepSpriteX = 0;
+    let peepSpriteY = 0;
+    let peepSpriteWalking = false;
+    let peepFacingRight = false;
+    let idleBobAnim = null;
     let musicPlaying = false;
     let currentTrack = 0;
     let musicVolume = 0.35;
@@ -2951,6 +3492,68 @@
     // keep alias for clan panel (now writes globally)
     async function sendClanAnnouncement(text) { return sendGlobalAnnouncement(text); }
 
+    // ===== PLAYER STATUS SYSTEM =====
+    const STATUS_META = {
+      online:  { label: 'Online',           color: '#22c55e', dotClass: 'status-dot-online' },
+      offline: { label: 'Offline',          color: '#6b7280', dotClass: 'status-dot-offline' },
+      dnd:     { label: 'Do Not Disturb',   color: '#ef4444', dotClass: 'status-dot-dnd' },
+      afk:     { label: 'AFK',              color: '#eab308', dotClass: 'status-dot-afk' },
+    };
+
+    function setPlayerStatus(status, skipSave) {
+      playerStatus = status;
+      if (user && !skipSave) {
+        const safe = user.replace(/[.#$[\]]/g, '_');
+        update(ref(db, 'users/' + safe), { playerStatus: status });
+      }
+      renderStatusSelector();
+    }
+
+    function renderStatusSelector() {
+      const btn = document.getElementById('statusSelectorBtn');
+      if (!btn) return;
+      const meta = STATUS_META[playerStatus] || STATUS_META.online;
+      btn.innerHTML = `<span class="status-dot ${meta.dotClass}"></span>${meta.label}`;
+      btn.style.color = meta.color;
+      btn.style.borderColor = meta.color + '66';
+      document.querySelectorAll('.status-picker-item').forEach(el => {
+        el.classList.toggle('active', el.dataset.status === playerStatus);
+      });
+    }
+
+    function resetAfkTimer() {
+      if (afkTimeout) clearTimeout(afkTimeout);
+      if (playerStatus === 'afk') {
+        setPlayerStatus(preAfkStatus === 'dnd' ? 'dnd' : 'online');
+      }
+      if (playerStatus === 'dnd') return;
+      afkTimeout = setTimeout(() => {
+        if (playerStatus === 'online') {
+          preAfkStatus = playerStatus;
+          setPlayerStatus('afk');
+        }
+      }, 5 * 60 * 1000);
+    }
+
+    function setupAfkDetection() {
+      ['mousemove','mousedown','keydown','touchstart','scroll','click'].forEach(ev => {
+        document.addEventListener(ev, resetAfkTimer, { passive: true });
+      });
+      resetAfkTimer();
+    }
+
+    function openStatusPicker(anchorEl) {
+      let picker = document.getElementById('statusPicker');
+      if (picker.classList.contains('open')) {
+        picker.classList.remove('open');
+        return;
+      }
+      const rect = anchorEl.getBoundingClientRect();
+      picker.style.top = (rect.bottom + 6) + 'px';
+      picker.style.left = rect.left + 'px';
+      picker.classList.add('open');
+    }
+
     // ===== ONLINE PRESENCE =====
     function setupPresence() {
       if (!user) return;
@@ -3068,6 +3671,1001 @@
       ct.textContent = emeralds;
       if (shop) shop.style.display = 'block';
     }
+
+    // ====== EMERALD MINE + EMBLEM SYSTEM ======
+    function saveEmData(extra) {
+      if (!user) return;
+      const safe = user.replace(/[.#$[\]]/g, '_');
+      update(ref(db, 'users/' + safe), Object.assign({ emeralds }, extra || {}));
+    }
+
+    function showEmToast(msg) {
+      let t = document.getElementById('emToast');
+      if (!t) {
+        t = document.createElement('div');
+        t.id = 'emToast';
+        t.style.cssText = 'position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#1b3a2a;color:#4ade80;font-weight:800;padding:10px 22px;border-radius:12px;font-size:1em;z-index:99999;pointer-events:none;opacity:0;transition:opacity 0.5s;border:1.5px solid #2a6b4a;white-space:nowrap;';
+        document.body.appendChild(t);
+      }
+      t.textContent = msg;
+      t.style.opacity = '1';
+      clearTimeout(t._hide);
+      t._hide = setTimeout(() => { t.style.opacity = '0'; }, 2600);
+    }
+
+    function startEmblemTimer() {
+      if (emEmblemInterval) clearInterval(emEmblemInterval);
+      emEmblemInterval = setInterval(() => {
+        if (!user || !hasEmblem) return;
+        emeralds++;
+        saveEmData({ emblem_award_ts: Date.now() });
+        updateEmeraldDisplay();
+        showEmToast('+1 💎 from Emblem of Emerald!');
+      }, 60000);
+    }
+
+    function initEmeraldSystem(userData) {
+      hasEmblem = !!userData.emEmblem;
+      emMineUnlocked = !!userData.emMineUnlocked;
+      emPickaxe = userData.emPickaxe || 'none';
+      emEnchants = userData.emEnchants || { fortune: 0, efficiency: false };
+      superEmeralds = typeof userData.superEmeralds === 'number' ? userData.superEmeralds : 0;
+      hasFusingTable = !!userData.hasFusingTable;
+      deepCaveUnlocked = !!userData.deepCaveUnlocked;
+      demeralds = typeof userData.demeralds === 'number' ? userData.demeralds : 0;
+      deepestCaveUnlocked = !!userData.deepestCaveUnlocked;
+      peepShopUnlocked = !!userData.peepShopUnlocked;
+      ownedPeeps = Array.isArray(userData.ownedPeeps) ? userData.ownedPeeps : [];
+      equippedPeeps = Array.isArray(userData.equippedPeeps) ? userData.equippedPeeps : (userData.equippedPeep ? [userData.equippedPeep] : []);
+      peepAbilities = (userData.peepAbilities && typeof userData.peepAbilities === 'object') ? userData.peepAbilities : {};
+      abilityShards = typeof userData.abilityShards === 'number' ? userData.abilityShards : 0;
+      if (hasEmblem) {
+        const now = Date.now();
+        const last = typeof userData.emblem_award_ts === 'number' ? userData.emblem_award_ts : now;
+        const mins = Math.floor((now - last) / 60000);
+        if (mins > 0) {
+          emeralds += mins;
+          saveEmData({ emblem_award_ts: now });
+          showEmToast('+' + mins + ' 💎 from emblem while away!');
+        }
+        startEmblemTimer();
+      }
+      const mineBtn = document.getElementById('emMineBtn');
+      if (mineBtn) mineBtn.style.display = emMineUnlocked ? 'block' : 'none';
+      updateEmeraldDisplay();
+      updateSuperEmeraldDisplay();
+      updateDemeraldsDisplay();
+      if (equippedPeeps.length > 0) { renderPeepWidget(); startPeepTap(); }
+    }
+
+    function resetEmeraldSystem() {
+      hasEmblem = false; emMineUnlocked = false;
+      emPickaxe = 'none'; emEnchants = { fortune: 0, efficiency: false };
+      emMiningCooldown = false; superEmeralds = 0;
+      hasFusingTable = false; deepCaveUnlocked = false;
+      fusingCooldown = false; deepMiningCooldown = false;
+      demeralds = 0; deepestCaveUnlocked = false; peepShopUnlocked = false;
+      ownedPeeps = []; equippedPeeps = []; peepAbilities = {}; abilityShards = 0;
+      demeraldFuseCooldown = false; deepestMineCooldown = false;
+      stopPeepTap();
+      const w = document.getElementById('peepWidget');
+      if (w) w.style.display = 'none';
+      if (emEmblemInterval) { clearInterval(emEmblemInterval); emEmblemInterval = null; }
+      const mineBtn = document.getElementById('emMineBtn');
+      if (mineBtn) mineBtn.style.display = 'none';
+      ['emMineOverlay','fusingOverlay','deepCaveOverlay','deepestCaveOverlay'].forEach(id => {
+        const ov = document.getElementById(id);
+        if (ov) ov.style.display = 'none';
+      });
+    }
+
+    function getEmMineOutput() {
+      let min = 1, max = 3;
+      if (emPickaxe === 'emerald') { min = 3; max = 7; }
+      return Math.floor(Math.random() * (max - min + 1)) + min + (emEnchants.fortune || 0);
+    }
+    function getEmMineCooldown() { return emEnchants.efficiency ? 3000 : 5000; }
+
+    function clickEmMine() {
+      if (emMiningCooldown || !user) return;
+      const out = getEmMineOutput();
+      emeralds += out;
+      saveEmData({});
+      updateEmeraldDisplay();
+      renderEmMine();
+      const outEl = document.getElementById('emMineOutput');
+      if (outEl) { outEl.textContent = '+' + out + ' 💎'; setTimeout(() => { outEl.textContent = ''; }, 1500); }
+      const btn = document.getElementById('emMineDrillBtn');
+      const fill = document.getElementById('emCooldownFill');
+      emMiningCooldown = true;
+      if (btn) btn.disabled = true;
+      if (fill) fill.style.width = '0%';
+      const cd = getEmMineCooldown(), start = Date.now();
+      const iv = setInterval(() => {
+        const p = Math.min((Date.now() - start) / cd, 1);
+        if (fill) fill.style.width = (p * 100) + '%';
+        if (p >= 1) { clearInterval(iv); emMiningCooldown = false; if (btn) btn.disabled = false; }
+      }, 50);
+    }
+
+    function buyEmblem() {
+      if (hasEmblem || emeralds < 20 || !user) return;
+      emeralds -= 20; hasEmblem = true;
+      saveEmData({ emEmblem: true, emblem_award_ts: Date.now() });
+      startEmblemTimer();
+      updateEmeraldDisplay();
+      openShop();
+      showEmToast('💎 Emblem of Emerald acquired!');
+    }
+
+    function unlockEmMine() {
+      if (emMineUnlocked || emeralds < 100 || !user) return;
+      emeralds -= 100; emMineUnlocked = true;
+      saveEmData({ emMineUnlocked: true });
+      updateEmeraldDisplay();
+      const mineBtn = document.getElementById('emMineBtn');
+      if (mineBtn) mineBtn.style.display = 'block';
+      openShop();
+      showEmToast('⛏️ Emerald Mine unlocked!');
+    }
+
+    function buyEmTool(tool) {
+      if (tool === 'emerald') {
+        if (emPickaxe === 'emerald' || emeralds < 30 || !user) return;
+        emeralds -= 30; emPickaxe = 'emerald';
+        saveEmData({ emPickaxe: 'emerald' });
+        renderEmMine();
+        showEmToast('💎 Emerald Pickaxe equipped!');
+      }
+    }
+
+    function buyEmEnchant(type) {
+      if (!user) return;
+      if (type === 'fortune1') {
+        if (emEnchants.fortune >= 1 || emeralds < 15) return;
+        emeralds -= 15; emEnchants.fortune = 1;
+      } else if (type === 'fortune2') {
+        if (emEnchants.fortune < 1 || emEnchants.fortune >= 2 || emeralds < 35) return;
+        emeralds -= 35; emEnchants.fortune = 2;
+      } else if (type === 'fortune3') {
+        if (emEnchants.fortune < 2 || emEnchants.fortune >= 3 || emeralds < 60) return;
+        emeralds -= 60; emEnchants.fortune = 3;
+      } else if (type === 'efficiency') {
+        if (emEnchants.efficiency || emeralds < 25) return;
+        emeralds -= 25; emEnchants.efficiency = true;
+      }
+      saveEmData({ emEnchants });
+      renderEmMine();
+      showEmToast('✨ Enchantment applied!');
+    }
+
+    function openEmMine() {
+      document.getElementById('emMineOverlay').style.display = 'flex';
+      renderEmMine();
+    }
+    function closeEmMine() { document.getElementById('emMineOverlay').style.display = 'none'; }
+
+    function renderEmMine() {
+      const bal = document.getElementById('emMineGemBal');
+      if (bal) bal.textContent = emeralds;
+      const superBal = document.getElementById('emMineSuperBal');
+      if (superBal) { superBal.textContent = superEmeralds; superBal.parentElement.style.display = superEmeralds > 0 || deepCaveUnlocked ? 'block' : 'none'; }
+      const pickNone = document.getElementById('emToolNone');
+      const pickEm = document.getElementById('emToolEmerald');
+      if (pickNone) pickNone.classList.toggle('em-active-tool', emPickaxe === 'none');
+      if (pickEm) pickEm.classList.toggle('em-active-tool', emPickaxe === 'emerald');
+      const buyPickBtn = document.getElementById('emBuyPickaxeBtn');
+      if (buyPickBtn) {
+        if (emPickaxe === 'emerald') { buyPickBtn.textContent = '✓ Equipped'; buyPickBtn.disabled = true; }
+        else { buyPickBtn.textContent = 'Buy — 30 💎'; buyPickBtn.disabled = emeralds < 30; }
+      }
+      const f = emEnchants.fortune || 0, eff = emEnchants.efficiency || false;
+      const ef1 = document.getElementById('emEnchF1'); if (ef1) { ef1.textContent = f>=1?'✓ Owned':'15 💎'; ef1.disabled = f>=1||emeralds<15; }
+      const ef2 = document.getElementById('emEnchF2'); if (ef2) { ef2.textContent = f>=2?'✓ Owned':'35 💎'; ef2.disabled = f<1||f>=2||emeralds<35; }
+      const ef3 = document.getElementById('emEnchF3'); if (ef3) { ef3.textContent = f>=3?'✓ Owned':'60 💎'; ef3.disabled = f<2||f>=3||emeralds<60; }
+      const efEff = document.getElementById('emEnchEff'); if (efEff) { efEff.textContent = eff?'✓ Owned':'25 💎'; efEff.disabled = eff||emeralds<25; }
+      [['emEnchItemF1',f>=1],['emEnchItemF2',f>=2],['emEnchItemF3',f>=3],['emEnchItemEff',eff]].forEach(([id,on]) => {
+        const el = document.getElementById(id); if (el) el.classList.toggle('em-enchant-owned', on);
+      });
+      // Emerald shop titles
+      const shopList = document.getElementById('emShopList');
+      if (shopList) {
+        shopList.innerHTML = '';
+        EM_SHOP_TITLES.forEach(def => {
+          const t = ALL_TITLES.find(tt => tt.id === def.id);
+          if (!t) return;
+          const tc = TIER_CONFIG[t.tier] || TIER_CONFIG.common;
+          const owned = myTitles.includes(t.id);
+          const canAfford = emeralds >= def.cost;
+          const item = document.createElement('div');
+          item.className = 'em-enchant-item' + (owned ? ' em-enchant-owned' : '');
+          item.innerHTML = `<div><div class="em-enchant-name" style="color:${tc.color}">${t.icon} ${t.label}</div><div class="em-enchant-desc">${t.desc}</div></div><button class="em-buy-btn" style="width:auto;padding:7px 14px;" ${owned||!canAfford?'disabled':''} onclick="buyEmShopTitle('${t.id}')">${owned?'✓ Owned':'🟢 '+def.cost}</button>`;
+          shopList.appendChild(item);
+        });
+      }
+      // Fusing table button
+      const fuseRow = document.getElementById('emFuseRow');
+      if (fuseRow) {
+        fuseRow.innerHTML = '';
+        if (hasFusingTable) {
+          const btn = document.createElement('button');
+          btn.className = 'em-portal-btn';
+          btn.innerHTML = '🔮 Open Fusing Table';
+          btn.onclick = openFusingTable;
+          fuseRow.appendChild(btn);
+        } else {
+          const btn = document.createElement('button');
+          btn.className = 'em-portal-btn em-portal-locked';
+          btn.disabled = emeralds < 100;
+          btn.innerHTML = `🔮 Unlock Fusing Table <span style="font-size:0.8em;opacity:0.8">(100 🟢)</span>`;
+          btn.onclick = unlockFusingTable;
+          fuseRow.appendChild(btn);
+        }
+      }
+      // Deep cave button
+      const deepRow = document.getElementById('emDeepRow');
+      if (deepRow) {
+        deepRow.innerHTML = '';
+        if (deepCaveUnlocked) {
+          const btn = document.createElement('button');
+          btn.className = 'em-portal-btn em-portal-deep';
+          btn.innerHTML = '🌑 Enter Deeper Cave';
+          btn.onclick = openDeepCave;
+          deepRow.appendChild(btn);
+        } else if (hasFusingTable) {
+          const btn = document.createElement('button');
+          btn.className = 'em-portal-btn em-portal-locked';
+          btn.disabled = superEmeralds < 5;
+          btn.innerHTML = `🌑 Unlock Deeper Cave <span style="font-size:0.8em;opacity:0.8">(5 ⭐ Super Emeralds)</span>`;
+          btn.onclick = unlockDeepCave;
+          deepRow.appendChild(btn);
+        }
+      }
+    }
+
+    // ====== FUSING TABLE + DEEPER CAVE ======
+    function updateSuperEmeraldDisplay() {
+      document.querySelectorAll('.superEmCount').forEach(el => el.textContent = superEmeralds);
+    }
+
+    function saveSuperEmData(extra) {
+      if (!user) return;
+      const safe = user.replace(/[.#$[\]]/g, '_');
+      update(ref(db, 'users/' + safe), Object.assign({ superEmeralds }, extra || {}));
+    }
+
+    function unlockFusingTable() {
+      if (hasFusingTable || emeralds < 100 || !user) return;
+      emeralds -= 100; hasFusingTable = true;
+      saveEmData({ hasFusingTable: true });
+      updateEmeraldDisplay();
+      renderEmMine();
+      showEmToast('🔮 Fusing Table unlocked!');
+    }
+
+    function openFusingTable() {
+      document.getElementById('fusingOverlay').style.display = 'flex';
+      renderFusingTable();
+    }
+    function closeFusingTable() { document.getElementById('fusingOverlay').style.display = 'none'; }
+
+    function renderFusingTable() {
+      const ebal = document.getElementById('fusingEmBal');
+      const sbal = document.getElementById('fusingSuperBal');
+      const dbal = document.getElementById('fusingDemBal');
+      const diabal = document.getElementById('fusingDiaBal');
+      if (ebal) ebal.textContent = emeralds;
+      if (sbal) sbal.textContent = superEmeralds;
+      if (dbal) dbal.textContent = demeralds;
+      if (diabal) diabal.textContent = diamonds;
+      updateSuperEmeraldDisplay();
+      updateDemeraldsDisplay();
+      const btn = document.getElementById('fuseBtn');
+      if (btn) {
+        if (fusingCooldown) { btn.textContent = '⏳ Cooling down...'; btn.disabled = true; }
+        else if (emeralds < 2) { btn.textContent = '🔮 Need 2 Emeralds'; btn.disabled = true; }
+        else { btn.textContent = '🔮 Fuse! (2 🟢 → 1 ⭐)'; btn.disabled = false; }
+      }
+      const fuseDeepUnlock = document.getElementById('fuseDeepUnlock');
+      if (fuseDeepUnlock) {
+        fuseDeepUnlock.style.display = deepCaveUnlocked ? 'none' : 'block';
+        fuseDeepUnlock.disabled = superEmeralds < 5;
+        fuseDeepUnlock.textContent = deepCaveUnlocked ? '✓ Unlocked' : '🌑 Unlock Deeper Cave (5 ⭐)';
+      }
+      // Demerald forge
+      const dBtn = document.getElementById('demeraldForgeBtn');
+      if (dBtn) {
+        if (demeraldFuseCooldown) { dBtn.textContent = '⏳ Forging...'; dBtn.disabled = true; }
+        else if (diamonds < 5 || emeralds < 5) { dBtn.textContent = '💠 Need 5 💎 + 5 🟢'; dBtn.disabled = true; }
+        else { dBtn.textContent = '💠 Forge Demerald (5 💎 + 5 🟢)'; dBtn.disabled = false; }
+      }
+      // Deepest cave unlock
+      const deepestUnlockBtn = document.getElementById('deepestUnlockBtn');
+      if (deepestUnlockBtn) {
+        if (deepestCaveUnlocked) { deepestUnlockBtn.textContent = '✓ Deepest Cave Unlocked'; deepestUnlockBtn.disabled = true; deepestUnlockBtn.style.opacity = '0.5'; }
+        else { deepestUnlockBtn.disabled = demeralds < 2; deepestUnlockBtn.textContent = `💠 Unlock Deepest Cave (2 💠)`; }
+      }
+    }
+
+    function fuseEmeralds() {
+      if (fusingCooldown || emeralds < 2 || !user) return;
+      emeralds -= 2; superEmeralds++;
+      saveEmData({});
+      saveSuperEmData({});
+      updateEmeraldDisplay();
+      updateSuperEmeraldDisplay();
+      renderFusingTable();
+      showEmToast('⭐ Super Emerald forged!');
+      fusingCooldown = true;
+      const btn = document.getElementById('fuseBtn');
+      const fill = document.getElementById('fuseCooldownFill');
+      if (btn) btn.disabled = true;
+      if (fill) fill.style.width = '0%';
+      const cd = 60000, start = Date.now();
+      const iv = setInterval(() => {
+        const p = Math.min((Date.now() - start) / cd, 1);
+        if (fill) fill.style.width = (p * 100) + '%';
+        if (p >= 1) { clearInterval(iv); fusingCooldown = false; renderFusingTable(); }
+      }, 300);
+    }
+
+    function unlockDeepCave() {
+      if (deepCaveUnlocked || superEmeralds < 5 || !user) return;
+      superEmeralds -= 5; deepCaveUnlocked = true;
+      saveSuperEmData({ deepCaveUnlocked: true });
+      updateSuperEmeraldDisplay();
+      renderEmMine();
+      renderFusingTable();
+      showEmToast('🌑 Deeper Cave unlocked!');
+    }
+
+    function openDeepCave() {
+      document.getElementById('deepCaveOverlay').style.display = 'flex';
+      renderDeepCave();
+    }
+    function closeDeepCave() { document.getElementById('deepCaveOverlay').style.display = 'none'; }
+
+    function clickDeepMine() {
+      if (deepMiningCooldown || !user) return;
+      superEmeralds++;
+      saveSuperEmData({});
+      updateSuperEmeraldDisplay();
+      renderDeepCave();
+      const outEl = document.getElementById('deepMineOutput');
+      if (outEl) { outEl.textContent = '+1 ⭐ Super Emerald!'; setTimeout(() => { outEl.textContent = ''; }, 1600); }
+      const btn = document.getElementById('deepMineDrillBtn');
+      const fill = document.getElementById('deepCooldownFill');
+      deepMiningCooldown = true;
+      if (btn) btn.disabled = true;
+      const cd = 8000, start = Date.now();
+      const iv = setInterval(() => {
+        const p = Math.min((Date.now() - start) / cd, 1);
+        if (fill) fill.style.width = (p * 100) + '%';
+        if (p >= 1) { clearInterval(iv); deepMiningCooldown = false; if (btn) btn.disabled = false; }
+      }, 50);
+    }
+
+    function buyEmShopTitle(id) {
+      const def = EM_SHOP_TITLES.find(t => t.id === id);
+      if (!def || !user || myTitles.includes(id) || emeralds < def.cost) return;
+      emeralds -= def.cost;
+      saveEmData({});
+      updateEmeraldDisplay();
+      myTitles.push(id);
+      if (!titleCounts[id]) titleCounts[id] = 1;
+      saveTitlesToDB();
+      renderTitlesPanel();
+      renderEmMine();
+      const t = ALL_TITLES.find(tt => tt.id === id);
+      showEmToast('💚 "' + (t ? t.label : id) + '" title unlocked!');
+    }
+
+    function buyDeepTitle(id) {
+      const def = DEEP_SHOP_TITLES.find(t => t.id === id);
+      if (!def || !user || myTitles.includes(id) || superEmeralds < def.cost) return;
+      superEmeralds -= def.cost;
+      saveSuperEmData({});
+      updateSuperEmeraldDisplay();
+      myTitles.push(id);
+      if (!titleCounts[id]) titleCounts[id] = 1;
+      saveTitlesToDB();
+      renderTitlesPanel();
+      renderDeepCave();
+      const t = ALL_TITLES.find(tt => tt.id === id);
+      showEmToast('💠 "' + (t ? t.label : id) + '" deep title unlocked!');
+    }
+
+    function renderDeepCave() {
+      const sbal = document.getElementById('deepSuperBal');
+      if (sbal) sbal.textContent = superEmeralds;
+      updateSuperEmeraldDisplay();
+      const deepestBtn = document.getElementById('deepCaveToDeepestBtn');
+      if (deepestBtn) {
+        if (deepestCaveUnlocked) {
+          deepestBtn.disabled = false;
+          deepestBtn.textContent = '🌌 Enter Deepest Cave';
+          deepestBtn.onclick = openDeepestCave;
+        } else {
+          deepestBtn.disabled = true;
+          deepestBtn.textContent = '🌌 Deepest Cave — unlock via Fusing Table (2 💠)';
+        }
+      }
+      const shopList = document.getElementById('deepShopList');
+      if (!shopList) return;
+      shopList.innerHTML = '';
+      DEEP_SHOP_TITLES.forEach(def => {
+        const t = ALL_TITLES.find(tt => tt.id === def.id);
+        if (!t) return;
+        const tc = TIER_CONFIG[t.tier] || TIER_CONFIG.common;
+        const owned = myTitles.includes(t.id);
+        const canAfford = superEmeralds >= def.cost;
+        const item = document.createElement('div');
+        item.className = 'em-enchant-item' + (owned ? ' em-enchant-owned' : '');
+        item.innerHTML = `<div><div class="em-enchant-name" style="color:${tc.color}">${t.icon} ${t.label}</div><div class="em-enchant-desc">${t.desc}</div></div><button class="em-buy-btn" style="width:auto;padding:7px 14px;${owned?'background:#1a1a2e;color:#5a5a8a;':(!canAfford?'background:#1a1a2e;color:#5a5a8a;':'background:linear-gradient(135deg,#6b21a8,#a78bfa);color:#fff;')}" ${owned||!canAfford?'disabled':''} onclick="buyDeepTitle('${t.id}')">${owned?'✓ Owned':'⭐ '+def.cost}</button>`;
+        shopList.appendChild(item);
+      });
+    }
+
+    window.buyEmblem = buyEmblem;
+    window.unlockEmMine = unlockEmMine;
+    window.openEmMine = openEmMine;
+    window.closeEmMine = closeEmMine;
+    window.clickEmMine = clickEmMine;
+    window.buyEmTool = buyEmTool;
+    window.buyEmEnchant = buyEmEnchant;
+    window.unlockFusingTable = unlockFusingTable;
+    window.openFusingTable = openFusingTable;
+    window.closeFusingTable = closeFusingTable;
+    window.fuseEmeralds = fuseEmeralds;
+    window.unlockDeepCave = unlockDeepCave;
+    window.openDeepCave = openDeepCave;
+    window.closeDeepCave = closeDeepCave;
+    window.clickDeepMine = clickDeepMine;
+    window.buyEmShopTitle = buyEmShopTitle;
+    window.buyDeepTitle = buyDeepTitle;
+
+    // ====== DEMERALD + DEEPEST CAVE ======
+    function updateDemeraldsDisplay() {
+      document.querySelectorAll('.demeraldsCount').forEach(el => el.textContent = demeralds);
+    }
+    function saveDemeraldsData(extra) {
+      if (!user) return;
+      const safe = user.replace(/[.#$[\]]/g, '_');
+      update(ref(db, 'users/' + safe), Object.assign({ demeralds }, extra || {}));
+    }
+    function forgeDemerald() {
+      if (demeraldFuseCooldown || diamonds < 5 || emeralds < 5 || !user) return;
+      diamonds -= 5; emeralds -= 5; demeralds++;
+      update(ref(db, 'users/' + user.replace(/[.#$[\]]/g, '_')), { diamonds });
+      saveEmData({});
+      saveDemeraldsData({});
+      updateDiamondDisplay(); updateEmeraldDisplay(); updateDemeraldsDisplay();
+      renderFusingTable();
+      showEmToast('💠 Demerald forged!');
+      demeraldFuseCooldown = true;
+      const btn = document.getElementById('demeraldForgeBtn');
+      const fill = document.getElementById('demeraldForgeFill');
+      if (btn) btn.disabled = true;
+      const cd = 120000, start = Date.now();
+      const iv = setInterval(() => {
+        const p = Math.min((Date.now() - start) / cd, 1);
+        if (fill) fill.style.width = (p * 100) + '%';
+        if (p >= 1) { clearInterval(iv); demeraldFuseCooldown = false; renderFusingTable(); }
+      }, 500);
+    }
+    function unlockDeepestCave() {
+      if (deepestCaveUnlocked || demeralds < 2 || !user) return;
+      demeralds -= 2; deepestCaveUnlocked = true;
+      saveDemeraldsData({ deepestCaveUnlocked: true });
+      updateDemeraldsDisplay();
+      renderFusingTable();
+      showEmToast('💠 Deepest Cave unlocked!');
+    }
+    function openDeepestCave() {
+      document.getElementById('deepestCaveOverlay').style.display = 'flex';
+      renderDeepestCave();
+    }
+    function closeDeepestCave() { document.getElementById('deepestCaveOverlay').style.display = 'none'; }
+    function clickDeepestMine() {
+      if (deepestMineCooldown || !user) return;
+      demeralds++;
+      saveDemeraldsData({});
+      updateDemeraldsDisplay();
+      renderDeepestCave();
+      const outEl = document.getElementById('deepestMineOutput');
+      if (outEl) { outEl.textContent = '+1 💠 Demerald!'; setTimeout(() => { outEl.textContent = ''; }, 1600); }
+      const btn = document.getElementById('deepestMineDrillBtn');
+      const fill = document.getElementById('deepestCooldownFill');
+      deepestMineCooldown = true;
+      if (btn) btn.disabled = true;
+      const cd = 12000, start = Date.now();
+      const iv = setInterval(() => {
+        const p = Math.min((Date.now() - start) / cd, 1);
+        if (fill) fill.style.width = (p * 100) + '%';
+        if (p >= 1) { clearInterval(iv); deepestMineCooldown = false; if (btn) btn.disabled = false; }
+      }, 50);
+    }
+    function renderDeepestCave() {
+      const dbal = document.getElementById('deepestDemeralBal');
+      if (dbal) dbal.textContent = demeralds;
+      updateDemeraldsDisplay();
+      const unlockPeepBtn = document.getElementById('deepestPeepUnlockBtn');
+      if (unlockPeepBtn) {
+        if (peepShopUnlocked) { unlockPeepBtn.textContent = '✓ Peep Shop Unlocked!'; unlockPeepBtn.disabled = true; unlockPeepBtn.style.background = '#1a2a1a'; }
+        else { unlockPeepBtn.disabled = demeralds < 5; unlockPeepBtn.textContent = '🐣 Unlock Peep Shop (5 💠)'; }
+      }
+    }
+    function unlockPeepShop() {
+      if (peepShopUnlocked || demeralds < 5 || !user) return;
+      demeralds -= 5; peepShopUnlocked = true;
+      saveDemeraldsData({ peepShopUnlocked: true });
+      updateDemeraldsDisplay();
+      renderDeepestCave();
+      showEmToast('🐣 Peep Shop unlocked! Open the Shop and go to Peeps.');
+    }
+
+    // ====== PEEP SYSTEM ======
+    function savePeepData(extra) {
+      if (!user) return;
+      const safe = user.replace(/[.#$[\]]/g, '_');
+      update(ref(db, 'users/' + safe), Object.assign({ ownedPeeps, equippedPeeps, peepAbilities, abilityShards }, extra || {}));
+    }
+    function getPeepAbilities(peepId) {
+      const base = peepAbilities[peepId] || [];
+      return base.includes('tap') ? base : ['tap', ...base];
+    }
+    function equipPeep(id) {
+      if (!ownedPeeps.includes(id)) return;
+      if (equippedPeeps.includes(id)) { unequipPeepById(id); return; }
+      equippedPeeps.push(id);
+      if (id === CHIRPY_ID) { peepSpriteX = 0; peepSpriteY = 0; }
+      savePeepData({});
+      renderPeepWidget();
+      startPeepTapFor(id);
+      renderPeepShopTab();
+    }
+    function unequipPeepById(id) {
+      equippedPeeps = equippedPeeps.filter(x => x !== id);
+      if (id === CHIRPY_ID) {
+        stopIdleBob(); stopWander();
+        const wrap = getSpriteWrap(); if (wrap) wrap.style.display = 'none';
+        peepSpriteWalking = false;
+      }
+      stopPeepTapFor(id);
+      savePeepData({});
+      renderPeepWidget();
+      renderPeepShopTab();
+    }
+    function unequipPeep() { [...equippedPeeps].forEach(id => unequipPeepById(id)); }
+    function buyPeep(id) {
+      const p = PEEPS.find(pp => pp.id === id);
+      if (!p || !user || ownedPeeps.includes(id) || demeralds < p.cost) return;
+      demeralds -= p.cost;
+      saveDemeraldsData({});
+      updateDemeraldsDisplay();
+      ownedPeeps.push(id);
+      if (!peepAbilities[id]) peepAbilities[id] = ['tap'];
+      savePeepData({});
+      renderDeepestCave();
+      renderPeepShopTab();
+      showEmToast('🐣 ' + p.name + ' adopted!');
+    }
+    function buyAbilityShard() {
+      if (demeralds < 2 || !user) return;
+      demeralds -= 2; abilityShards++;
+      saveDemeraldsData({});
+      savePeepData({});
+      updateDemeraldsDisplay();
+      renderPeepShopTab();
+      showEmToast('✨ Ability Shard obtained!');
+    }
+    function addPeepAbility(peepId, abilityId) {
+      if (!user || !ownedPeeps.includes(peepId)) return;
+      const def = PEEP_ABILITY_DEFS.find(a => a.id === abilityId);
+      if (!def || !def.shards || abilityShards < def.shards) return;
+      const abs = peepAbilities[peepId] || ['tap'];
+      if (abs.includes(abilityId)) return;
+      abilityShards -= def.shards;
+      abs.push(abilityId);
+      peepAbilities[peepId] = abs;
+      savePeepData({});
+      renderPeepShopTab();
+      const p = PEEPS.find(pp => pp.id === peepId);
+      showEmToast('✨ ' + (p ? p.name : 'Peep') + ' learned ' + def.name + '!');
+    }
+    function isChirpyEquipped() { return equippedPeeps.includes(CHIRPY_ID); }
+
+    function getSpriteWrap()  { return document.getElementById('peepSpriteWrap'); }
+    function getSpriteInner() { return document.getElementById('peepSpriteInner'); }
+    function getSpriteEl()    { return document.getElementById('peepSprite'); }
+
+    function setSpriteFlip(goingRight) {
+      const inner = getSpriteInner(); if (!inner) return;
+      peepFacingRight = goingRight;
+      inner.style.transform = goingRight ? 'scaleX(-1)' : 'scaleX(1)';
+    }
+
+    let walkFrameInterval = null;
+    function startWalkAnim() {
+      const s = getSpriteEl(); if (!s) return;
+      stopWalkAnim();
+      let frame = 0;
+      s.src = CHIRPY_SPRITE_LEG_L;
+      walkFrameInterval = setInterval(() => {
+        frame = (frame + 1) % 2;
+        s.src = frame === 0 ? CHIRPY_SPRITE_LEG_L : CHIRPY_SPRITE_LEG_R;
+      }, 200);
+    }
+    function stopWalkAnim() {
+      if (walkFrameInterval) { clearInterval(walkFrameInterval); walkFrameInterval = null; }
+      const s = getSpriteEl(); if (s) s.src = CHIRPY_SPRITE_IDLE;
+    }
+
+    let wanderActive = false;
+    let wanderTimeout = null;
+
+    function startWander() {
+      if (!isChirpyEquipped()) return;
+      wanderActive = true;
+      doWanderStep();
+      updateWanderBadge();
+    }
+    function stopWander() {
+      wanderActive = false;
+      if (wanderTimeout) { clearTimeout(wanderTimeout); wanderTimeout = null; }
+      updateWanderBadge();
+    }
+    function doWanderStep() {
+      if (!wanderActive) return;
+      if (peepSpriteWalking) { wanderTimeout = setTimeout(doWanderStep, 600); return; }
+      const pad = SPRITE_HALF;
+      const tx = pad + Math.random() * (window.innerWidth  - SPRITE_DISPLAY - pad);
+      const ty = pad + Math.random() * (window.innerHeight - SPRITE_DISPLAY - pad * 2);
+      peepSpriteWalking = true;
+      stopIdleBob();
+      moveSpriteToTarget(tx, ty, 260, () => {
+        peepSpriteWalking = false;
+        if (!wanderActive) { startIdleBob(); return; }
+        // Dip head at this spot
+        const s = getSpriteEl(); const inner = getSpriteInner();
+        if (s) s.src = CHIRPY_SPRITE_PECK;
+        if (inner) inner.animate([
+          { transform: `scaleX(${peepFacingRight ? -1 : 1}) translateY(0px)` },
+          { transform: `scaleX(${peepFacingRight ? -1 : 1}) translateY(20px)`, offset: 0.38 },
+          { transform: `scaleX(${peepFacingRight ? -1 : 1}) translateY(20px)`, offset: 0.70 },
+          { transform: `scaleX(${peepFacingRight ? -1 : 1}) translateY(0px)` },
+        ], { duration: 500, easing: 'ease-in-out', fill: 'none' });
+        setTimeout(() => {
+          if (s) s.src = CHIRPY_SPRITE_IDLE;
+          startIdleBob();
+          wanderTimeout = setTimeout(() => {
+            stopIdleBob();
+            doWanderStep();
+          }, 400 + Math.random() * 900);
+        }, 520);
+      });
+    }
+    function updateWanderBadge() {
+      const b = document.getElementById('peepWanderBadge');
+      if (!b) return;
+      b.classList.toggle('on', wanderActive);
+      b.title = wanderActive ? 'Roaming — click to stop' : 'Roam mode — click to start';
+    }
+    function toggleWander() { wanderActive ? stopWander() : startWander(); }
+
+    function chirpyReactToClick() {
+      if (!isChirpyEquipped() || peepSpriteWalking) return;
+      const btn = document.getElementById('clickBtn'); if (!btn) return;
+      const r = btn.getBoundingClientRect();
+      const btnCX = r.left + r.width / 2;
+      // Snap face toward button
+      const facingBtn = btnCX < peepSpriteX + SPRITE_HALF;
+      setSpriteFlip(!facingBtn);
+      // Pause idle bob, do a quick sharp head snap down then up
+      stopIdleBob();
+      const inner = getSpriteInner(); const s = getSpriteEl();
+      if (s) s.src = CHIRPY_SPRITE_PECK;
+      if (inner) {
+        const fx = peepFacingRight ? -1 : 1;
+        inner.animate([
+          { transform: `scaleX(${fx}) translateY(0px)`   },
+          { transform: `scaleX(${fx}) translateY(18px)`, offset: 0.3 },
+          { transform: `scaleX(${fx}) translateY(0px)`   },
+        ], { duration: 280, easing: 'ease-in-out', fill: 'none' });
+      }
+      setTimeout(() => {
+        if (s) s.src = CHIRPY_SPRITE_IDLE;
+        if (!peepSpriteWalking) startIdleBob();
+      }, 290);
+    }
+
+    function startIdleBob() {
+      const wrap = getSpriteWrap(); if (!wrap) return;
+      stopIdleBob();
+      idleBobAnim = wrap.animate(
+        [{ transform: 'translateY(0px)' }, { transform: 'translateY(-6px)' }, { transform: 'translateY(0px)' }],
+        { duration: 900, iterations: Infinity, easing: 'ease-in-out' }
+      );
+    }
+    function stopIdleBob() {
+      if (idleBobAnim) { idleBobAnim.cancel(); idleBobAnim = null; }
+    }
+
+    function setWrapPos(x, y, instant) {
+      const wrap = getSpriteWrap(); if (!wrap) return;
+      wrap.style.transition = instant ? 'none' : '';
+      wrap.style.left = x + 'px';
+      wrap.style.top  = y + 'px';
+      peepSpriteX = x; peepSpriteY = y;
+    }
+
+    function moveSpriteToTarget(toX, toY, pxPerSec, onDone) {
+      const wrap = getSpriteWrap(); if (!wrap) { if (onDone) onDone(); return; }
+      const dist = Math.hypot(toX - peepSpriteX, toY - peepSpriteY);
+      const ms = Math.max(200, dist / pxPerSec * 1000);
+      setSpriteFlip(toX > peepSpriteX);
+      startWalkAnim();
+      wrap.style.transition = `left ${ms}ms linear, top ${ms}ms linear`;
+      wrap.style.left = toX + 'px';
+      wrap.style.top  = toY + 'px';
+      peepSpriteX = toX; peepSpriteY = toY;
+      setTimeout(() => { stopWalkAnim(); if (onDone) onDone(); }, ms);
+    }
+
+    function setSpriteHome() {
+      peepSpriteX = window.innerWidth  - SPRITE_DISPLAY - 24;
+      peepSpriteY = window.innerHeight - SPRITE_DISPLAY - 72;
+      const wrap = getSpriteWrap(); if (!wrap) return;
+      wrap.style.transition = 'none';
+      wrap.style.left = peepSpriteX + 'px';
+      wrap.style.top  = peepSpriteY + 'px';
+      setSpriteFlip(false);
+    }
+
+    function doPeepWalkAndPeck(onPecked) {
+      if (!isChirpyEquipped() || peepSpriteWalking) { if (onPecked) onPecked(); return; }
+      const s = getSpriteEl(); if (!s) { if (onPecked) onPecked(); return; }
+      const btn = document.getElementById('clickBtn'); if (!btn) { if (onPecked) onPecked(); return; }
+      peepSpriteWalking = true;
+      stopIdleBob();
+      const r = btn.getBoundingClientRect();
+      const homeX = peepSpriteX, homeY = peepSpriteY;
+      const targetX = r.left + r.width / 2 - SPRITE_HALF;
+      const targetY = r.top  + r.height / 2 - SPRITE_HALF;
+      // Walk toward button (legs animate automatically via moveSpriteToTarget)
+      moveSpriteToTarget(targetX, targetY, 340, () => {
+        // Arrived — brief pause in idle before pecking
+        s.src = CHIRPY_SPRITE_IDLE;
+        setSpriteFlip(peepFacingRight);
+        setTimeout(() => {
+          // Switch to peck image, dip neck via inner div (scaleX already set)
+          s.src = CHIRPY_SPRITE_PECK;
+          const inner = getSpriteInner();
+          if (inner) inner.animate([
+            { transform: `scaleX(${peepFacingRight ? -1 : 1}) translateY(0px)`   },
+            { transform: `scaleX(${peepFacingRight ? -1 : 1}) translateY(20px)`, offset: 0.35 },
+            { transform: `scaleX(${peepFacingRight ? -1 : 1}) translateY(20px)`, offset: 0.72 },
+            { transform: `scaleX(${peepFacingRight ? -1 : 1}) translateY(0px)`   },
+          ], { duration: 520, easing: 'ease-in-out', fill: 'none' });
+          if (onPecked) onPecked();
+          spawnPeepDiamondAt(r.left + r.width / 2, r.top);
+          setTimeout(() => {
+            s.src = CHIRPY_SPRITE_IDLE;
+            // Walk home (legs animate automatically)
+            moveSpriteToTarget(homeX, homeY, 340, () => {
+              peepSpriteWalking = false;
+              startIdleBob();
+            });
+          }, 560);
+        }, 300);
+      });
+    }
+
+    function spawnPeepDiamondAt(screenX, screenY) {
+      const el = document.createElement('div');
+      el.className = 'peep-float-diamond';
+      el.style.left = screenX + 'px';
+      el.style.top  = screenY + 'px';
+      el.style.position = 'fixed';
+      el.textContent = '+💎';
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 900);
+    }
+
+    function startPeepTapFor(id) {
+      stopPeepTapFor(id);
+      const rate = PEEP_TAP_RATE[id] || 4000;
+      peepTapIntervals[id] = setInterval(() => {
+        if (!user || !equippedPeeps.includes(id)) return;
+        if (id === CHIRPY_ID) {
+          const hit = Math.random() < 0.1;
+          doPeepWalkAndPeck(hit ? () => {
+            diamonds++; updateDiamondDisplay();
+            update(ref(db, 'users/' + user.replace(/[.#$[\]]/g, '_')), { diamonds });
+          } : null);
+        } else {
+          animatePeepBeak(id);
+          if (Math.random() < 0.1) {
+            diamonds++; updateDiamondDisplay();
+            update(ref(db, 'users/' + user.replace(/[.#$[\]]/g, '_')), { diamonds });
+            animatePeepTap(id);
+            const wEl = document.getElementById('peepWidget_' + id);
+            if (wEl) { const r = wEl.getBoundingClientRect(); spawnPeepDiamondAt(r.left + r.width/2, r.top); }
+            else spawnPeepDiamondAt(window.innerWidth - 60, window.innerHeight - 80);
+          }
+        }
+      }, rate);
+    }
+    function startPeepTap() { equippedPeeps.forEach(id => startPeepTapFor(id)); }
+    function stopPeepTapFor(id) {
+      if (peepTapIntervals[id]) { clearInterval(peepTapIntervals[id]); delete peepTapIntervals[id]; }
+    }
+    function stopPeepTap() { Object.keys(peepTapIntervals).forEach(id => stopPeepTapFor(id)); }
+    function spawnPeepDiamond() { spawnPeepDiamondAt(window.innerWidth - 40, window.innerHeight - 80); }
+    function animatePeepTap(id) {
+      const icon = document.getElementById('peepIcon_' + id);
+      if (!icon) return;
+      icon.classList.remove('peep-tap-anim'); void icon.offsetWidth;
+      icon.classList.add('peep-tap-anim');
+      setTimeout(() => icon.classList.remove('peep-tap-anim'), 450);
+    }
+    function animatePeepBeak(id) {
+      const icon = document.getElementById('peepIcon_' + id);
+      if (!icon) return;
+      icon.classList.remove('peep-beak-anim'); void icon.offsetWidth;
+      icon.classList.add('peep-beak-anim');
+      setTimeout(() => icon.classList.remove('peep-beak-anim'), 280);
+    }
+    function renderPeepWidget() {
+      let w = document.getElementById('peepWidget');
+      if (!w) {
+        w = document.createElement('div');
+        w.id = 'peepWidget';
+        document.body.appendChild(w);
+      }
+      if (equippedPeeps.length === 0) {
+        w.style.display = 'none';
+        const wrapOld = getSpriteWrap(); if (wrapOld) wrapOld.style.display = 'none';
+        return;
+      }
+      w.style.display = 'flex';
+      w.style.flexDirection = 'column';
+      w.style.gap = '6px';
+      w.style.alignItems = 'stretch';
+      w.innerHTML = '';
+      equippedPeeps.forEach(id => {
+        const p = PEEPS.find(pp => pp.id === id); if (!p) return;
+        const item = document.createElement('div');
+        item.id = 'peepWidget_' + id;
+        item.className = 'peep-widget-item';
+        if (id === CHIRPY_ID) {
+          // Setup sprite
+          let wrap = getSpriteWrap();
+          if (!wrap) {
+            wrap = document.createElement('div'); wrap.id = 'peepSpriteWrap';
+            const inner = document.createElement('div'); inner.id = 'peepSpriteInner';
+            const img = document.createElement('img'); img.id = 'peepSprite'; img.draggable = false;
+            inner.appendChild(img); wrap.appendChild(inner); document.body.appendChild(wrap);
+          }
+          getSpriteEl().src = CHIRPY_SPRITE_IDLE;
+          wrap.style.display = 'block';
+          if (peepSpriteX === 0 && peepSpriteY === 0) setSpriteHome();
+          else { wrap.style.left = peepSpriteX + 'px'; wrap.style.top = peepSpriteY + 'px'; }
+          setSpriteFlip(peepFacingRight);
+          startIdleBob();
+          item.innerHTML = `
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+              <div class="peep-widget-label">${p.name}</div>
+              <div style="display:flex;gap:5px;">
+                <span class="peep-badge tap-badge" title="Beak Tap — walks to Click Me every 3.5s">👆</span>
+                <span class="peep-badge follow-badge ${wanderActive?'on':''}" id="peepWanderBadge" title="${wanderActive?'Roaming — click to stop':'Roam — click to start'}" onclick="toggleWander()">🐾</span>
+              </div>
+            </div>
+            <button class="peep-widget-close" onclick="unequipPeepById('${id}')" title="Unequip" style="align-self:flex-start;">✕</button>
+          `;
+        } else {
+          const rate = PEEP_TAP_RATE[id] || 4000;
+          item.innerHTML = `
+            <div class="peep-widget-inner">
+              <span id="peepIcon_${id}" class="peep-widget-icon">${p.icon}</span>
+              <div class="peep-widget-badges">
+                <span class="peep-badge tap-badge" title="Auto-tap every ${rate/1000}s">👆</span>
+              </div>
+            </div>
+            <div class="peep-widget-label">${p.name}</div>
+            <button class="peep-widget-close" onclick="unequipPeepById('${id}')" title="Unequip">✕</button>
+          `;
+        }
+        w.appendChild(item);
+      });
+      // Hide sprite if Chirpy not equipped
+      if (!equippedPeeps.includes(CHIRPY_ID)) {
+        const wrap = getSpriteWrap(); if (wrap) wrap.style.display = 'none';
+        stopIdleBob();
+      }
+    }
+    function switchShopTab(tab) {
+      activeShopTab = tab;
+      const pc = document.getElementById('packContainer');
+      const peepC = document.getElementById('peepContainer');
+      const tabs = document.querySelectorAll('.shop-tab-btn');
+      tabs.forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+      if (tab === 'shop') {
+        if (pc) pc.style.display = 'flex';
+        if (peepC) peepC.style.display = 'none';
+      } else {
+        if (pc) pc.style.display = 'none';
+        if (peepC) peepC.style.display = 'flex';
+        renderPeepShopTab();
+      }
+    }
+    function renderPeepShopTab() {
+      const container = document.getElementById('peepContainer');
+      if (!container) return;
+      container.innerHTML = '';
+      if (!peepShopUnlocked) {
+        container.innerHTML = `<div style="text-align:center;padding:40px 18px;color:#666;">🐣 Peep Shop locked.<br><br><span style="color:#a78bfa;font-size:0.88em;">Mine 5 💠 Demeralds in the Deepest Cave to unlock.</span></div>`;
+        return;
+      }
+      // Shard balance
+      const shardRow = document.createElement('div');
+      shardRow.className = 'peep-shard-row';
+      shardRow.innerHTML = `<div><span style="color:#fbbf24;font-weight:900;">✨ ${abilityShards}</span> Ability Shards</div><button class="em-buy-btn" onclick="buyAbilityShard()" style="padding:6px 14px;" ${demeralds<2?'disabled':''}>Buy Shard (2 💠)</button>`;
+      container.appendChild(shardRow);
+      // Peep cards
+      PEEPS.forEach(p => {
+        const owned = ownedPeeps.includes(p.id);
+        const isEquipped = equippedPeeps.includes(p.id);
+        const canAfford = demeralds >= p.cost;
+        const card = document.createElement('div');
+        card.className = 'peep-card' + (isEquipped ? ' peep-equipped' : '');
+        const abilities = owned ? getPeepAbilities(p.id) : [];
+        const abilityRows = owned ? PEEP_ABILITY_DEFS.map(a => {
+          const has = abilities.includes(a.id);
+          const canBuy = !has && a.shards && abilityShards >= a.shards;
+          return `<div class="peep-ability-list-item ${has?'owned':''}">
+            <span>${a.icon} ${a.name} <span style="font-size:0.75em;color:#666;">${a.desc.split('.')[0]}.</span></span>
+            ${has ? '<span style="color:#43b581;font-size:0.82em;font-weight:800;">✓</span>'
+              : (a.default ? '' : `<button class="em-buy-btn" style="padding:3px 10px;font-size:0.75em;white-space:nowrap;" ${canBuy?'':'disabled'} onclick="addPeepAbility('${p.id}','${a.id}')">${a.shards} ✨</button>`)}
+          </div>`;
+        }).join('') : '';
+        card.innerHTML = `
+          <div class="peep-card-top">
+            <div class="peep-card-icon">${p.icon}</div>
+            <div class="peep-card-meta">
+              <div class="peep-card-name">${p.name}</div>
+              <div class="peep-card-desc">${p.desc}</div>
+            </div>
+          </div>
+          ${owned ? `<div class="peep-ability-list">${abilityRows}</div>` : ''}
+          ${owned
+            ? `<button class="em-buy-btn" style="width:100%;margin-top:10px;${isEquipped?'background:linear-gradient(135deg,#3a3a10,#5a5a20);color:#fbbf24;border:1.5px solid #fbbf2488;':''}" onclick="equipPeep('${p.id}')">${isEquipped ? '✓ Equipped — tap to unequip' : '🐣 Equip ' + p.name}</button>`
+            : `<button class="em-buy-btn" style="width:100%;margin-top:10px;" ${canAfford?'':'disabled'} onclick="buyPeep('${p.id}')">Adopt — ${p.cost} 💠 Demeralds</button>`
+          }
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    window.forgeDemerald = forgeDemerald;
+    window.unlockDeepestCave = unlockDeepestCave;
+    window.openDeepestCave = openDeepestCave;
+    window.closeDeepestCave = closeDeepestCave;
+    window.clickDeepestMine = clickDeepestMine;
+    window.unlockPeepShop = unlockPeepShop;
+    window.equipPeep = equipPeep;
+    window.unequipPeep = unequipPeep;
+    window.buyPeep = buyPeep;
+    window.buyAbilityShard = buyAbilityShard;
+    window.addPeepAbility = addPeepAbility;
+    window.startIdleBob = startIdleBob;
+    window.stopIdleBob = stopIdleBob;
+    window.startWander = startWander;
+    window.stopWander = stopWander;
+    window.toggleWander = toggleWander;
+    window.unequipPeepById = unequipPeepById;
+    window.switchShopTab = switchShopTab;
+    window.renderPeepShopTab = renderPeepShopTab;
 
     // ===== EASTER EGG SYSTEM =====
     let eggBuffer = '';
@@ -3780,6 +5378,7 @@
       }
       emeralds = typeof userData.emeralds === 'number' ? userData.emeralds : 0;
       updateEmeraldDisplay();
+      initEmeraldSystem(userData);
       lastDiamondTick = Math.floor((userData.seconds || 0) / 100);
       lastFreeSpin = userData.lastFreeSpin || null;
       mythicalSpins = typeof userData.mythicalSpins === 'number' ? userData.mythicalSpins : 0;
@@ -3787,6 +5386,8 @@
       profilePic = userData.profilePic || '';
       profileStatus = userData.profileStatus || '';
       profileBannerImg = userData.profileBannerImg || '';
+      playerStatus = userData.playerStatus || 'online';
+      renderStatusSelector();
       profileAvatarBorderColor = userData.profileAvatarBorderColor || '';
       profileCardStyle = userData.profileCardStyle || 'default';
       profileNameFont = userData.profileNameFont || 'inter';
@@ -3987,6 +5588,39 @@
         btn.onclick = () => buyTitle(btn.dataset.buyid);
       });
       container.appendChild(buySection);
+
+      // ── Emerald Items section ──────────────────────────────────────────
+      const emSection = document.createElement('div');
+      emSection.innerHTML = '<div class="shop-section-label">🟢 Emerald Items</div>';
+
+      // Emblem of Emerald
+      const emblemCard = document.createElement('div');
+      emblemCard.className = 'buy-title-card';
+      if (hasEmblem) {
+        emblemCard.innerHTML = `<div class="buy-icon">💎</div><div class="buy-info"><div class="buy-name" style="color:#4ade80">Emblem of Emerald</div><div class="buy-desc">Passively earns 1 💎 per minute, forever. Saves between sessions.</div><div class="buy-cost" style="color:#4ade80">Active — earning now!</div></div><button class="buy-title-btn owned" disabled>✓ Active</button>`;
+      } else {
+        const canAfford = emeralds >= 20;
+        emblemCard.innerHTML = `<div class="buy-icon">💎</div><div class="buy-info"><div class="buy-name" style="color:#4ade80">Emblem of Emerald</div><div class="buy-desc">Passively earns 1 💎 per minute, forever. Saves between sessions.</div><div class="buy-cost" style="color:#4ade80">Cost: 20 🟢</div></div><button class="buy-title-btn ${canAfford ? 'buyable' : 'cant-afford'}" ${canAfford ? '' : 'disabled'}>🟢 20 Emeralds</button>`;
+        if (canAfford) emblemCard.querySelector('button').onclick = buyEmblem;
+      }
+      emSection.appendChild(emblemCard);
+
+      // Unlock Emerald Mine
+      if (!emMineUnlocked) {
+        const mineCard = document.createElement('div');
+        mineCard.className = 'buy-title-card';
+        const canAffordMine = emeralds >= 100;
+        mineCard.innerHTML = `<div class="buy-icon">⛏️</div><div class="buy-info"><div class="buy-name" style="color:#2fb8d4">Emerald Mine</div><div class="buy-desc">Unlock a mine where you can dig for emeralds, buy pickaxes, and apply enchantments.</div><div class="buy-cost" style="color:#2fb8d4">Cost: 100 🟢</div></div><button class="buy-title-btn ${canAffordMine ? 'buyable' : 'cant-afford'}" ${canAffordMine ? '' : 'disabled'} style="${canAffordMine ? 'background:#1a5c6b;' : ''}">🟢 100 Emeralds</button>`;
+        if (canAffordMine) mineCard.querySelector('button').onclick = unlockEmMine;
+        emSection.appendChild(mineCard);
+      } else {
+        const mineCard = document.createElement('div');
+        mineCard.className = 'buy-title-card';
+        mineCard.innerHTML = `<div class="buy-icon">⛏️</div><div class="buy-info"><div class="buy-name" style="color:#2fb8d4">Emerald Mine</div><div class="buy-desc">Your mine is active! Click the button at the bottom of the screen to open it.</div></div><button class="buy-title-btn owned" disabled>✓ Unlocked</button>`;
+        emSection.appendChild(mineCard);
+      }
+
+      container.appendChild(emSection);
 
       document.getElementById('shopOverlay').style.display = 'flex';
     }
@@ -4406,6 +6040,14 @@ function startTimerWhenReady() {
   tryStart();
 }
     document.addEventListener("DOMContentLoaded", () => {
+      document.addEventListener('click', (e) => {
+        const picker = document.getElementById('statusPicker');
+        const btn = document.getElementById('statusSelectorBtn');
+        if (picker && btn && !picker.contains(e.target) && e.target !== btn && !btn.contains(e.target)) {
+          picker.classList.remove('open');
+        }
+      });
+
       document.getElementById('showPasswordCheckbox').onchange = function() {
         let loginVis = document.getElementById('loginSection').style.display !== "none";
         let pwdField = loginVis ? document.getElementById('loginPassword') : document.getElementById('createPassword');
@@ -4498,6 +6140,10 @@ function startTimerWhenReady() {
   document.getElementById('caveBtn').style.display = 'block';
   document.getElementById('clanTab').style.display = 'block';
   document.getElementById('friendsBtn').style.display = 'block';
+  const statusBtnEl = document.getElementById('statusSelectorBtn');
+  if (statusBtnEl) statusBtnEl.style.display = 'flex';
+  setupAfkDetection();
+  renderStatusSelector();
   get(ref(db, 'users/' + user.replace(/[.#$[\]]/g, '_'))).then(snap => {
     if (snap.exists()) { initClan(snap.val()); initFriends(snap.val()); }
   });
@@ -4627,6 +6273,13 @@ function startTimerWhenReady() {
           const pStatusVal = v.profileStatus || '';
           const statusEl = document.getElementById('profileStatusText');
           if (statusEl) statusEl.textContent = pStatusVal;
+          // Player online status indicator in profile
+          const pPlayerStatus = v.playerStatus || 'offline';
+          const psMeta = STATUS_META[pPlayerStatus] || STATUS_META.offline;
+          const psIndicator = document.getElementById('profilePlayerStatusIndicator');
+          if (psIndicator) {
+            psIndicator.innerHTML = `<span class="status-dot ${psMeta.dotClass}" style="width:9px;height:9px;"></span><span style="color:${psMeta.color}">${psMeta.label}</span>`;
+          }
 
           // Like area
           const likeBtn = document.getElementById('profileLikeBtn');
@@ -4841,9 +6494,8 @@ function startTimerWhenReady() {
           const tr = document.createElement("tr");
           const hasOg = Array.isArray(entry.titles) && entry.titles.includes('og');
           const titleDisplay = entry.titleCount === 0 ? '—' : (hasOg ? '👑 ' : '') + entry.titleCount + (entry.titleCount === 1 ? ' title' : ' titles');
-          let eqTitle = entry.equippedTitleId ? ALL_TITLES.find(t => t.id === entry.equippedTitleId && entry.titles.includes(t.id)) : null;
-          if (!eqTitle) eqTitle = getRarestOwnedTitle(entry.titles, entry.titleCounts);
-          const eqBadge = eqTitle ? `<span class="lb-equipped" title="${eqTitle.label}">${eqTitle.icon}</span>` : '';
+          const entryStatusMeta = STATUS_META[entry.playerStatus] || STATUS_META.offline;
+          const eqBadge = `<span class="lb-status-dot" style="background:${entryStatusMeta.color};box-shadow:0 0 0 2px ${entryStatusMeta.color}33;" title="${entryStatusMeta.label}"></span>`;
           const pColor = entry.profileColor || '#5865f2';
           const shownName = entry.displayName || entry.name;
           let rankDisplay = String(globalRank);
@@ -4917,6 +6569,7 @@ function startTimerWhenReady() {
               equippedTitleId: v.equippedTitleId || null,
               titleCounts: (v.titleCounts && typeof v.titleCounts === 'object') ? v.titleCounts : {},
               profileColor: v.profileColor || '#5865f2',
+              playerStatus: v.playerStatus || 'offline',
             });
           });
           renderLeaderboard();
@@ -4930,6 +6583,7 @@ function startTimerWhenReady() {
           '/meta/global/count': increment(1),
           ['/users/' + safeUsername + '/clicks']: increment(1)
         });
+        chirpyReactToClick();
       };
 
       document.getElementById('logoutBtn').onclick = function() {
@@ -4967,7 +6621,13 @@ function startTimerWhenReady() {
         myFriends = {}; pendingRequests = {};
         dmFriendSafe = null; dmFriendName = null; dmChatKey = null;
         mineLevel = 0;
+        resetEmeraldSystem();
+        emeralds = 0; updateEmeraldDisplay();
         diamonds = 0; lastDiamondTick = 0; lastFreeSpin = null; mythicalSpins = 0; equippedTitleId = null; profileColor = '#5865f2'; profileBio = ''; globalTitleCounts = {}; updateDiamondDisplay();
+        if (afkTimeout) { clearTimeout(afkTimeout); afkTimeout = null; }
+        setPlayerStatus('offline');
+        const statusBtn = document.getElementById('statusSelectorBtn');
+        if (statusBtn) statusBtn.style.display = 'none';
         if (unsubGlobal) unsubGlobal();
         if (unsubUser) unsubUser();
         if (unsubLB) unsubLB();
@@ -5410,6 +7070,13 @@ function startTimerWhenReady() {
   </div>
   <button id="clanTab">⚔️ Clan</button>
   <button id="caveBtn">🕳️ The Cave</button>
+  <button id="emMineBtn" onclick="openEmMine()">💎 Emerald Mine</button>
+  <button id="statusSelectorBtn" onclick="openStatusPicker(this)"></button>
+  <div id="statusPicker">
+    <div class="status-picker-item" data-status="online"  onclick="setPlayerStatus('online');  document.getElementById('statusPicker').classList.remove('open');"><span class="status-dot status-dot-online"></span>Online</div>
+    <div class="status-picker-item" data-status="offline" onclick="setPlayerStatus('offline'); document.getElementById('statusPicker').classList.remove('open');"><span class="status-dot status-dot-offline"></span>Offline</div>
+    <div class="status-picker-item" data-status="dnd"     onclick="setPlayerStatus('dnd');     document.getElementById('statusPicker').classList.remove('open');"><span class="status-dot status-dot-dnd"></span>Do Not Disturb</div>
+  </div>
   <div id="onlineCountBox">
     <span class="online-dot"></span>
     <span><span id="onlineCountNum">0</span> player<span id="onlinePlural">s</span> online right now</span>
@@ -5482,6 +7149,7 @@ function startTimerWhenReady() {
     <div id="profileEquippedTitle"></div>
     <div id="profileUsername"></div>
     <div id="profileOgBadge"></div>
+    <div id="profilePlayerStatusIndicator" class="profile-status-indicator"></div>
     <div id="profileStatusText" class="profile-status-display"></div>
     <div id="profileBioText"></div>
     <div id="profileLikeArea">
@@ -5544,8 +7212,13 @@ function startTimerWhenReady() {
     <button id="shopClose">✕</button>
     <h2>💎 Diamond Shop</h2>
     <p id="shopDiamondBal">💎 0</p>
-    <div id="shopEmeraldBal" style="text-align:center;color:#4ade80;font-weight:800;font-size:0.95em;margin:-8px 0 14px 0;display:block;">🟢 <span id="emeraldCount">0</span> Emeralds</div>
+    <div id="shopEmeraldBal" style="text-align:center;color:#4ade80;font-weight:800;font-size:0.95em;margin:-8px 0 8px 0;display:block;">🟢 <span id="emeraldCount">0</span> Emeralds</div>
+    <div id="shopTabBar">
+      <button class="shop-tab-btn active" data-tab="shop" onclick="switchShopTab('shop')">💎 Shop</button>
+      <button class="shop-tab-btn" data-tab="peeps" onclick="switchShopTab('peeps')">🐣 Peeps</button>
+    </div>
     <div id="packContainer"></div>
+    <div id="peepContainer"></div>
   </div>
 </div>
 <div id="clanOverlay">
@@ -5553,6 +7226,143 @@ function startTimerWhenReady() {
     <button id="clanPanelClose">✕</button>
     <h2 id="clanPanelTitle">⚔️ Clan Hub</h2>
     <div id="clanPanelBody"></div>
+  </div>
+</div>
+<div id="emMineOverlay">
+  <div id="emMineContent">
+    <div id="emMineHeader">
+      <h2>💎 Emerald Mine</h2>
+      <button id="emMineClose" onclick="closeEmMine()">✕ Leave Mine</button>
+    </div>
+    <div id="emMineGemBalRow">🟢 <span id="emMineGemBal">0</span> Emeralds</div>
+    <div id="emMineSuperBalRow" style="font-size:1.1em;font-weight:900;color:#a78bfa;margin:2px 0 6px 0;display:none;">⭐ <span id="emMineSuperBal">0</span> Super Emeralds</div>
+    <button id="emMineDrillBtn" onclick="clickEmMine()">⛏️ Mine!</button>
+    <div id="emCooldownBar"><div id="emCooldownFill"></div></div>
+    <div id="emMineOutput"></div>
+
+    <div class="em-section-title">🛠️ Pickaxes</div>
+    <div class="em-tools-grid">
+      <div class="em-tool-card em-active-tool" id="emToolNone">
+        <div class="em-tool-name">🪵 Wood Pickaxe</div>
+        <div class="em-tool-desc">Mines 1–3 💎 per click</div>
+        <div style="font-size:0.8em;color:#3a6a4a;font-weight:700;">Default</div>
+      </div>
+      <div class="em-tool-card" id="emToolEmerald">
+        <div class="em-tool-name">💎 Emerald Pickaxe</div>
+        <div class="em-tool-desc">Mines 3–7 💎 per click</div>
+        <button class="em-buy-btn" id="emBuyPickaxeBtn" onclick="buyEmTool('emerald')">Buy — 30 💎</button>
+      </div>
+    </div>
+
+    <div class="em-section-title">✨ Enchantments</div>
+    <div class="em-enchant-list">
+      <div class="em-enchant-item" id="emEnchItemF1">
+        <div>
+          <div class="em-enchant-name">✨ Fortune I</div>
+          <div class="em-enchant-desc">+1 💎 per mine click</div>
+        </div>
+        <button class="em-buy-btn" id="emEnchF1" onclick="buyEmEnchant('fortune1')" style="width:auto;padding:7px 14px;">15 💎</button>
+      </div>
+      <div class="em-enchant-item" id="emEnchItemF2">
+        <div>
+          <div class="em-enchant-name">✨ Fortune II</div>
+          <div class="em-enchant-desc">+2 💎 per mine click (req. Fortune I)</div>
+        </div>
+        <button class="em-buy-btn" id="emEnchF2" onclick="buyEmEnchant('fortune2')" style="width:auto;padding:7px 14px;">35 💎</button>
+      </div>
+      <div class="em-enchant-item" id="emEnchItemF3">
+        <div>
+          <div class="em-enchant-name">✨ Fortune III</div>
+          <div class="em-enchant-desc">+3 💎 per mine click (req. Fortune II)</div>
+        </div>
+        <button class="em-buy-btn" id="emEnchF3" onclick="buyEmEnchant('fortune3')" style="width:auto;padding:7px 14px;">60 💎</button>
+      </div>
+      <div class="em-enchant-item" id="emEnchItemEff">
+        <div>
+          <div class="em-enchant-name">⚡ Efficiency</div>
+          <div class="em-enchant-desc">Cuts mine cooldown from 5s → 3s</div>
+        </div>
+        <button class="em-buy-btn" id="emEnchEff" onclick="buyEmEnchant('efficiency')" style="width:auto;padding:7px 14px;">25 💎</button>
+      </div>
+    </div>
+
+    <div class="em-section-title">🛒 Emerald Shop — Exclusive Titles</div>
+    <div class="em-enchant-list" id="emShopList"></div>
+
+    <div class="em-section-title">🔮 Advanced</div>
+    <div id="emFuseRow" style="width:100%;"></div>
+    <div id="emDeepRow" style="width:100%;margin-top:4px;"></div>
+  </div>
+</div>
+
+<div id="fusingOverlay">
+  <div id="fusingContent">
+    <div id="fusingHeader">
+      <h2>🔮 Fusing Table</h2>
+      <button id="fusingClose" onclick="closeFusingTable()">✕ Back</button>
+    </div>
+    <div class="fusing-bal-row">
+      <span class="fb-em">🟢 <span id="fusingEmBal">0</span></span>
+      <span class="fb-su">⭐ <span id="fusingSuperBal">0</span></span>
+      <span style="color:#67e8f9;font-weight:900;">💠 <span id="fusingDemBal">0</span></span>
+      <span style="color:#7289da;font-weight:900;">💎 <span id="fusingDiaBal">0</span></span>
+    </div>
+
+    <div class="fusing-section-title">⭐ Super Emerald Forge</div>
+    <div id="fuseVisual">🟢 + 🟢 → ⭐</div>
+    <p style="color:#8a6aaa;font-size:0.82em;text-align:center;margin:0 0 10px 0;">Fuse 2 Emeralds → 1 Super Emerald. 1 min cooldown.</p>
+    <button id="fuseBtn" onclick="fuseEmeralds()">🔮 Fuse! (2 🟢 → 1 ⭐)</button>
+    <div id="fuseCooldownBar"><div id="fuseCooldownFill"></div></div>
+    <button id="fuseDeepUnlock" onclick="unlockDeepCave()" style="display:none;">🌑 Unlock Deeper Cave (5 ⭐)</button>
+
+    <hr class="fusing-divider">
+    <div class="fusing-section-title">💠 Demerald Forge</div>
+    <div id="fuseVisual" style="font-size:2em;margin:6px 0;">💎×5 + 🟢×5 → 💠</div>
+    <p style="color:#22d3ee88;font-size:0.8em;text-align:center;margin:0 0 10px 0;">Fuse 5 Diamonds + 5 Emeralds → 1 Demerald. 2 min cooldown.</p>
+    <button id="demeraldForgeBtn" onclick="forgeDemerald()">💠 Need 5 💎 + 5 🟢</button>
+    <div id="demeraldForgeCoolBar"><div id="demeraldForgeFill"></div></div>
+
+    <hr class="fusing-divider">
+    <div class="fusing-section-title">🌌 Deepest Cave</div>
+    <p style="color:#67e8f988;font-size:0.8em;text-align:center;margin:0 0 10px 0;">Spend 2 Demeralds to unlock the Deepest Cave.</p>
+    <button id="deepestUnlockBtn" onclick="unlockDeepestCave()">💠 Unlock Deepest Cave (2 💠)</button>
+  </div>
+</div>
+
+<div id="deepCaveOverlay">
+  <div id="deepCaveContent">
+    <div id="deepCaveHeader">
+      <h2>🌑 Deeper Cave</h2>
+      <button id="deepCaveClose" onclick="closeDeepCave()">✕ Leave</button>
+    </div>
+    <div id="deepSuperBalRow">⭐ <span id="deepSuperBal">0</span> Super Emeralds</div>
+    <button id="deepMineDrillBtn" onclick="clickDeepMine()">💎 Mine Super Emerald!</button>
+    <div id="deepCooldownBar"><div id="deepCooldownFill"></div></div>
+    <div id="deepMineOutput"></div>
+
+    <div class="em-section-title" style="color:#8a6aaa;border-bottom-color:#2e1550;">🛒 Deep Shop — Exclusive Titles</div>
+    <div class="em-enchant-list" id="deepShopList" style="margin-bottom:16px;"></div>
+
+    <div id="deepCaveDeepestRow" style="width:100%;margin-top:6px;margin-bottom:30px;">
+      <button class="em-portal-btn" style="background:linear-gradient(135deg,#021520,#042030);border-color:#22d3ee44;color:#67e8f9;" onclick="deepestCaveUnlocked?openDeepestCave():null" id="deepCaveToDeepestBtn" disabled>🌌 Deepest Cave — locked (unlock via Fusing Table)</button>
+    </div>
+  </div>
+</div>
+
+<div id="deepestCaveOverlay">
+  <div id="deepestCaveContent">
+    <div id="deepestCaveHeader">
+      <h2>🌌 The Deepest Cave</h2>
+      <button id="deepestCaveClose" onclick="closeDeepestCave()">✕ Leave</button>
+    </div>
+    <div id="deepestDemeralBalRow">💠 <span id="deepestDemeralBal">0</span> Demeralds</div>
+    <button id="deepestMineDrillBtn" onclick="clickDeepestMine()">🌌 Mine Demerald!</button>
+    <div id="deepestCooldownBar"><div id="deepestCooldownFill"></div></div>
+    <div id="deepestMineOutput"></div>
+
+    <div class="em-section-title" style="color:#22d3ee88;border-bottom-color:#052028;margin-top:8px;">🐣 Peep Shop Access</div>
+    <p style="color:#67e8f988;font-size:0.82em;text-align:center;margin:0 0 12px 0;">Collect 5 Demeralds here, then spend them to unlock the Peep Shop tab in the Diamond Shop.</p>
+    <button id="deepestPeepUnlockBtn" onclick="unlockPeepShop()" style="margin-bottom:30px;">🐣 Unlock Peep Shop (5 💠)</button>
   </div>
 </div>
 <div id="caveOverlay">
@@ -5715,7 +7525,7 @@ function startTimerWhenReady() {
     <div class="settings-section">
       <div class="settings-section-title">ℹ️ About</div>
       <div class="settings-info-block">
-        <span class="settings-version">Random Game</span> · Settings save automatically in your browser.<br>
+        <span class="settings-version">Random Game</span> <span style="color:#5865f2;font-weight:900;">V2.4</span> · Settings save automatically in your browser.<br>
         Profile, clans &amp; streaks sync live via Firebase.
       </div>
     </div>
@@ -5790,7 +7600,7 @@ function startTimerWhenReady() {
 <!-- Global Broadcast (owner only) -->
 <button id="globalBroadcastToggle">📢 Broadcast</button>
 <div id="globalBroadcastPanel">
-  <h4>📢 Global Broadcast</h4>
+  <h4>📢 Global Broadcast</h4>no
   <textarea id="globalBroadcastInput" placeholder="Send a message to ALL players currently in the game…" maxlength="160"></textarea>
   <div style="display:flex;align-items:center;gap:8px;margin-top:8px;">
     <span style="font-size:0.82em;color:#c084fc;font-weight:700;white-space:nowrap;">💎 Gems to give:</span>
